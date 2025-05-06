@@ -1,0 +1,8 @@
+<div>
+    <input type="text" [(ngModel)]="titre" placeholder="Nom de la liste">
+    <textarea [(ngModel)]="liste" rows="12" cols="50" placeholder="Contenu de la liste"></textarea>
+    <br>
+    <input type="button" value="Enregistrer" (click)="enregistrer()">
+    <input *ngIf="!nouvelleListe" type="button" value="Supprimer" (click)="supprimer()">
+    <input type="button" value="Annuler les modifications" (click)="annuler()">
+</div>

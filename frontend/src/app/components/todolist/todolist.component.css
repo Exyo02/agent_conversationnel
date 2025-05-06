@@ -1,0 +1,42 @@
+div{
+    background-color: rgba(255, 255,255, 0.5);
+    height: 100%;
+    width: 60%;
+    margin-left: 30%;
+    border-width: 1px;
+    border-color: black;
+    border-style:solid;
+    padding-left: 20px;
+}
+.add{
+    color: red;
+    background-color: transparent;
+    border: none;
+    margin-top: 20px;
+}
+.add:hover{
+    color: orange;
+}
+ul{
+    margin: 0px;
+    padding: 0px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.liste{
+    background-color: white;
+    font-size: x-large;
+    width: 20%;
+    padding: 10px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+}
+.liste:hover{
+    color: orange;
+    border-color: orange;
+}
