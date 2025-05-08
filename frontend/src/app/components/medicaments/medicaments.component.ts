@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MedicamentsService } from '../../services/medicaments.service';
-import { Location } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -26,8 +25,7 @@ export class MedicamentsComponent implements OnInit {
   constructor(
     private medicamentsService: MedicamentsService,
     private route: ActivatedRoute,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +79,6 @@ export class MedicamentsComponent implements OnInit {
     }
     this.afficherFormulaire = false;
     this.chargerMedicaments();
-    this.location.back();
   }
 
   supprimer(): void {
@@ -89,14 +86,12 @@ export class MedicamentsComponent implements OnInit {
       this.medicamentsService.supprimerMedicament(this.nouveauMedicament.nom);
       this.afficherFormulaire = false;
       this.chargerMedicaments();
-      this.location.back();
     }
   }
 
   annuler(): void {
     this.afficherFormulaire = false;
     this.reinitialiserFormulaire();
-    this.location.back();
   }
 
   reinitialiserFormulaire(): void {
