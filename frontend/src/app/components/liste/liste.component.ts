@@ -4,6 +4,7 @@ import { ListesService } from '../../services/listes.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -20,50 +21,54 @@ export class ListeComponent implements OnInit {
   creationCourante = false;
 
   constructor(
-    private service:ListesService,
+    private service: ListesService,
     private route: ActivatedRoute,
-    private router: Router){}
-    
-  ngOnInit(){
+    private router: Router,
+    private location: Location
+  ) { }
+  ngOnInit() {
     this.titre = this.route.snapshot.paramMap.get('nom')!;
     this.nouvelleListe = this.titre == '' || this.titre == null;
     this.liste = this.service.charger(this.titre);
     console.log(this.nouvelleListe)
   }
 
-  enregistrer(){
-    if (this.titre != "" && this.titre != null){
-      if(this.ajoutTitre != this.titre){
+  enregistrer() {
+    if (this.titre != "" && this.titre != null) {
+      if (this.ajoutTitre != this.titre) {
         this.creationCourante = false;
       }
-      const exist = this.service.enregistrer(this.liste,this.titre,this.nouvelleListe,this.creationCourante);
+      const exist = this.service.enregistrer(this.liste, this.titre, this.nouvelleListe, this.creationCourante);
 
-      this.creationCourante = exist==3?true:false;
+      this.creationCourante = exist == 3 ? true : false;
       if (this.creationCourante) {
         this.ajoutTitre = this.titre;
       }
-      if (exist == 1){
+      if (exist == 1) {
         alert("Vous possédez déjà une liste du même titre. Veuillez changer de titre.");
       }
     } else {
       alert("Veuillez saisir un titre pour votre liste.");
     }
+    this.location.back();
   }
 
-  supprimer(){
-    let confirmation = confirm("Voulez-vous vraiment supprimer la liste "+this.titre);
+  supprimer() {
+    let confirmation = confirm("Voulez-vous vraiment supprimer la liste " + this.titre);
 
-    if (confirmation){
+    if (confirmation) {
       this.service.supprimer(this.titre);
       this.router.navigate(["/app-todolist"]);
     }
+    this.location.back();
   }
 
-  annuler(){
+  annuler() {
     let confirmation = confirm("Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.");
 
-    if (confirmation){
+    if (confirmation) {
       this.router.navigate(["/app-todolist"]);
     }
+    this.location.back();
   }
 }
