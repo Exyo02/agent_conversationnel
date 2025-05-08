@@ -1,1 +1,21 @@
+<div>
+  <label for="nom">Nom de la sortie :</label>
+  <input type="text" id="nom" [(ngModel)]="nouvelleSortie.nom" >
+<br>
+  <label for="duree">Durée (en heures) :</label>
+  <input type="number" id="duree" [(ngModel)]="nouvelleSortie.duree" >
+<br>
+  <label for="date">Date :</label>
+  <input type="date" id="date" [(ngModel)]="nouvelleSortie.date">
+<br>
+  <label for="heureDebut">Heure de début (HH:MM) :</label>
+  <input type="time" id="heureDebut" [(ngModel)]="nouvelleSortie.heureDebut">
+<br>
+  <label for="adresse">Adresse (optionnelle) :</label>
+  <input type="text" id="adresse" [(ngModel)]="nouvelleSortie.adresse">
 
+  <br>
+  <input type="button" value="{{ estNouvelle ? 'Enregistrer' : 'Mettre à jour' }}" (click)="enregistrer()">
+  <input *ngIf="!estNouvelle" type="button" value="Supprimer" (click)="supprimer()">
+  <input type="button" value="Annuler" (click)="annuler()">
+</div>

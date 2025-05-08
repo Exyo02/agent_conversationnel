@@ -8,9 +8,10 @@ import { MedicamentsComponent } from "./components/medicaments/medicaments.compo
 import { ActusComponent } from "./components/actus/actus.component";
 import { ParamsComponent } from "./components/params/params.component";
 import { AmenagementComponent } from "./components/amenagement/amenagement.component";
-import { SortiesComponent } from "./components/sorties/sorties.component";
+import { Sorties } from "./components/sorties/sorties.component";
 import { ListeComponent } from "./components/liste/liste.component";
 import { MedicamentsListComponent } from "./components/medicamentliste/medicamentliste.component";
+import { SortiesListeComponent } from "./components/sortiesliste/sortiesliste.component";
 
 export const routes: Routes=[
     {path:'', component:AccueilComponent},
@@ -25,6 +26,8 @@ export const routes: Routes=[
     {path:'app-medicaments/editer/:nom', component:MedicamentsComponent},
     {path:'app-actus', component:ActusComponent},
     {path: 'app-amenagement', component:AmenagementComponent},
-    {path: 'app-sorties', component:SortiesComponent},
+    {path: 'app-sorties', component:SortiesListeComponent},
+    {path: 'app-sorties/ajouter', component:Sorties},
+    {path: 'app-sorties/editer/:nom', component:Sorties},
     {path: 'app-params',component:ParamsComponent}
 ];

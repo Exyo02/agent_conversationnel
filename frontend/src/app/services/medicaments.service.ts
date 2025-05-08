@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-export interface Medicament { // Exportez l'interface pour pouvoir l'importer ailleurs
+export interface Medicament {
   nom: string;
   duree: number | null;
   quantite: number | null;
-  heurePrise?: string; // Ajout de la propriété pour l'heure de prise (optionnelle)
+  heurePrise?: string;
 }
 
 @Injectable({
