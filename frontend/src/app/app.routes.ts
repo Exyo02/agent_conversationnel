@@ -6,7 +6,7 @@ import { TodolistComponent } from "./components/todolist/todolist.component";
 import { CoursesComponent } from "./components/courses/courses.component";
 import { MedicamentsComponent } from "./components/medicaments/medicaments.component";
 import { ActusComponent } from "./components/actus/actus.component";
-import { ParamsComponent } from "./components/params/params.component";
+import { ParametresComponent } from "./components/parametres/parametres.component";
 import { AmenagementComponent } from "./components/amenagement/amenagement.component";
 import { Sorties } from "./components/sorties/sorties.component";
 import { ListeComponent } from "./components/liste/liste.component";
@@ -29,5 +29,5 @@ export const routes: Routes=[
     {path: 'app-sorties', component:SortiesListeComponent},
     {path: 'app-sorties/ajouter', component:Sorties},
     {path: 'app-sorties/editer/:nom', component:Sorties},
-    {path: 'app-params',component:ParamsComponent}
+    {path: 'app-parametres',component:ParametresComponent}
 ];

@@ -1,24 +1,43 @@
+/*Mode jour*/
 nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #608cd4;
-    padding: 10px 20px;
-  }
-  a:first-child{
-    margin-right: 150px;
-    margin-left: 0px;
-  }
-  a:last-child{
-    margin-left: 150px;
-    margin-right: 0px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #608cd4;
+  padding: 10px 20px;
+}
 
-  a{
-    color: black;
-    margin-right: 20px;
-    margin-left: 20px;
-  }
-  a:hover{
-    color: orange;
-  }
+a:first-child {
+  margin-right: 150px;
+  margin-left: 0px;
+}
+
+a:last-child {
+  margin-left: 150px;
+  margin-right: 0px;
+}
+
+a {
+  color: black;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+a:hover {
+  color: orange;
+}
+
+/*Mode nuit*/
+.navbar-dark {
+  background-color: #003366;
+  color: #f8f9fa;
+  border-bottom: 1px solid #224466;
+}
+
+.navbar-dark a {
+  color: #f8f9fa;
+}
+
+.navbar-dark a:hover {
+  color: #ccc;
+}
