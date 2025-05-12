@@ -19,7 +19,6 @@ export class Sorties implements OnInit {
   estNouvelle = true;
   nouvelleSortie: Sortie = {
     nom: '',
-    duree: null,
     date: null,
     heureDebut: '',
     adresse: ''
@@ -41,7 +40,7 @@ export class Sorties implements OnInit {
       }
     } else {
       this.estNouvelle = true;
-      this.nouvelleSortie = { nom: '', duree: null, date: null, heureDebut: '' };
+      this.nouvelleSortie = { nom: '', date: null, heureDebut: '' };
     }
   }
 
@@ -65,11 +64,6 @@ export class Sorties implements OnInit {
       return;
     }
 
-    if (this.nouvelleSortie.duree === null || this.nouvelleSortie.duree <= 0) {
-      alert('La durée de la sortie doit être supérieure à 0.');
-      return;
-    }
-
     if (!this.nouvelleSortie.date) {
       alert('La date de la sortie est obligatoire.');
       return;
@@ -89,12 +83,15 @@ export class Sorties implements OnInit {
   }
 
   annuler(): void {
-    this.afficherFormulaire = false;
-    this.reinitialiserFormulaire();
+    let confirmation = confirm("Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.");
+
+    if (confirmation) {
+      this.router.navigate(["/app-sorties"]);
+    }
   }
 
   reinitialiserFormulaire(): void {
-    this.nouvelleSortie = { nom: '', duree: null, date: null, heureDebut: '', adresse: '' };
+    this.nouvelleSortie = { nom: '', date: null, heureDebut: '', adresse: '' };
     this.estNouvelle = true;
   }
 }

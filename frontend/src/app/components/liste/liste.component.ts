@@ -69,6 +69,5 @@ export class ListeComponent implements OnInit {
     if (confirmation) {
       this.router.navigate(["/app-todolist"]);
     }
-    this.location.back();
   }
 }

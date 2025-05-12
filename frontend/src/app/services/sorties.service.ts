@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 export interface Sortie {
   nom: string;
-  duree: number | null;
   date: string | null;
   heureDebut?: string;
   adresse?: string;
