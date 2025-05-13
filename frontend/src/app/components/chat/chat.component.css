@@ -1,0 +1,47 @@
+input {
+    font-size: large;
+}
+#user{
+    background-color: #005b5b;
+    width: 70%;
+    margin-left: 20%;
+    color: white;
+    padding: 10px;
+    visibility: hidden;
+    font-size: large;
+}
+#bot{
+    display: flex;
+}
+#bot-text{
+    background-color: #00abab;
+    color: white;
+    width: 70%;
+    margin: 10px;
+    padding: 10px;
+    
+    font-size: large;
+}
+.input{
+    margin: 10px;
+}
+input[type=text]{
+    width: 60%;
+    padding: 5px;
+}
+input[type=button]{
+    background-color:red;
+    color: white;
+    border: none;
+    padding: 5px;
+}
+input[type=button]:hover{
+    background-color:orange;
+}
+#logo{
+    background-image: url("../../../assets/images/agent_logo.png");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
