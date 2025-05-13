@@ -1,14 +1,14 @@
 <div>
   <input type="text" [(ngModel)]="nouveauMedicament.nom" placeholder="Nom du médicament">
 
-  <label for="duree">Durée de la prise (en jours) :</label>
   <input type="number" id="duree" [(ngModel)]="nouveauMedicament.duree" placeholder="Durée (jours)" min="1">
 
-  <label for="quantite">Quantité par prise :</label>
-  <input type="number" id="quantite" [(ngModel)]="nouveauMedicament.quantite" placeholder="Quantité" min="1">
+  <input type="number" id="quantite" [(ngModel)]="nouveauMedicament.quantite" placeholder="Quantité par prise" min="1">
 
   <label for="heurePrise">Heure de prise (HH:MM) :</label>
   <input type="time" id="heurePrise" [(ngModel)]="nouveauMedicament.heurePrise">
+
+  <input type="text" id="ordonnance" [(ngModel)]="nouveauMedicament.ordonnance" placeholder="Date de début de l'ordonnance">
 
   <br>
   <input type="button" value="{{ estNouveau ? 'Enregistrer' : 'Mettre à jour' }}" (click)="enregistrer()">

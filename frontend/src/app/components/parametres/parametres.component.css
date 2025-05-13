@@ -1,0 +1,49 @@
+div {
+  background-color: rgba(255, 255, 255, 0.5);
+  height:100%;
+  width: 60%;
+  margin-left: 30%;
+  border: 1px solid black;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: large;
+}
+
+textarea {
+  height: 150px;
+}
+
+input[type="button"],
+button[type="button"] {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: large;
+  cursor: pointer;
+}
+
+button[type="validation"] {
+  background-color: orange;
+  color: black;
+  border: none;
+  padding: 5px 5px;
+  font-size: large;
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background-color: orange;
+}

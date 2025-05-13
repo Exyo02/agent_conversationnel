@@ -15,11 +15,12 @@ export class MedicamentsComponent implements OnInit {
   medicaments: any[] = [];
   afficherFormulaire = false;
   estNouveau = true;
-  nouveauMedicament: { nom: string; duree: number | null; quantite: number | null , heurePrise?: string} = {
+  nouveauMedicament: { nom: string; duree: number | null; quantite: number | null , heurePrise?: string, ordonnance?: string} = {
     nom: '',
     duree: null,
     quantite: null,
-    heurePrise: ''
+    heurePrise: '',
+    ordonnance: ''
   };
 
   constructor(
@@ -38,7 +39,7 @@ export class MedicamentsComponent implements OnInit {
       }
     } else {
       this.estNouveau = true;
-      this.nouveauMedicament = { nom: '', duree: null, quantite: null, heurePrise: '' };
+      this.nouveauMedicament = { nom: '', duree: null, quantite: null, heurePrise: '' , ordonnance: ''};
     }
   }
 
@@ -77,6 +78,10 @@ export class MedicamentsComponent implements OnInit {
     } else {
       this.medicamentsService.modifierMedicament(this.nouveauMedicament.nom, this.nouveauMedicament);
     }
+    if (!this.nouveauMedicament.ordonnance) {
+      alert("La date de l'ordonnance est obligatoire.");
+      return;
+    }
     this.afficherFormulaire = false;
     this.chargerMedicaments();
   }
@@ -90,12 +95,15 @@ export class MedicamentsComponent implements OnInit {
   }
 
   annuler(): void {
-    this.afficherFormulaire = false;
-    this.reinitialiserFormulaire();
+    let confirmation = confirm("Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.");
+
+    if (confirmation) {
+      this.router.navigate(["/app-medicaments"]);
+    }
   }
 
   reinitialiserFormulaire(): void {
-    this.nouveauMedicament = { nom: '', duree: null, quantite: null, heurePrise: '' };
+    this.nouveauMedicament = { nom: '', duree: null, quantite: null, heurePrise: '' , ordonnance: ''};
     this.estNouveau = true;
   }
 }

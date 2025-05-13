@@ -1,0 +1,52 @@
+<div>
+
+  <button type="validation" (click)="toggleThemeNuitJour()">
+    Mode nuit : {{ nouveauxParametres.themeNuitJour ? 'activé' : 'désactivé' }}
+  </button>
+  <br>
+  <br>
+  <select id="police" [(ngModel)]="nouveauxParametres.police">
+    <option value="">-- Choisir une police --</option>
+    <option value="Arial">Arial</option>
+    <option value="Helvetica">Helvetica</option>
+  </select>
+
+  <ul>
+    <li *ngFor="let nom of nouveauxParametres.listeNomBot; let i = index">
+      {{ nom }} <button type="validation" (click)="supprimerNomBot(i)">Supprimer</button>
+    </li>
+  </ul>
+  <input type="text" #nouveauNomBot placeholder="Nouveau nom de bot">
+  <button type="validation" (click)="ajouterNomBot(nouveauNomBot.value); nouveauNomBot.value = ''">Ajouter le nom</button>
+
+  <ul>
+    <li *ngFor="let photoUrl of nouveauxParametres.listePhotoBot; let i = index">
+      <img [src]="photoUrl" alt="Photo du bot" width="50">
+      <button type="validation" (click)="supprimerPhotoBot(i)">Supprimer</button>
+    </li>
+  </ul>
+
+  <p>Choisissez votre photo pour le robot : </p>
+  <input type="file" accept="image/*" (change)="telechargerPhotoBot($event)">
+  <p>Ou entrez le lien d'une image :</p>
+  <input type="text" #nouvellePhotoUrl placeholder="Lien de l'image">
+  <button type="validation" (click)="ajouterPhotoBotUrl(nouvellePhotoUrl.value); nouvellePhotoUrl.value = ''">Ajouter le lien</button>
+
+  <br>
+  <br>
+
+  <select [(ngModel)]="nouveauxParametres.fondEcranChoisi">
+    <option value="">Choisir un fond d'écran</option>
+    <option *ngFor="let fond of nouveauxParametres.fondEcran" [value]="fond">{{ fond }}</option>
+  </select>
+  <input type="text" #nouveauFondEcranUrl placeholder="Lien du fond d'écran">
+  <button type="validation" (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter
+    le lien</button>
+
+  <h4>Télécharger un fond d'écran :</h4>
+  <input type="file" accept="image/*" (change)="telechargerFondEcran($event)" placeholder="">
+  <br>
+  <br>
+  <button type="button" (click)="enregistrerParametres()">Enregistrer</button>
+  <button type="button" (click)="reinitialiserParametres()">Réinitialiser</button>
+</div>
