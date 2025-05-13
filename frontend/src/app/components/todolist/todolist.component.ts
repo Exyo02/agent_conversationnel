@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ListeComponent } from '../liste/liste.component';
 import { ListesService } from '../../services/listes.service';
 import { CommonModule } from '@angular/common';
 

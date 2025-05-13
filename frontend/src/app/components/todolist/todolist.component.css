@@ -1,4 +1,4 @@
-div{
+.fn{
     background-color: rgba(255, 255,255, 0.5);
     height: 100%;
     width: 60%;
@@ -40,3 +40,4 @@ ul{
     color: orange;
     border-color: orange;
 }
+
