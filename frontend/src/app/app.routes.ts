@@ -1,18 +1,17 @@
 import { Routes } from "@angular/router";
 import { AccueilComponent } from "./components/accueil/accueil.component";
 import { AgendaComponent } from "./components/agenda/agenda.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
 import { TodolistComponent } from "./components/todolist/todolist.component";
 import { CoursesComponent } from "./components/courses/courses.component";
 import { MedicamentsComponent } from "./components/medicaments/medicaments.component";
-import { ActusComponent } from "./components/actus/actus.component";
+import { InfosComponent } from "./components/infos/infos.component";
 import { ParametresComponent } from "./components/parametres/parametres.component";
-import { AmenagementComponent } from "./components/amenagement/amenagement.component";
 import { Sorties } from "./components/sorties/sorties.component";
 import { ListeComponent } from "./components/liste/liste.component";
 import { MedicamentsListComponent } from "./components/medicamentliste/medicamentliste.component";
 import { SortiesListeComponent } from "./components/sortiesliste/sortiesliste.component";
 import { ChatComponent } from "./components/chat/chat.component";
+import { ContactsComponent } from "./components/contacts/contacts.component";
 
 export const routes: Routes=[
     {path:'', component:AccueilComponent},
@@ -25,8 +24,8 @@ export const routes: Routes=[
     {path:'app-medicaments', component:MedicamentsListComponent},
     {path:'app-medicaments/ajouter', component:MedicamentsComponent},
     {path:'app-medicaments/editer/:nom', component:MedicamentsComponent},
-    {path:'app-actus', component:ActusComponent},
-    {path: 'app-amenagement', component:AmenagementComponent},
+    {path:'app-infos', component:InfosComponent},
+    {path: 'app-contacts', component:ContactsComponent},
     {path: 'app-sorties', component:SortiesListeComponent},
     {path: 'app-sorties/ajouter', component:Sorties},
     {path: 'app-sorties/editer/:nom', component:Sorties},
