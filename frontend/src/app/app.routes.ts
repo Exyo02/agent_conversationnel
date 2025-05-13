@@ -10,6 +10,7 @@ import { ParamsComponent } from "./components/params/params.component";
 import { AmenagementComponent } from "./components/amenagement/amenagement.component";
 import { SortiesComponent } from "./components/sorties/sorties.component";
 import { ListeComponent } from "./components/liste/liste.component";
+import { ChatComponent } from "./components/chat/chat.component";
 
 export const routes: Routes=[
     {path:'', component:AccueilComponent},
@@ -23,5 +24,6 @@ export const routes: Routes=[
     {path:'app-actus', component:ActusComponent},
     {path: 'app-amenagement', component:AmenagementComponent},
     {path: 'app-sorties', component:SortiesComponent},
-    {path: 'app-params',component:ParamsComponent}
+    {path: 'app-params',component:ParamsComponent},
+    {path: 'app-chat',component:ChatComponent}
 ];

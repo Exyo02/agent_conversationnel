@@ -1,0 +1,10 @@
+<div class="principal">
+    <div id="user">{{ userText }}</div>
+    <div id="bot">
+        <div id="logo"></div>
+        <div id="bot-text">{{ botAnswer }}</div></div>
+    <div class="input">
+        <input type="text" [(ngModel)]="currentText">
+        <input type="button" value="Demander" (click)="envoyer()">
+    </div>
+</div>

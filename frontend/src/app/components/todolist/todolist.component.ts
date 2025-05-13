@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { ListeComponent } from '../liste/liste.component';
 import { ListesService } from '../../services/listes.service';
 import { CommonModule } from '@angular/common';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   standalone: true,
   selector: 'app-todolist',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule,ChatComponent],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.css'
 })
