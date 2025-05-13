@@ -27,6 +27,16 @@ a:hover {
   color: orange;
 }
 
+a:hover::after{
+  content: attr(name);
+  position: absolute;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  top: 50px;
+}
+
 /*Mode nuit*/
 .navbar-dark {
   background-color: #003366;
