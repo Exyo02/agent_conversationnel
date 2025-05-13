@@ -4,7 +4,6 @@ import { ListesService } from '../../services/listes.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Location } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -23,8 +22,7 @@ export class ListeComponent implements OnInit {
   constructor(
     private service: ListesService,
     private route: ActivatedRoute,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) { }
   ngOnInit() {
     this.titre = this.route.snapshot.paramMap.get('nom')!;
@@ -49,7 +47,6 @@ export class ListeComponent implements OnInit {
     } else {
       alert("Veuillez saisir un titre pour votre liste.");
     }
-    this.location.back();
   }
 
   supprimer() {
@@ -59,7 +56,6 @@ export class ListeComponent implements OnInit {
       this.service.supprimer(this.titre);
       this.router.navigate(["/app-todolist"]);
     }
-    this.location.back();
   }
 
   annuler() {
@@ -68,6 +64,5 @@ export class ListeComponent implements OnInit {
     if (confirmation) {
       this.router.navigate(["/app-todolist"]);
     }
-    this.location.back();
   }
 }
