@@ -28,7 +28,6 @@ export class ListeComponent implements OnInit {
     this.titre = this.route.snapshot.paramMap.get('nom')!;
     this.nouvelleListe = this.titre == '' || this.titre == null;
     this.liste = this.service.charger(this.titre);
-    console.log(this.nouvelleListe)
   }
 
   enregistrer() {

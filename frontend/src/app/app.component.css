@@ -20,3 +20,10 @@ main{
 .font-helvetica {
   font-family: Helvetica, sans-serif;
 }
+
+app-chat{
+    margin-top: 5%;
+    margin-left: 2%;
+    width: 26%;
+    position: fixed;
+}
