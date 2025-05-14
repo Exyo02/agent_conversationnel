@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SortiesService, Sortie } from '../../services/sorties.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 
 @Component({
@@ -27,7 +29,8 @@ export class Sorties implements OnInit {
   constructor(
     private SortiesService: SortiesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialogBox: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -60,12 +63,16 @@ export class Sorties implements OnInit {
 
   enregistrer(): void {
     if (!this.nouvelleSortie.nom) {
-      alert('Le nom de la sortie est obligatoire.');
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = 'Le nom de la sortie est obligatoire.';
+      mod.componentInstance.opt1 = "Ok";
       return;
     }
 
     if (!this.nouvelleSortie.date) {
-      alert('La date de la sortie est obligatoire.');
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = 'La date de la sortie est obligatoire.';
+      mod.componentInstance.opt1 = "Ok";
       return;
     }
 
@@ -75,19 +82,31 @@ export class Sorties implements OnInit {
   }
 
   supprimer(): void {
-    if (this.nouvelleSortie.nom && confirm(`Êtes-vous sûr de vouloir supprimer ${this.nouvelleSortie.nom} ?`)) {
-      this.SortiesService.supprimerSortie(this.nouvelleSortie.nom);
-      this.afficherFormulaire = false;
-      this.chargerSorties();
+    if (this.nouvelleSortie.nom) {
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = `Êtes-vous sûr de vouloir supprimer ${this.nouvelleSortie.nom} ?`;
+      mod.componentInstance.opt1 = "Oui";
+      mod.componentInstance.opt2 = "Non";
+      mod.result.then(result=>{
+        if(result){
+          this.SortiesService.supprimerSortie(this.nouvelleSortie.nom);
+          this.afficherFormulaire = false;
+          this.chargerSorties();
+        }
+      })
     }
   }
 
   annuler(): void {
-    let confirmation = confirm("Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.");
-
-    if (confirmation) {
-      this.router.navigate(["/app-sorties"]);
-    }
+    const mod = this.dialogBox.open(DialogComponent);
+    mod.componentInstance.message = "Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.";
+    mod.componentInstance.opt1 = "Oui";
+    mod.componentInstance.opt2 = "Non";
+    mod.result.then(result=>{
+      if(result){
+        this.router.navigate(["/app-sorties"]);
+      }
+    })
   }
 
   reinitialiserFormulaire(): void {

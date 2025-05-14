@@ -1,0 +1,23 @@
+.dialog-box{
+    padding: 15px;
+}
+
+h1{
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+}
+button{
+    background-color: red;
+    color: white;
+    border: none;
+    font-size: large;
+    font-weight: 600;
+    padding: 5px 15px;
+    margin-left: 20px;
+}
+button:hover{
+    background-color: orange;
+}
+.boutons{
+    text-align: end;
+}

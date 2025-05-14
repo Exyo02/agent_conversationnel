@@ -4,6 +4,8 @@ import { ListesService } from '../../services/listes.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 @Component({
   standalone: true,
@@ -22,7 +24,8 @@ export class ListeComponent implements OnInit {
   constructor(
     private service: ListesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialogBox: NgbModal
   ) { }
   ngOnInit() {
     this.titre = this.route.snapshot.paramMap.get('nom')!;
@@ -42,27 +45,39 @@ export class ListeComponent implements OnInit {
         this.ajoutTitre = this.titre;
       }
       if (exist == 1) {
-        alert("Vous possédez déjà une liste du même titre. Veuillez changer de titre.");
+        const mod = this.dialogBox.open(DialogComponent);
+        mod.componentInstance.message = "Vous possédez déjà une liste du même titre. Veuillez changer de titre.";
+        mod.componentInstance.opt1 = "Ok";
       }
     } else {
-      alert("Veuillez saisir un titre pour votre liste.");
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = "Veuillez saisir un titre pour votre liste.";
+      mod.componentInstance.opt1 = "Ok";
     }
   }
 
   supprimer() {
-    let confirmation = confirm("Voulez-vous vraiment supprimer la liste " + this.titre);
-
-    if (confirmation) {
-      this.service.supprimer(this.titre);
-      this.router.navigate(["/app-todolist"]);
-    }
+    const mod = this.dialogBox.open(DialogComponent);
+    mod.componentInstance.message = "Voulez-vous vraiment supprimer la liste " + this.titre+" ?";
+    mod.componentInstance.opt1 = "Oui";
+    mod.componentInstance.opt2 = "Non";
+    mod.result.then(result=>{
+      if(result){
+        this.service.supprimer(this.titre);
+        this.router.navigate(["/app-todolist"]);
+      }
+    })
   }
 
   annuler() {
-    let confirmation = confirm("Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.");
-
-    if (confirmation) {
-      this.router.navigate(["/app-todolist"]);
-    }
+    const mod = this.dialogBox.open(DialogComponent);
+    mod.componentInstance.message = "Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.";
+    mod.componentInstance.opt1 = "Oui";
+    mod.componentInstance.opt2 = "Non";
+    mod.result.then(result=>{
+      if(result){
+        this.router.navigate(["/app-todolist"]);
+      }
+    })
   }
 }
