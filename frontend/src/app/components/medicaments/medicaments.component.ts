@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MedicamentsService } from '../../services/medicaments.service';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
@@ -26,7 +28,8 @@ export class MedicamentsComponent implements OnInit {
   constructor(
     private medicamentsService: MedicamentsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialogBox: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -59,17 +62,23 @@ export class MedicamentsComponent implements OnInit {
 
   enregistrer(): void {
     if (!this.nouveauMedicament.nom) {
-      alert('Le nom du médicament est obligatoire.');
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = 'Le nom du médicament est obligatoire.';
+      mod.componentInstance.opt1 = "Ok";
       return;
     }
 
     if (this.nouveauMedicament.duree === null || this.nouveauMedicament.duree <= 0) {
-      alert('La durée de la prise doit être supérieure à 0.');
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = 'La durée de la prise doit être supérieure à 0.';
+      mod.componentInstance.opt1 = "Ok";
       return;
     }
 
     if (this.nouveauMedicament.quantite === null || this.nouveauMedicament.quantite <= 0) {
-      alert('La quantité par prise doit être supérieure à 0.');
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = 'La quantité par prise doit être supérieure à 0.';
+      mod.componentInstance.opt1 = "Ok";
       return;
     }
 
@@ -79,7 +88,9 @@ export class MedicamentsComponent implements OnInit {
       this.medicamentsService.modifierMedicament(this.nouveauMedicament.nom, this.nouveauMedicament);
     }
     if (!this.nouveauMedicament.ordonnance) {
-      alert("La date de l'ordonnance est obligatoire.");
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = "La date de l'ordonnance est obligatoire.";
+      mod.componentInstance.opt1 = "Ok";
       return;
     }
     this.afficherFormulaire = false;
@@ -87,19 +98,31 @@ export class MedicamentsComponent implements OnInit {
   }
 
   supprimer(): void {
-    if (this.nouveauMedicament.nom && confirm(`Êtes-vous sûr de vouloir supprimer ${this.nouveauMedicament.nom} ?`)) {
-      this.medicamentsService.supprimerMedicament(this.nouveauMedicament.nom);
-      this.afficherFormulaire = false;
-      this.chargerMedicaments();
+    if (this.nouveauMedicament.nom) {
+      const mod = this.dialogBox.open(DialogComponent);
+      mod.componentInstance.message = `Êtes-vous sûr de vouloir supprimer ${this.nouveauMedicament.nom} ?`;
+      mod.componentInstance.opt1 = "Oui";
+      mod.componentInstance.opt2 = "Non";
+      mod.result.then(result=>{
+        if(result){
+          this.medicamentsService.supprimerMedicament(this.nouveauMedicament.nom);
+          this.afficherFormulaire = false;
+          this.chargerMedicaments();
+        }
+      })
     }
   }
 
   annuler(): void {
-    let confirmation = confirm("Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.");
-
-    if (confirmation) {
-      this.router.navigate(["/app-medicaments"]);
-    }
+    const mod = this.dialogBox.open(DialogComponent);
+    mod.componentInstance.message = "Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.";
+    mod.componentInstance.opt1 = "Oui";
+    mod.componentInstance.opt2 = "Non";
+    mod.result.then(result=>{
+      if(result){
+        this.router.navigate(["/app-medicaments"]);
+      }
+    })
   }
 
   reinitialiserFormulaire(): void {

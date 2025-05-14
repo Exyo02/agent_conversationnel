@@ -1,0 +1,7 @@
+<div class="dialog-box">
+    <h1>{{ message }}</h1>
+    <div class="boutons">
+        <button (click)="activeModal.close(true)">{{ opt1 }}</button>
+        <button *ngIf="opt2!=''" (click)="activeModal.close(false)">{{ opt2 }}</button>
+    </div>
+</div>
