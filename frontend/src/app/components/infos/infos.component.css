@@ -1,0 +1,119 @@
+.fn{
+    background-color: rgba(255, 255,255, 0.5);
+    height: 100%;
+    width: 60%;
+    margin-left: 30%;
+    border-width: 1px;
+    border-color: black;
+    border-style:solid;
+    overflow-y: scroll;
+}
+
+.fn::-webkit-scrollbar{
+    background-color: transparent;
+}
+
+article{
+    background-color: white;
+    margin: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+h1{
+    font-size: xx-large;
+}
+
+p{
+    font-size: large;
+    margin: 0px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.infosNav{
+    position: fixed;
+    width: 10%;
+    height: 20%;
+    top: 60px;
+    right: 0px;
+    margin-top: 10%;
+}
+
+.categorie{
+    width: 100%;
+    border-width: 1px;
+    font-size: large;
+    background-color: white;
+}
+
+.ajout-loisir{
+    background-color:red;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    margin: 0px 20px;
+}
+
+.ajout-loisir:hover{
+    background-color: orange;
+}
+
+.horizontal{
+    display: flex;
+    justify-content: space-between;
+}
+
+/*Jour*/
+.fn-jour::-webkit-scrollbar-thumb{
+    background-color: #608cd4;
+}
+
+.categorie-jour{
+    border-color: #608cd4;
+}
+
+.categorie-jour:hover{
+    background-color: #608cd4;
+    color: black;
+}
+
+.use-jour{
+    background-color: #608cd4;
+    color: black;
+}
+
+.use-jour:hover{
+    background-color: black;
+    color: #608cd4;
+}
+
+/*Nuit*/
+.fn-nuit::-webkit-scrollbar-thumb{
+    background-color: #003366;
+}
+
+.categorie-nuit{
+    border-color: #003366;
+}
+
+.categorie-nuit:hover{
+    background-color: #003366;
+    color: white;
+}
+
+.use-nuit{
+    background-color: #003366;
+    color: white;
+}
+
+.use-nuit:hover{
+    background-color: white;
+    color: #003366;
+}

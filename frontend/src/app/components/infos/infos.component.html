@@ -1,1 +1,20 @@
-
+<div [class]="getFNClass()">
+    <article *ngFor="let info of infosList">
+        <a href="http://google.fr"><h1>{{ info.title }}</h1></a>
+        <p>{{ info.short_description }}</p>
+    </article>
+    <article *ngFor="let loisir of loisirsList">
+        <a href="http://google.fr"><h1>{{ loisir.nom }}</h1></a>
+        <p>{{ loisir.date }} - {{ loisir.heureDebut }}</p>
+        <div class="horizontal">
+            <p>À {{ loisir.adresse }}</p>
+            <button class="ajout-loisir" (click)="participerSortie(loisir)">Participer</button>
+        </div>
+    </article>
+</div>
+<div class="infosNav">
+    <button id="categorie-1" [class]="getCategorieClass(true)" (click)="changeCategorie(-1)">Toutes</button>
+    <button id="categorie0" [class]="getCategorieClass(false)" (click)="changeCategorie(0)">Informations</button>
+    <button id="categorie1" [class]="getCategorieClass(false)" (click)="changeCategorie(1)">Conseils</button>
+    <button id="categorie2" [class]="getCategorieClass(false)" (click)="changeCategorie(2)">Loisirs</button>
+</div>
