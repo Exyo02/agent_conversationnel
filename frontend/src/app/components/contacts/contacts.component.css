@@ -28,7 +28,10 @@
   color: white;
   border: none;
   box-shadow: 5px 5px 5px grey;
+<<<<<<< HEAD
   border-radius: 30px;
+=======
+>>>>>>> 6bc19d7 (Modifications Parametres et interface)
 }
 
 .buttonUser:hover{

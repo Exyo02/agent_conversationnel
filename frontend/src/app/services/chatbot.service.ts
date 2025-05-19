@@ -40,10 +40,12 @@ export class ChatbotService implements OnInit {
     this.messages.push({role:'user',content:message});
     const body = {
       model: 'mistral-medium',
-      messages: this.messages,
+      messages: [
+        { role: 'user', content: message }
+      ],
       temperature: 0.7
     };
-    
+
     return this.http.post(this.apiURL, body,{headers:header});
   }
 

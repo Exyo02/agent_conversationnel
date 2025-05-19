@@ -20,13 +20,11 @@ export class ParametresService {
   parametres$: Observable<Parametres | null> = this.parametresSubject.asObservable();
   private currentFont: string = localStorage.getItem('selectedFont') || 'Roboto, sans-serif';
 
-  constructor() {
-    this.chargerParametresInitial();
-   }
-
+  constructor() { this.appliquerPolice(this.currentFont); }
   chargerParametres(): Parametres | null {
     const data = localStorage.getItem(this.storageKey);
     return data ? JSON.parse(data) : null;
+
   }
 
   sauvegarderParametres(parametres: Parametres): void {

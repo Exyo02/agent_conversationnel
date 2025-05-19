@@ -86,7 +86,7 @@ export class InfosComponent implements OnInit{
                     this.syntheseService.parler(result_parse.title)
                   }
                 }
-                
+
                 this.ajoutArticle(nbRefresh);
               }
               return;

@@ -28,7 +28,27 @@ ul{
   display: flex;
   flex-wrap: wrap;
 }
+<<<<<<< HEAD
 
+=======
+.liste{
+  background-color: white;
+  font-size: x-large;
+  width: 20%;
+  padding: 10px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: 5px 5px 5px grey;
+}
+.liste:hover{
+  color: orange;
+  border-color: orange;
+}
+>>>>>>> 6bc19d7 (Modifications Parametres et interface)
 .notification {
   position: fixed;
   top: 50%;
