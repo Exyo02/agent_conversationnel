@@ -1,1 +1,21 @@
-
+<div class="fn">
+    <section class="contactListe">
+        <button class="ajoutContact buttonUser" (click)="ajouterContact()">+Ajouter un contact</button>
+        <section class="contacts">
+            <button (click)="rejoindreConversation(contact)" class="contact" *ngFor="let contact of contacts">
+                {{ contact }}
+            </button>
+        </section>
+    </section>
+    <section class="conversation">
+        <section id="afficheConversation">
+            <section [class]="getDiscussionClass()">
+                <p [class]="getPClass()" *ngFor="let message of messagesRecents">{{ message }}</p>
+            </section>
+            <section class="actions">
+                <input id="currentMessage" type="text" [(ngModel)]="currentMessage" placeholder="Ecrire un message.">
+                <button (click)="envoiMail()" id="envoyer" class="buttonUser">Envoyer</button>
+            </section>
+        </section>
+    </section>
+</div>
