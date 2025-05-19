@@ -24,7 +24,7 @@ export class ContactsComponent implements OnInit{
 
   constructor(
     private dialogBox:NgbModal,
-    private contactService:ContactsService,
+    private contactsService:ContactsService,
     private parametresService:ParametresService
   ){}
 
@@ -35,7 +35,7 @@ export class ContactsComponent implements OnInit{
         this.isDarkMode = params.themeNuitJour;
       }
     });
-    this.contacts = this.contactService.chargerContacts();
+    this.contacts = this.contactsService.chargerContacts();
   }
 
   ngOnDestroy(): void {
@@ -54,7 +54,7 @@ export class ContactsComponent implements OnInit{
     mod.componentInstance.textField = true;
     mod.result.then(result=>{
       if(result.opt){
-        this.contactService.enregistrer(
+        this.contactsService.enregistrer(
           result.nom,
           result.mail,
           result.telephone
@@ -65,7 +65,7 @@ export class ContactsComponent implements OnInit{
   }
 
   rejoindreConversation(nomContact:string){
-    let contact = this.contactService.charger(nomContact);
+    let contact = this.contactsService.charger(nomContact);
 
     if(contact){
       document.getElementById("afficheConversation")!.style.visibility = "visible";

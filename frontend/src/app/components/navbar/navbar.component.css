@@ -27,7 +27,7 @@ a:hover {
   color: orange;
 }
 
-a:hover::after{
+a:hover::after {
   content: attr(name);
   position: absolute;
   background-color: black;

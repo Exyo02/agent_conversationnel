@@ -14,22 +14,26 @@ export class ParametresComponent implements OnInit {
   sontNouveaux = true;
   parametres: Parametres[] = [];
   afficherFormulaire = false;
-  nouveauxParametres: Parametres = {
-    police: '',
-    themeNuitJour: true,
-    listeNomBot: [],
-    listePhotoBot: [],
-    fondEcran: [],
-    fondEcranChoisi: ''
-  };
+  nouveauxParametres!: Parametres; // Déclaration sans initialisation immédiate
+  availableFonts: string[] = ['Roboto, sans-serif', 'Open Sans, sans-serif', 'Lato, sans-serif', 'Montserrat, sans-serif', 'Arial, sans-serif', 'Helvetica, sans-serif']; // Liste des polices disponibles
 
   constructor(private parametresService: ParametresService) { }
 
   ngOnInit(): void {
     const existingParams = this.parametresService.chargerParametres();
-    if (existingParams) {
-      this.nouveauxParametres = { ...existingParams };
-    }
+    this.nouveauxParametres = {
+      police: existingParams?.police || this.parametresService.getPoliceActuelle(),
+      themeNuitJour: existingParams?.themeNuitJour ?? true,
+      listeNomBot: existingParams?.listeNomBot || [],
+      listePhotoBot: existingParams?.listePhotoBot || [],
+      fondEcran: existingParams?.fondEcran || [],
+      fondEcranChoisi: existingParams?.fondEcranChoisi || ''
+    };
+  }
+  changerPolice(nouvellePolice: string): void {
+    this.nouveauxParametres.police = nouvellePolice;
+    this.parametresService.appliquerPolice(nouvellePolice);
+    this.enregistrerParametres();
   }
 
   toggleThemeNuitJour(): void {
@@ -94,7 +98,7 @@ export class ParametresComponent implements OnInit {
 
   reinitialiserParametres(): void {
     this.nouveauxParametres = {
-      police: '',
+      police: this.parametresService.getPoliceActuelle(),
       themeNuitJour: true,
       listeNomBot: [],
       listePhotoBot: [],

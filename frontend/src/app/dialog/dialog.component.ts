@@ -30,8 +30,8 @@ export class DialogComponent {
       if(!opt){
         this.activeModal.close({opt:opt});
       }else{
-        if(this.valid("nom") 
-        && this.valid("mail") 
+        if(this.valid("nom")
+        && this.valid("mail")
         && this.valid("telephone")){
           this.activeModal.close({
             opt:opt,

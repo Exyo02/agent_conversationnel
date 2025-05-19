@@ -32,6 +32,8 @@ input[type="button"] {
   margin-right: 10px;
   font-size: large;
   cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px grey;
 }
 
 input[type="button"]:hover {

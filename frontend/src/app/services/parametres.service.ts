@@ -17,11 +17,13 @@ export class ParametresService {
   private readonly storageKey = 'app-parametres';
   private parametresSubject = new BehaviorSubject<Parametres | null>(this.chargerParametres());
   parametres$: Observable<Parametres | null> = this.parametresSubject.asObservable();
+  private currentFont: string = localStorage.getItem('selectedFont') || 'Roboto, sans-serif';
 
-  constructor() { }
+  constructor() { this.appliquerPolice(this.currentFont); }
   chargerParametres(): Parametres | null {
     const data = localStorage.getItem(this.storageKey);
     return data ? JSON.parse(data) : null;
+
   }
 
   sauvegarderParametres(parametres: Parametres): void {
@@ -32,7 +34,7 @@ export class ParametresService {
   reinitialiserParametres(): void {
     const defaultParametres: Parametres = {
       police: '',
-     themeNuitJour: true,
+      themeNuitJour: true,
       listeNomBot: [],
       listePhotoBot: [],
       fondEcran: [],
@@ -41,6 +43,15 @@ export class ParametresService {
     this.sauvegarderParametres(defaultParametres);
     this.parametresSubject.next(defaultParametres);
   }
+  appliquerPolice(police: string): void {
+    console.log('Application de la police :', police);
+    document.documentElement.style.setProperty('--main-font', police);
+    this.currentFont = police;
+    localStorage.setItem('selectedFont', police);
+  }
 
+  getPoliceActuelle(): string {
+    return this.currentFont;
+  }
 }
 

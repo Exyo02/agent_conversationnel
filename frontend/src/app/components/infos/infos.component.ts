@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
 export class InfosComponent implements OnInit{
   isDarkMode: boolean = false;
   parametresSubscription: Subscription | undefined;
-    
   infosList:Array<any>=[];
   loisirsList:Array<any>=[];
   nbAffichage:Array<boolean>=[true];
@@ -106,10 +105,10 @@ export class InfosComponent implements OnInit{
         i++;
       }
     }
-    
+
     return find;
   }
-  
+
   changeCategorie(categorie:number){
     this.nbAffichage[this.nbAffichage.length-1] = false;
     this.nbAffichage.push(true);
@@ -118,7 +117,6 @@ export class InfosComponent implements OnInit{
     document.getElementById("categorie"+this.numCategorie)?.classList.add(this.isDarkMode?"use-nuit":"use-jour");
     this.infosList = [];
     this.loisirsList = [];
-    
     this.ajoutArticle(this.nbAffichage.length-1);
   }
 
@@ -130,9 +128,9 @@ export class InfosComponent implements OnInit{
   }
 
   getCategorieClass(all:boolean){
-    return all ? (this.isDarkMode ? 'use-nuit categorie categorie-nuit' 
+    return all ? (this.isDarkMode ? 'use-nuit categorie categorie-nuit'
       : 'use-jour categorie categorie-jour')
-      : (this.isDarkMode ? 'categorie categorie-nuit' 
+      : (this.isDarkMode ? 'categorie categorie-nuit'
       : 'categorie categorie-jour');
   }
   getFNClass(){

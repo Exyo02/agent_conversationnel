@@ -1,132 +1,133 @@
 .fn{
-    background-color: rgba(255, 255,255, 0.5);
-    height: 100%;
-    width: 60%;
-    margin-left: 30%;
-    border-width: 1px;
-    border-color: black;
-    border-style:solid;
-    display: flex;
+  background-color: rgba(255, 255,255, 0.5);
+  height: 100%;
+  width: 60%;
+  margin-left: 30%;
+  border-width: 1px;
+  border-color: black;
+  border-style:solid;
+  display: flex;
 }
 
 .conversation{
-    height: 100%;
-    width: 60%;
+  height: 100%;
+  width: 60%;
 }
 
 .contactListe{
-    height: 100%;
-    width: 40%;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
 }
 
 .buttonUser{
-    font-size: x-large;
-    padding: 5px 15px;
-    background-color: red;
-    color: white;
-    border: none;
+  font-size: x-large;
+  padding: 5px 15px;
+  background-color: red;
+  color: white;
+  border: none;
+  box-shadow: 5px 5px 5px grey;
 }
 
 .buttonUser:hover{
-    background-color: orange;
+  background-color: orange;
 }
 
 .ajoutContact{
-    margin-left: 10%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 80%;
+  margin-left: 10%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 80%;
 }
 
 .contact{
-    font-size: large;
-    border-width: 1px;
+  font-size: large;
+  border-width: 1px;
 }
 
 .contact:hover{
-    background-color: #bbdddd;
+  background-color: #bbdddd;
 }
 
 .actions{
-    height: 10%;
-    text-align: center;
+  height: 10%;
+  text-align: center;
 }
 
 .discussion{
-    height: 85%;
-    overflow-y: scroll;
+  height: 85%;
+  overflow-y: scroll;
 }
 
 .discussion::-webkit-scrollbar{
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .contacts{
-    display: flex;
-    flex-direction: column;
-    height: 60%;
-    overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+  overflow-y: scroll;
 }
 
 .contacts::-webkit-scrollbar{
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .contacts::-webkit-scrollbar-thumb{
-    background-color: #608cd4;
+  background-color: #608cd4;
 }
 
 #afficheConversation{
-    background-color: white;
-    margin: 3%;
-    padding: 2%;
-    height: 65%;
-    border-color: black;
-    border-radius: 7px;
-    border-width: 1px;
-    border-style: solid;
-    visibility: hidden;
+  background-color: white;
+  margin: 3%;
+  padding: 2%;
+  height: 65%;
+  border-color: black;
+  border-radius: 7px;
+  border-width: 1px;
+  border-style: solid;
+  visibility: hidden;
 }
 
 input[type=text]{
-    font-size: x-large;
-    width: 65%;
+  font-size: x-large;
+  width: 65%;
 }
 
 #envoyer{
-    border-radius: 0px 10px 10px 0px;
+  border-radius: 0px 10px 10px 0px;
 }
 
 #currentMessage{
-    border-radius: 10px 0px 0px 10px;
+  border-radius: 10px 0px 0px 10px;
 }
 
 p{
-    color: white;
-    padding: 5px 15px;
-    border-radius: 10px;
-    width: 70%;
-    font-size: x-large;
-    font-weight: 500;
-    word-break: break-all;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 10px;
+  width: 70%;
+  font-size: x-large;
+  font-weight: 500;
+  word-break: break-all;
 }
 
 /*Jour*/
 .p-jour{
-    background-color: #608cd4;
+  background-color: #608cd4;
 }
 
 .discussion-jour::-webkit-scrollbar-thumb{
-    background-color: #608cd4;
+  background-color: #608cd4;
 }
 
 /*Nuit*/
 .p-nuit{
-    background-color: #003366;
+  background-color: #003366;
 }
 
 .discussion-nuit::-webkit-scrollbar-thumb{
-    background-color: #003366;
+  background-color: #003366;
 }

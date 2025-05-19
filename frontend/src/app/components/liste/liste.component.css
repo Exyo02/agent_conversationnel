@@ -26,6 +26,8 @@ input[type=button]{
     border: none;
     padding: 10px;
     margin-right: 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px grey;
 }
 input[type=button]:hover{
     background-color:orange;
