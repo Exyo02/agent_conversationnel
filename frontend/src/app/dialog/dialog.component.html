@@ -1,7 +1,46 @@
 <div class="dialog-box">
     <h1>{{ message }}</h1>
+    <form *ngIf="textField">
+    <table >
+        <tbody>
+            <tr>
+                <td><label>Nom Complet : </label></td>
+                <td>
+                    <input id="nom" required [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" type="text" placeholder="Prénom Nom">
+                    <span class="validity"></span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <p *ngIf="!valid('nom')" class="err">Champs requis</p>
+            </tr>
+            <tr>
+                <td><label>Adresse e-mail : </label></td>
+                <td>
+                    <input id="mail" required [(ngModel)]="mail" [ngModelOptions]="{standalone: true}" type="email" placeholder="exemple@gmail.com">
+                    <span class="validity"></span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <p *ngIf="!valid('mail')" class="err">Champs requis sous la forme "text&#64;text"</p>
+            </tr>
+            <tr>
+                <td><label>Téléphone : </label></td>
+                <td>
+                    <input id="telephone" maxlength="10" pattern="0[0-9]{9}" [(ngModel)]="telephone" [ngModelOptions]="{standalone: true}" type="tel" placeholder="06 00 00 00 00">
+                    <span class="validity"></span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <p *ngIf="!valid('telephone')" class="err">Doit contenir 10 chiffres</p>
+            </tr>
+        </tbody>
+    </table>
+    </form>
     <div class="boutons">
-        <button (click)="activeModal.close(true)">{{ opt1 }}</button>
-        <button *ngIf="opt2!=''" (click)="activeModal.close(false)">{{ opt2 }}</button>
+        <button (click)="result(true)">{{ opt1 }}</button>
+        <button *ngIf="opt2!=''" (click)="result(false)">{{ opt2 }}</button>
     </div>
 </div>

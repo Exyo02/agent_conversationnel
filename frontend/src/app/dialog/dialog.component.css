@@ -21,3 +21,25 @@ button:hover{
 .boutons{
     text-align: end;
 }
+
+input:invalid + span::after{
+    content: "X";
+    color: red;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+input:valid + span::after{
+    content:"✓";
+    color: green;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.err{
+    color: red;
+}
+
+tr{
+    height: 10px;
+}
