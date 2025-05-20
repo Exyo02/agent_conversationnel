@@ -14,9 +14,9 @@ export class ChatbotService implements OnInit {
   private demandeLoisirs ="Inventes 1 activité extérieur sous format json comprenant titre nommé nom + adresse nommé adresse + date nommé date sous la forme aaaa-mm-jj + heure nommé heureDebut sous la forme hh:mm, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
 
   constructor(private http: HttpClient) { }
-  
+
   ngOnInit() {
-    
+
   }
 
   envoi(message:string) : Observable<Object>{
@@ -31,7 +31,7 @@ export class ChatbotService implements OnInit {
       ],
       temperature: 0.7
     };
-    
+
     return this.http.post(this.apiURL, body,{headers:header});
   }
 

@@ -29,21 +29,20 @@ export class ContactsService {
       return [];
     }
   }
-  
   clear(){
     localStorage.clear();
   }
 
   enregistrer(nom: string,mail: string,telephone: string){
     const noms = this.chargerContacts();
-    
+
     if (!noms.includes(nom))
     {
       localStorage.setItem(nom,JSON.stringify({mail: mail,telephone:telephone}));
-      
+
       noms.push(nom);
       localStorage.setItem(this.accessKey,JSON.stringify({contenu: noms}));
-      
+
       return true;
     } else {
       return false;

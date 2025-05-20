@@ -1,47 +1,75 @@
+div.principal {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  flex-grow: 1;
+  padding: 10px;
+   box-shadow: 5px 5px 5px grey;
+}
+.chat-messages {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 10px;
+}
 input {
-    font-size: large;
-}
-#user{
-    background-color: #005b5b;
-    width: 70%;
-    margin-left: 20%;
-    color: white;
-    padding: 10px;
-    visibility: hidden;
-    font-size: large;
-}
-#bot{
-    display: flex;
-}
-#bot-text{
-    background-color: #00abab;
-    color: white;
-    width: 70%;
-    margin: 10px;
-    padding: 10px;
-    
-    font-size: large;
-}
-.input{
-    margin: 10px;
-}
-input[type=text]{
-    width: 60%;
-    padding: 5px;
-}
-input[type=button]{
-    background-color:red;
-    color: white;
-    border: none;
-    padding: 5px;
-}
-input[type=button]:hover{
-    background-color:orange;
-}
-#logo{
-    background-image: url("../../../assets/images/agent_logo.png");
-    background-size: cover;
-    width: 30px;
-    height: 30px;
+  font-size: large;
 }
 
+#user {
+  background-color: #005b5b;
+  width: 70%;
+  margin-left: 20%;
+  color: white;
+  padding: 10px;
+  visibility: hidden;
+  font-size: large;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px grey;
+}
+
+#bot {
+  display: flex;
+}
+
+#bot-text {
+  background-color: #00abab;
+  color: white;
+  width: 70%;
+  margin: 10px;
+  padding: 10px;
+  font-size: large;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.input {
+  margin: 10px;
+
+}
+
+input[type=text] {
+  width: 60%;
+  padding: 5px;
+}
+
+input[type=button] {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 0px 30px 30px 0px;
+}
+
+input[type=button]:hover {
+  background-color: orange;
+}
+
+#logo {
+  background-image: url("../../../assets/images/agent_logo.png");
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+}

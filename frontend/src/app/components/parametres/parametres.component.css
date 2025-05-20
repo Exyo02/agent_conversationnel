@@ -24,26 +24,33 @@ textarea {
   height: 150px;
 }
 
-input[type="button"],
 button[type="button"] {
   background-color: red;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 10px;
   margin-right: 10px;
-  font-size: large;
+  font-size: medium;
   cursor: pointer;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 30px;
 }
 
 button[type="validation"] {
-  background-color: orange;
+  background-color: #608cd4;
   color: black;
   border: none;
-  padding: 5px 5px;
-  font-size: large;
+  padding: 10px 10px;
+  font-size: medium;
   cursor: pointer;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 30px;
 }
 
-input[type="button"]:hover {
+button[type="button"]:hover,button[type="validation"]:hover {
   background-color: orange;
+}
+
+p, #policeSelect,input[type="file"]{
+  font-size: medium;
 }
