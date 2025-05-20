@@ -6,6 +6,7 @@ div.principal {
   border-style: solid;
   flex-grow: 1;
   padding: 10px;
+   box-shadow: 5px 5px 5px grey;
 }
 .chat-messages {
   overflow-y: auto;
@@ -24,6 +25,8 @@ input {
   padding: 10px;
   visibility: hidden;
   font-size: large;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px grey;
 }
 
 #bot {
@@ -37,10 +40,13 @@ input {
   margin: 10px;
   padding: 10px;
   font-size: large;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px grey;
 }
 
 .input {
   margin: 10px;
+
 }
 
 input[type=text] {
@@ -53,6 +59,8 @@ input[type=button] {
   color: white;
   border: none;
   padding: 5px;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 0px 30px 30px 0px;
 }
 
 input[type=button]:hover {

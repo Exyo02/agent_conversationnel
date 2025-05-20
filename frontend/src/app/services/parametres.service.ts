@@ -19,16 +19,20 @@ export class ParametresService {
   parametres$: Observable<Parametres | null> = this.parametresSubject.asObservable();
   private currentFont: string = localStorage.getItem('selectedFont') || 'Roboto, sans-serif';
 
-  constructor() { this.appliquerPolice(this.currentFont); }
+  constructor() {
+    this.chargerParametresInitial();
+   }
+
   chargerParametres(): Parametres | null {
     const data = localStorage.getItem(this.storageKey);
     return data ? JSON.parse(data) : null;
-
   }
 
   sauvegarderParametres(parametres: Parametres): void {
     localStorage.setItem(this.storageKey, JSON.stringify(parametres));
     this.parametresSubject.next(parametres);
+    this.appliquerPolice(parametres.police);
+    this.appliquerFondEcran(parametres.fondEcranChoisi);
   }
 
   reinitialiserParametres(): void {
@@ -52,6 +56,27 @@ export class ParametresService {
 
   getPoliceActuelle(): string {
     return this.currentFont;
+  }
+
+  private chargerParametresInitial(): void {
+    const params = this.chargerParametres();
+    if (params) {
+      this.appliquerPolice(params.police);
+      this.appliquerFondEcran(params.fondEcranChoisi);
+    }
+  }
+
+  appliquerFondEcran(url: string): void {
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      if (url) {
+        mainElement.style.backgroundImage = `url('${url}')`;
+        mainElement.style.backgroundSize = 'cover';
+        mainElement.style.backgroundRepeat = 'no-repeat';
+      } else {
+        mainElement.style.backgroundImage = '';
+      }
+    }
   }
 }
 

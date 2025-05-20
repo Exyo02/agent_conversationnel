@@ -28,6 +28,7 @@
   color: white;
   border: none;
   box-shadow: 5px 5px 5px grey;
+  border-radius: 30px;
 }
 
 .buttonUser:hover{

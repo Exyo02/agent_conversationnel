@@ -5,11 +5,13 @@
       {{ nouveauxParametres.themeNuitJour ? 'Activé' : 'Désactivé' }}
     </button>
   </p>
+
   <p>Choisissez une police pour le site :
     <select id="policeSelect" [(ngModel)]="nouveauxParametres.police" (ngModelChange)="changerPolice($event)">
       <option *ngFor="let font of availableFonts" [value]="font">{{ font }}</option>
     </select>
   </p>
+
   <p>Définissez un nom pour le chatbot : </p>
   <ul>
     <li *ngFor="let nom of nouveauxParametres.listeNomBot; let i = index">
@@ -19,29 +21,34 @@
   <input type="text" #nouveauNomBot placeholder="Nouveau nom de bot">
   <button type="validation" (click)="ajouterNomBot(nouveauNomBot.value); nouveauNomBot.value = ''">Ajouter</button>
 
+  <p>Choisissez votre photo pour le robot :
+    <input type="file" accept="image/*" (change)="telechargerPhotoBot($event)">
+  </p>
   <ul>
     <li *ngFor="let photoUrl of nouveauxParametres.listePhotoBot; let i = index">
       <img [src]="photoUrl" alt="Photo du bot" width="50">
       <button type="validation" (click)="supprimerPhotoBot(i)">Supprimer</button>
     </li>
   </ul>
-
-  <p>Choisissez votre photo pour le robot :
-    <input type="file" accept="image/*" (change)="telechargerPhotoBot($event)">
-  </p>
   <p>Ou entrez le lien d'une image :</p>
   <input type="text" #nouvellePhotoUrl placeholder="Lien de l'image">
   <button type="validation"
     (click)="ajouterPhotoBotUrl(nouvellePhotoUrl.value); nouvellePhotoUrl.value = ''">Ajouter</button>
   <br>
   <p>Choisissez votre photo pour le fond d'écran :
-    <input type="file" accept="image/*" (change)="telechargerPhotoBot($event)">
+    <input type="file" accept="image/*" (change)="telechargerFondEcran($event)">
   </p>
+  <ul>
+    <li *ngFor="let photoUrl of nouveauxParametres.fondEcran; let i = index">
+      <img [src]="photoUrl" alt="Photo du fond d'écran" width="50">
+      <button type="validation" (click)="supprimerFondEcran(i)">Supprimer</button>
+    </li>
+  </ul>
+  <p>Ou entrez le lien d'une image :</p>
   <input type="text" #nouveauFondEcranUrl placeholder="Lien du fond d'écran">
   <button type="validation"
     (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter</button>
-  <br>
-  <br>
+   <br>
     <button type="button" (click)="enregistrerParametres()">Enregistrer</button>
   <button type="button" (click)="reinitialiserParametres()">Réinitialiser</button>
 </div>

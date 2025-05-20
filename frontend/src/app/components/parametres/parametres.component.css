@@ -33,7 +33,7 @@ button[type="button"] {
   font-size: medium;
   cursor: pointer;
   box-shadow: 5px 5px 5px grey;
-  border-radius: 10% 10% 10% 10%;
+  border-radius: 30px;
 }
 
 button[type="validation"] {
@@ -44,9 +44,13 @@ button[type="validation"] {
   font-size: medium;
   cursor: pointer;
   box-shadow: 5px 5px 5px grey;
-  border-radius: 10% 10% 10% 10%;
+  border-radius: 30px;
 }
 
 button[type="button"]:hover,button[type="validation"]:hover {
   background-color: orange;
+}
+
+p, #policeSelect,input[type="file"]{
+  font-size: medium;
 }

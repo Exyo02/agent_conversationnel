@@ -14,8 +14,9 @@ export class ParametresComponent implements OnInit {
   sontNouveaux = true;
   parametres: Parametres[] = [];
   afficherFormulaire = false;
-  nouveauxParametres!: Parametres; // Déclaration sans initialisation immédiate
-  availableFonts: string[] = ['Roboto, sans-serif', 'Open Sans, sans-serif', 'Lato, sans-serif', 'Montserrat, sans-serif', 'Arial, sans-serif', 'Helvetica, sans-serif']; // Liste des polices disponibles
+  nouveauxParametres!: Parametres;
+  availableFonts: string[] = ['Roboto, sans-serif', 'Open Sans, sans-serif', 'Didot, serif', 'American Typewriter, serif',
+     'Montserrat, sans-serif', 'Trebuchet MS, sans-serif', 'Gill Sans, sans-serif', 'Optima, sans-serif'];
 
   constructor(private parametresService: ParametresService) { }
 
@@ -64,6 +65,9 @@ export class ParametresComponent implements OnInit {
   ajouterFondEcranUrl(url: string): void {
     if (url && !this.nouveauxParametres.fondEcran.includes(url)) {
       this.nouveauxParametres.fondEcran.push(url);
+      this.nouveauxParametres.fondEcranChoisi = url;
+      this.appliquerFondEcran(url);
+      this.enregistrerParametres(); 
     }
   }
 
@@ -83,13 +87,33 @@ export class ParametresComponent implements OnInit {
 
   uploadImage(file: File, folder: string): void {
     console.log(`Téléchargement de ${file.name} vers le dossier ${folder}`);
-    const imageUrl = URL.createObjectURL(file);
-    if (folder === 'bot-photos') {
-      this.nouveauxParametres.listePhotoBot.push(imageUrl);
-    } else if (folder === 'fonds-ecran') {
-      this.nouveauxParametres.fondEcran.push(imageUrl);
-      this.nouveauxParametres.fondEcranChoisi = imageUrl;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const imageUrl = e.target.result;
+      if (folder === 'bot-photos') {
+        this.nouveauxParametres.listePhotoBot.push(imageUrl);
+      } else if (folder === 'fonds-ecran') {
+        this.nouveauxParametres.fondEcran.push(imageUrl);
+        this.nouveauxParametres.fondEcranChoisi = imageUrl;
+        this.appliquerFondEcran(imageUrl);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  choisirFondEcran(fondEcran: string): void {
+    this.nouveauxParametres.fondEcranChoisi = fondEcran;
+    this.appliquerFondEcran(fondEcran);
+    this.enregistrerParametres();
+  }
+
+  supprimerFondEcran(index: number): void {
+    this.nouveauxParametres.fondEcran.splice(index, 1);
+    if (this.nouveauxParametres.fondEcranChoisi === this.nouveauxParametres.fondEcran[index]) {
+      this.nouveauxParametres.fondEcranChoisi = '';
+      this.appliquerFondEcran('');
     }
+    this.enregistrerParametres();
   }
 
   enregistrerParametres(): void {
@@ -105,6 +129,13 @@ export class ParametresComponent implements OnInit {
       fondEcran: [],
       fondEcranChoisi: ''
     };
+    this.appliquerFondEcran('');
+    this.enregistrerParametres();
   }
 
+  appliquerFondEcran(url: string): void {
+    document.body.style.backgroundImage = url ? `url('${url}')` : '';
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+  }
 }
