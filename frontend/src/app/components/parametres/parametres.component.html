@@ -39,16 +39,16 @@
     <input type="file" accept="image/*" (change)="telechargerFondEcran($event)">
   </p>
   <ul>
-    <li *ngFor="let photoUrl of nouveauxParametres.fondEcran; let i = index">
-      <img [src]="photoUrl" alt="Photo du fond d'écran" width="50">
+    <li *ngFor="let fondUrl of nouveauxParametres.fondEcran; let i = index">
+      <img [src]="fondUrl" alt="Photo du fond d'écran" width="50">
       <button type="validation" (click)="supprimerFondEcran(i)">Supprimer</button>
     </li>
   </ul>
-  <p>Ou entrez le lien d'une image :</p>
+  <p>Ou entrez le lien d'une image : </p>
   <input type="text" #nouveauFondEcranUrl placeholder="Lien du fond d'écran">
-  <button type="validation"
-    (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter</button>
-   <br>
-    <button type="button" (click)="enregistrerParametres()">Enregistrer</button>
+  <button type="validation" (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter</button>
+  <br>
+  <br>
+  <button type="button" (click)="enregistrerParametres()">Enregistrer</button>
   <button type="button" (click)="reinitialiserParametres()">Réinitialiser</button>
 </div>
