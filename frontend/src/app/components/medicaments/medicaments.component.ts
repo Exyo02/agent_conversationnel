@@ -17,12 +17,12 @@ export class MedicamentsComponent implements OnInit {
   medicaments: any[] = [];
   afficherFormulaire = false;
   estNouveau = true;
-  nouveauMedicament: { nom: string; duree: number | null; quantite: number | null , heurePrise?: string, ordonnance?: string} = {
+  nouveauMedicament: { nom: string; duree: number | null; quantite: number | null , intervallePrise?: string, premierePrise?: Date} = {
     nom: '',
     duree: null,
     quantite: null,
-    heurePrise: '',
-    ordonnance: ''
+    intervallePrise: '',
+    premierePrise: new Date()
   };
 
   constructor(
@@ -42,7 +42,7 @@ export class MedicamentsComponent implements OnInit {
       }
     } else {
       this.estNouveau = true;
-      this.nouveauMedicament = { nom: '', duree: null, quantite: null, heurePrise: '' , ordonnance: ''};
+      this.nouveauMedicament = { nom: '', duree: null, quantite: null, intervallePrise: '' , premierePrise: new Date()};
     }
   }
 
@@ -87,9 +87,9 @@ export class MedicamentsComponent implements OnInit {
     } else {
       this.medicamentsService.modifierMedicament(this.nouveauMedicament.nom, this.nouveauMedicament);
     }
-    if (!this.nouveauMedicament.ordonnance) {
+    if (!this.nouveauMedicament.premierePrise) {
       const mod = this.dialogBox.open(DialogComponent);
-      mod.componentInstance.message = "La date de l'ordonnance est obligatoire.";
+      mod.componentInstance.message = "La date de la première prise est obligatoire.";
       mod.componentInstance.opt1 = "Ok";
       return;
     }
@@ -126,7 +126,7 @@ export class MedicamentsComponent implements OnInit {
   }
 
   reinitialiserFormulaire(): void {
-    this.nouveauMedicament = { nom: '', duree: null, quantite: null, heurePrise: '' , ordonnance: ''};
+    this.nouveauMedicament = { nom: '', duree: null, quantite: null, intervallePrise: '' , premierePrise: new Date()};
     this.estNouveau = true;
   }
 }
