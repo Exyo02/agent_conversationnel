@@ -4,7 +4,8 @@ export interface Medicament {
   nom: string;
   duree: number | null;
   quantite: number | null;
-  heurePrise?: string;
+  intervallePrise?: string;
+  premierePrise?: Date;
 }
 
 @Injectable({
@@ -18,6 +19,10 @@ export class MedicamentsService {
 
   private sauvegarderMedicaments(): void {
     localStorage.setItem(this.storageKey, JSON.stringify(this.medicaments));
+  }
+
+  public clear(){
+    localStorage.clear()
   }
 
   private chargerMedicaments(): { [nom: string]: Medicament } {

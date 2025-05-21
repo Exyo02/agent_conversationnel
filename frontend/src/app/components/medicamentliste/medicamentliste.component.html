@@ -1,6 +1,23 @@
 <div>
   <ul>
-      <article class="liste" *ngFor="let medicament of medicaments" [routerLink]="['/app-medicaments/editer', medicament.nom]">{{medicament.nom}}</article>
+    <table>
+        <thead>
+            <th scope="col">Nom</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prochaine prise</th>
+            <th scope="col">Durée</th>
+            <th scope="col">Intervalle de prise</th>
+        </thead>
+        <tbody>
+            <tr [class]="getLineClass(medicament)" *ngFor="let medicament of medicaments" [routerLink]="['/app-medicaments/editer', medicament.nom]">
+                <td>{{ medicament.nom }}</td>
+                <td>{{ medicament.quantite }} mg</td>
+                <td>{{ medicament.suivant.prochainePrise }}</td>
+                <td>{{ medicament.duree }} jours</td>
+                <td>{{ medicament.intervallePrise }} heures</td>
+            </tr>
+        </tbody>
+    </table>
   </ul>
 
   <button class="add" (click)="ajouterNouveauMedicament()">
@@ -9,5 +26,4 @@
           <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
       </svg>
   </button>
-
 </div>

@@ -1,16 +1,18 @@
 <div>
-  <input type="text" [(ngModel)]="nouveauMedicament.nom" placeholder="Nom du médicament">
+  <label>Nom du médicament :</label>
+  <input type="text" [(ngModel)]="nouveauMedicament.nom" placeholder="Nom">
+  <label>Durée (en jours) :</label>
+  <input type="number" id="duree" [(ngModel)]="nouveauMedicament.duree" placeholder="30" min="1">
+  <label>Quantité par prise (en mg) :</label>
+  <input type="number" id="quantite" [(ngModel)]="nouveauMedicament.quantite" placeholder="500" min="1">
+  
+  <label for="intervallePrise">Intervalle des prises (en heures) :</label>
+  <input type="text" id="intervallePrise" [(ngModel)]="nouveauMedicament.intervallePrise" placeholder="24">
+  <br><br>
+  <label>Date de la première prise</label>
+  <input type="datetime-local" [(ngModel)]="nouveauMedicament.premierePrise">
 
-  <input type="number" id="duree" [(ngModel)]="nouveauMedicament.duree" placeholder="Durée (jours)" min="1">
-
-  <input type="number" id="quantite" [(ngModel)]="nouveauMedicament.quantite" placeholder="Quantité par prise" min="1">
-
-  <label for="heurePrise">Heure de prise (HH:MM) :</label>
-  <input type="time" id="heurePrise" [(ngModel)]="nouveauMedicament.heurePrise">
-
-  <input type="text" id="ordonnance" [(ngModel)]="nouveauMedicament.ordonnance" placeholder="Date de début de l'ordonnance">
-
-  <br>
+  <br><br>
   <input type="button" value="{{ estNouveau ? 'Enregistrer' : 'Mettre à jour' }}" (click)="enregistrer()">
   <input *ngIf="!estNouveau" type="button" value="Supprimer" (click)="supprimer()">
   <input type="button" value="Annuler" (click)="annuler()">
