@@ -63,11 +63,12 @@ export class ParametresComponent implements OnInit {
   }
 
   ajouterFondEcranUrl(url: string): void {
+    console.log('ajouterFondEcranUrl appelée avec url =', url);
     if (url && !this.nouveauxParametres.fondEcran.includes(url)) {
       this.nouveauxParametres.fondEcran.push(url);
       this.nouveauxParametres.fondEcranChoisi = url;
       this.appliquerFondEcran(url);
-      this.enregistrerParametres(); 
+      this.enregistrerParametres();
     }
   }
 
@@ -86,7 +87,7 @@ export class ParametresComponent implements OnInit {
   }
 
   uploadImage(file: File, folder: string): void {
-    console.log(`Téléchargement de ${file.name} vers le dossier ${folder}`);
+    console.log("Téléchargement de ${file.name} vers le dossier ${folder}");
     const reader = new FileReader();
     reader.onload = (e: any) => {
       const imageUrl = e.target.result;
@@ -96,6 +97,7 @@ export class ParametresComponent implements OnInit {
         this.nouveauxParametres.fondEcran.push(imageUrl);
         this.nouveauxParametres.fondEcranChoisi = imageUrl;
         this.appliquerFondEcran(imageUrl);
+        this.enregistrerParametres();
       }
     };
     reader.readAsDataURL(file);
@@ -137,5 +139,6 @@ export class ParametresComponent implements OnInit {
     document.body.style.backgroundImage = url ? `url('${url}')` : '';
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundRepeat = 'no-repeat';
+    console.log('nouveauxParametres après ajout:', this.nouveauxParametres);
   }
 }
