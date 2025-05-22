@@ -1,3 +1,5 @@
+import { AfterViewInit, NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,7 +9,20 @@ import { Component } from '@angular/core';
   templateUrl: './agenda.component.html',
   styleUrl: './agenda.component.css'
 })
-export class AgendaComponent {
-  constructor(){}
-  ngOnInit(){}
+export class AgendaComponent implements AfterViewInit{
+  constructor() {
+  }
+  ngAfterViewInit(): void {
+    window.open('https://calendar.google.com/', '_blank', 'noopener,noreferrer');
+  }
 }
+
+const routes: Routes = [
+  { path: 'google-calendar', component: AgendaComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

@@ -46,9 +46,11 @@
   </ul>
   <p>Ou entrez le lien d'une image : </p>
   <input type="text" #nouveauFondEcranUrl placeholder="Lien du fond d'écran">
-  <button type="validation" (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter</button>
+  <button type="validation"
+    (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter</button>
   <br>
   <br>
-  <button type="button" (click)="enregistrerParametres()">Enregistrer</button>
+  <!--<button type="button" (click)="enregistrerParametres()">Enregistrer</button>
   <button type="button" (click)="reinitialiserParametres()">Réinitialiser</button>
+-->
 </div>
