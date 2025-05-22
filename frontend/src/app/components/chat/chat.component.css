@@ -6,13 +6,25 @@ div.principal {
   border-style: solid;
   flex-grow: 1;
   padding: 10px;
-   box-shadow: 5px 5px 5px grey;
+  box-shadow: 5px 5px 5px grey;
+  overflow-y: scroll;
 }
+
 .chat-messages {
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 300px;
   flex-grow: 1;
   padding: 10px;
 }
+
+.chat-messages::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #003366;
+}
+
 input {
   font-size: large;
 }
