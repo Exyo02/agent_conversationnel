@@ -61,6 +61,7 @@ export class InfosComponent implements OnInit{
               let result:string = desc?.value[0].message.content;
               result=result.substring(result.indexOf("{"),result.lastIndexOf("}")+1);
               if(this.nbAffichage[nbRefresh]){
+                this.botService.addReponse(result);
                 let result_parse = JSON.parse(result);
                 if(infosCategorie.num==2 && !this.containsTitle(result_parse.nom,true)){
                   this.loisirsList.push(result_parse);

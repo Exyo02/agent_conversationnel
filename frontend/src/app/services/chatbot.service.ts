@@ -8,6 +8,18 @@ import { Observable } from 'rxjs';
 export class ChatbotService implements OnInit {
   private apiURL = 'https://api.mistral.ai/v1/chat/completions';
   private apiKey = 'E0fGoSyjsWkSv8ZyVoZsSigcaRAA73sa';
+  private messages:Array<any> = [
+    {role:'system',content:
+      "Les utilisateurs ont 60 ans ou plus et vivent à Grenoble"+", nous sommes le "+new Date(Date.now()).toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })
+      +".  Si tu reçois un message contenant la chaine renvoi une chaine:"+
+      +"- soit 'accueil' => '/'"
+      +"- soit 'contacts' => 'app-contacts'"
+      +"- soit 'rappels' => 'app-todolist'"
+      +"- soit 'médicaments' => 'app-medicaments'"
+      +"- soit 'agenda' => 'app-agenda'"
+      +"- soit 'actualités' ou 'informations' => 'app-infos'"
+      +"Si on te demande d'ajouter un rappel => 'add-list' et comprenant titre nommé title + contenu nommé content sous format json"}
+  ];
 
   private demandeActus = "Inventes 1 actualité provenant d'un journal sous format json comprenant titre nommé title + description courte nommé short_description, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
   private demandeSolutionsDomestique ="Inventes 1 technique pour éviter les risques domestiques sous format json comprenant titre nommé title + description courte nommé short_description, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
@@ -24,15 +36,19 @@ export class ChatbotService implements OnInit {
       'Authorization': `Bearer ${this.apiKey}`,
       'Content-Type': 'application/json'
     });
+    this.messages.push({role:'user',content:message});
     const body = {
       model: 'mistral-medium',
-      messages: [
-        { role: 'user', content: message }
-      ],
+      messages: this.messages,
       temperature: 0.7
     };
-
+    //console.log(this.messages[0].content)
+    
     return this.http.post(this.apiURL, body,{headers:header});
+  }
+
+  addReponse(rep:string){
+    this.messages.push({role:'assistant',content:rep});
   }
 
   getDemandeInfos(categorieCourante:number){
