@@ -10,10 +10,17 @@ interface Message {
   content: string;
   timestamp: Date;
 }
+interface Message {
+  channelId: string;
+  user: string;
+  content: string;
+  timestamp: Date;
+}
 
 @Component({
   standalone: true,
   selector: 'app-communaute',
+  imports: [MessageComponent],
   templateUrl: './communaute.component.html',
   styleUrls: ['./communaute.component.css'],
   imports: [CommonModule, FormsModule]
@@ -70,7 +77,7 @@ export class CommunauteComponent implements OnInit, OnDestroy {
   envoyerMessage() {
     if (this.currentMessage.trim() !== "") {
       this.ajouterMessage('Vous', this.currentMessage);
-      this.currentMessage = ""; 
+      this.currentMessage = "";
     }
   }
 

@@ -13,6 +13,7 @@ import { SortiesListeComponent } from "./components/sortiesliste/sortiesliste.co
 import { ChatComponent } from "./components/chat/chat.component";
 import { ContactsComponent } from "./components/contacts/contacts.component";
 import { CommunauteComponent } from "./components/communaute/communaute.component";
+import { MessageComponent } from "./components/message/message.component";
 
 export const routes: Routes=[
     {path:'', component:AccueilComponent},
