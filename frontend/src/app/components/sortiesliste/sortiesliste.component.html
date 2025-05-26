@@ -1,6 +1,6 @@
 <div>
   <ul>
-      <article class="liste" *ngFor="let sortie of sorties" [routerLink]="['/app-sorties/editer', sortie.nom]">{{sortie.nom}}</article>
+      <article class="liste" *ngFor="let sortie of sorties" [routerLink]="['/app-sorties/editer', sortie.title]">{{sortie.title}}</article>
   </ul>
 
   <button class="add" (click)="ajouterNouvelleSortie()">

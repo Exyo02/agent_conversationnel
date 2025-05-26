@@ -16,10 +16,16 @@ export class InfosComponent implements OnInit{
   isDarkMode: boolean = false;
   parametresSubscription: Subscription | undefined;
   infosList:Array<any>=[];
-  loisirsList:Array<any>=[];
   nbAffichage:Array<boolean>=[true];
   nbArticle = 5;
   numCategorie = -1;
+  nomsCategories =[
+    {nom: "Actualités", num: 0},
+    {nom: "Aménagements", num: 1},
+    {nom: "Loisirs", num: 2},
+    {nom: "Alimentation", num: 3},
+    {nom: "Aides", num: 4}
+  ];
 
   constructor(
     private botService:ChatbotService,
@@ -45,13 +51,17 @@ export class InfosComponent implements OnInit{
     }
   }
 
+  catNom(num:number){
+    return "categorie"+num;
+  }
+
   participerSortie(loisir:any){
     this.sortieService.ajouterSortie(loisir);
   }
 
   async ajoutArticle(nbRefresh:number){
     await delayPerso(1000);
-    if((this.infosList.length+this.loisirsList.length)<this.nbArticle){
+    if(this.infosList.length<this.nbArticle){
       try{
         let infosCategorie = this.botService.getDemandeInfos(this.numCategorie)
         this.botService.envoi(infosCategorie.demande).subscribe(
@@ -63,11 +73,11 @@ export class InfosComponent implements OnInit{
               if(this.nbAffichage[nbRefresh]){
                 this.botService.addReponse(result);
                 let result_parse = JSON.parse(result);
-                if(infosCategorie.num==2 && !this.containsTitle(result_parse.nom,true)){
-                  this.loisirsList.push(result_parse);
-                }else if(!this.containsTitle(result_parse.title,false)){
+                result_parse.numCategorie = infosCategorie.num;
+                if(!this.containsTitle(result_parse.title,result_parse.numCategorie)){
                   this.infosList.push(result_parse);
                 }
+                
                 this.ajoutArticle(nbRefresh);
               }
               return;
@@ -89,22 +99,14 @@ export class InfosComponent implements OnInit{
     }
   }
 
-  containsTitle(title:string,loisir:boolean){
+  containsTitle(title:string, num:number/*,loisir:boolean*/){
     let i = 0, find = false;
-    if(loisir){
-      while(i<this.loisirsList.length && !find){
-        if(this.loisirsList[i].nom == title){
-          find = true;
-        }
-        i++;
+
+    while(i<this.infosList.length && !find){
+      if(this.infosList[i].title == title){
+        find = true;
       }
-    }else{
-      while(i<this.infosList.length && !find){
-        if(this.infosList[i].title == title){
-          find = true;
-        }
-        i++;
-      }
+      i++;
     }
 
     return find;
@@ -117,7 +119,6 @@ export class InfosComponent implements OnInit{
     this.numCategorie = categorie;
     document.getElementById("categorie"+this.numCategorie)?.classList.add(this.isDarkMode?"use-nuit":"use-jour");
     this.infosList = [];
-    this.loisirsList = [];
     this.ajoutArticle(this.nbAffichage.length-1);
   }
 

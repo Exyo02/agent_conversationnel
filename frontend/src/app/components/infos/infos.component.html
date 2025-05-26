@@ -1,22 +1,15 @@
 <div [class]="getFNClass()">
   <article *ngFor="let info of infosList">
       <a href="http://google.fr"><h1>{{ info.title }}</h1></a>
-      <p>{{ info.short_description }}</p>
-  </article>
-  <article *ngFor="let loisir of loisirsList">
-      <a href="http://google.fr"><h1>{{ loisir.nom }}</h1></a>
-      <p>{{ loisir.date }} - {{ loisir.heureDebut }}</p>
-      <div class="horizontal">
-          <p>À {{ loisir.adresse }}</p>
-          <button class="ajout-loisir" (click)="participerSortie(loisir)">Participer</button>
+      <p *ngIf="info.numCategorie != 2">{{ info.short_description }}</p>
+      <p *ngIf="info.numCategorie == 2">{{ info.date }} - {{ info.heureDebut }}</p>
+      <div class="horizontal" *ngIf="info.numCategorie == 2">
+          <p>À {{ info.adresse }}</p>
+          <button class="ajout-loisir" (click)="participerSortie(info)">Participer</button>
       </div>
   </article>
 </div>
 <div class="infosNav">
   <button id="categorie-1" [class]="getCategorieClass(true)" (click)="changeCategorie(-1)">Toutes</button>
-  <button id="categorie0" [class]="getCategorieClass(false)" (click)="changeCategorie(0)">Informations</button>
-  <button id="categorie1" [class]="getCategorieClass(false)" (click)="changeCategorie(1)">Aménagements</button>
-  <button id="categorie2" [class]="getCategorieClass(false)" (click)="changeCategorie(2)">Loisirs</button>
-  <button id="categorie3" [class]="getCategorieClass(false)" (click)="changeCategorie(3)">Alimentation</button>
-  <button id="categorie4" [class]="getCategorieClass(false)" (click)="changeCategorie(4)">Aides</button>
+  <button *ngFor="let cat of nomsCategories" [id]="catNom(cat.num)" [class]="getCategorieClass(false)" (click)="changeCategorie(cat.num)">{{ cat.nom }}</button>
 </div>

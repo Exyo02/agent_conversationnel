@@ -34,7 +34,7 @@ export class SortiesListeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/app-sorties/ajouter']);
   }
 
-  modifierSortie(nom: string): void {
-    this.router.navigate(['/app-sorties/editer', nom]);
+  modifierSortie(title: string): void {
+    this.router.navigate(['/app-sorties/editer', title]);
   }
 }

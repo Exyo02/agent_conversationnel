@@ -23,9 +23,9 @@ export class ChatbotService implements OnInit {
 
   private demandeActus = "Inventes 1 actualité provenant d'un journal sous format json comprenant titre nommé title + description courte nommé short_description, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
   private demandeSolutionsDomestique = "Inventes 1 technique pour éviter les risques domestiques sous format json comprenant titre nommé title + description courte nommé short_description, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
-  private demandeLoisirs = "Inventes 1 activité extérieur sous format json comprenant titre nommé nom + adresse nommé adresse + date nommé date sous la forme aaaa-mm-jj + heure nommé heureDebut sous la forme hh:mm, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
-  private demandeAlimentation = "Inventes 1 conseil sur l'alimentation ou sur l'hydratation sous format json comprenant titre nommé nom + adresse nommé adresse + date nommé date sous la forme aaaa-mm-jj, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
-   private demandeAides = "Inventes 1 aide financière pour la retraite sous format json comprenant titre nommé nom + adresse nommé adresse + date nommé date sous la forme aaaa-mm-jj, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
+  private demandeLoisirs = "Inventes 1 activité extérieur sous format json comprenant titre nommé title + adresse nommé adresse + date nommé date sous la forme aaaa-mm-jj + heure nommé heureDebut sous la forme hh:mm, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
+  private demandeAlimentation = "Inventes 1 conseil sur l'alimentation ou sur l'hydratation sous format json comprenant titre nommé title + description courte nommé short_description, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
+   private demandeAides = "Inventes 1 aide financière pour la retraite sous format json comprenant titre nommé title + description courte nommé short_description, sois inventif, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
