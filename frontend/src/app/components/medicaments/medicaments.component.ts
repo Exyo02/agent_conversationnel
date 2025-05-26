@@ -15,7 +15,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MedicamentsComponent implements OnInit {
   medicaments: any[] = [];
-  afficherFormulaire = false;
   estNouveau = true;
   nouveauMedicament: { nom: string; duree: number | null; quantite: number | null , intervallePrise?: string, premierePrise?: Date} = {
     nom: '',
@@ -44,16 +43,6 @@ export class MedicamentsComponent implements OnInit {
       this.estNouveau = true;
       this.nouveauMedicament = { nom: '', duree: null, quantite: null, intervallePrise: '' , premierePrise: new Date()};
     }
-  }
-
-  chargerMedicaments(): void {
-    this.medicaments = this.medicamentsService.getAllMedicaments();
-  }
-
-  ajouterNouveauMedicament(): void {
-    this.afficherFormulaire = true;
-    this.estNouveau = true;
-    this.reinitialiserFormulaire();
   }
 
   modifierMedicament(nom: string): void {
@@ -93,8 +82,6 @@ export class MedicamentsComponent implements OnInit {
       mod.componentInstance.opt1 = "Ok";
       return;
     }
-    this.afficherFormulaire = false;
-    this.chargerMedicaments();
   }
 
   supprimer(): void {
@@ -106,8 +93,7 @@ export class MedicamentsComponent implements OnInit {
       mod.result.then(result=>{
         if(result){
           this.medicamentsService.supprimerMedicament(this.nouveauMedicament.nom);
-          this.afficherFormulaire = false;
-          this.chargerMedicaments();
+          this.router.navigate(["/app-medicaments"]);
         }
       })
     }
