@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Parametres, ParametresService } from '../../services/parametres.service';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -16,9 +17,13 @@ export class ParametresComponent implements OnInit {
   afficherFormulaire = false;
   nouveauxParametres!: Parametres;
   availableFonts: string[] = ['Roboto, sans-serif', 'Open Sans, sans-serif', 'Didot, serif', 'American Typewriter, serif',
-     'Montserrat, sans-serif', 'Trebuchet MS, sans-serif', 'Gill Sans, sans-serif', 'Optima, sans-serif'];
+    'Montserrat, sans-serif', 'Trebuchet MS, sans-serif', 'Gill Sans, sans-serif', 'Optima, sans-serif'];
+  uploadProgress = 0;
+  uploadResponse: any;
+  uploadError: string = '';
+  serverUrl = 'http://localhost:4200';
 
-  constructor(private parametresService: ParametresService) { }
+  constructor(private parametresService: ParametresService, private http: HttpClient) { }
 
   ngOnInit(): void {
     const existingParams = this.parametresService.chargerParametres();
@@ -102,7 +107,41 @@ export class ParametresComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
+  uploadFile(file: File, folder: string): void {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folder', folder); // Vous pouvez envoyer le dossier au serveur si nécessaire
 
+    this.http.post(this.serverUrl, formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe({
+      next: (event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.uploadProgress = Math.round((100 * event.loaded) / (event.total || 100));
+        } else if (event instanceof HttpResponse) {
+          this.uploadResponse = event.body;
+          this.uploadError = '';
+          this.uploadProgress = 0;
+          if (folder === 'bot-photos' && this.uploadResponse?.filename) {
+            this.nouveauxParametres.listePhotoBot.push(`/uploads/${this.uploadResponse.filename}`);
+          } else if (folder === 'fond-ecran' && this.uploadResponse?.filename) {
+            this.nouveauxParametres.fondEcran.push(`/uploads/${this.uploadResponse.filename}`);
+            this.nouveauxParametres.fondEcranChoisi = `/uploads/${this.uploadResponse.filename}`;
+            this.appliquerFondEcran(this.nouveauxParametres.fondEcranChoisi);
+          }
+          this.enregistrerParametres();
+          console.log('Réponse du serveur:', this.uploadResponse);
+        }
+      },
+      error: (error) => {
+        this.uploadError = 'Erreur lors du téléchargement du fichier.';
+        console.error('Erreur de téléchargement:', error);
+        this.uploadProgress = 0;
+        this.uploadResponse = null;
+      }
+    });
+  }
   choisirFondEcran(fondEcran: string): void {
     this.nouveauxParametres.fondEcranChoisi = fondEcran;
     this.appliquerFondEcran(fondEcran);
@@ -139,6 +178,5 @@ export class ParametresComponent implements OnInit {
     document.body.style.backgroundImage = url ? `url('${url}')` : '';
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundRepeat = 'no-repeat';
-    console.log('nouveauxParametres après ajout:', this.nouveauxParametres);
   }
 }

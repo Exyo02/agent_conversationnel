@@ -1,5 +1,4 @@
 <div>
-
   <p>Mode Nuit :
     <button type="validation" (click)="toggleThemeNuitJour()">
       {{ nouveauxParametres.themeNuitJour ? 'Activé' : 'Désactivé' }}
@@ -27,29 +26,35 @@
   <ul>
     <li *ngFor="let photoUrl of nouveauxParametres.listePhotoBot; let i = index">
       <img [src]="photoUrl" alt="Photo du bot" width="50">
-      <button type="validation" (click)="supprimerPhotoBot(i)">Supprimer</button>
+      <button type="button" (click)="supprimerPhotoBot(i)">Supprimer</button>
     </li>
   </ul>
   <p>Ou entrez le lien d'une image :</p>
   <input type="text" #nouvellePhotoUrl placeholder="Lien de l'image">
-  <button type="validation"
+  <button type="button"
     (click)="ajouterPhotoBotUrl(nouvellePhotoUrl.value); nouvellePhotoUrl.value = ''">Ajouter</button>
   <br>
   <p>Choisissez votre photo pour le fond d'écran :
     <input type="file" accept="image/*" (change)="telechargerFondEcran($event)">
-  </p>
+  <div *ngIf="uploadProgress > 0">Téléchargement: {{ uploadProgress }}%</div>
+  <div *ngIf="uploadResponse">{{ uploadResponse | json }}</div>
+  <div *ngIf="uploadError" style="color: red;">{{ uploadError }}</div>
   <ul>
     <li *ngFor="let fondUrl of nouveauxParametres.fondEcran; let i = index">
       <img [src]="fondUrl" alt="Photo du fond d'écran" width="50">
-      <button type="validation" (click)="supprimerFondEcran(i)">Supprimer</button>
+      <button type="button" (click)="supprimerFondEcran(i)">Supprimer</button>
     </li>
   </ul>
   <p>Ou entrez le lien d'une image : </p>
   <input type="text" #nouveauFondEcranUrl placeholder="Lien du fond d'écran">
-  <button type="validation" (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter</button>
+  <button type="button"
+    (click)="ajouterFondEcranUrl(nouveauFondEcranUrl.value); nouveauFondEcranUrl.value = ''">Ajouter</button>
   <br>
-  <br>
-  <!--<button type="button" (click)="enregistrerParametres()">Enregistrer</button>
+  <div *ngIf="nouveauxParametres.fondEcranChoisi">
+    Fond d'écran actuel : <img [src]="nouveauxParametres.fondEcranChoisi" alt="Fond d'écran choisi" width="100">
+
+    <br>
+    <!--<button type="button" (click)="enregistrerParametres()">Enregistrer</button>
   <button type="button" (click)="reinitialiserParametres()">Réinitialiser</button>
 -->
-</div>
+  </div>

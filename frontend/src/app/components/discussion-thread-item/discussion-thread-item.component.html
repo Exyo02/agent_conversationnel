@@ -1,0 +1,9 @@
+<div class="discussion-thread-item">
+  <h3>{{ thread.title }}</h3>
+  <p *ngIf="thread.description">{{ thread.description }}</p>
+  <p>Membres: {{ thread.memberCount }}</p>
+
+  <button *ngIf="!thread.isMember" (click)="onJoin()">Rejoindre</button>
+  <button *ngIf="thread.isMember" (click)="onLeave()">Quitter</button>
+  <button (click)="onMask()">{{ thread.isMasked ? 'Afficher' : 'Masquer' }}</button>
+</div>
