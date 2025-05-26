@@ -19,7 +19,7 @@ export class Sorties implements OnInit {
   sorties: Sortie[] = [];
   estNouvelle = true;
   nouvelleSortie: Sortie = {
-    nom: '',
+    title: '',
     date: null,
     heureDebut: '',
     adresse: ''
@@ -33,7 +33,7 @@ export class Sorties implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const nomParam = this.route.snapshot.paramMap.get('nom');
+    const nomParam = this.route.snapshot.paramMap.get('title');
     if (nomParam) {
       this.estNouvelle = false;
       const sortieExistante = this.SortiesService.chargerSortie(nomParam);
@@ -42,18 +42,18 @@ export class Sorties implements OnInit {
       }
     } else {
       this.estNouvelle = true;
-      this.nouvelleSortie = { nom: '', date: null, heureDebut: '' };
+      this.nouvelleSortie = { title: '', date: null, heureDebut: '' };
     }
   }
 
-  modifierSortie(nom: string): void {
-    this.router.navigate(['/app-sorties', { nom: nom }]);
+  modifierSortie(title: string): void {
+    this.router.navigate(['/app-sorties', { title: title }]);
   }
 
   enregistrer(): void {
-    if (!this.nouvelleSortie.nom) {
+    if (!this.nouvelleSortie.title) {
       const mod = this.dialogBox.open(DialogComponent);
-      mod.componentInstance.message = 'Le nom de la sortie est obligatoire.';
+      mod.componentInstance.message = 'Le titre de la sortie est obligatoire.';
       mod.componentInstance.opt1 = "Ok";
       return;
     }
@@ -69,14 +69,14 @@ export class Sorties implements OnInit {
   }
 
   supprimer(): void {
-    if (this.nouvelleSortie.nom) {
+    if (this.nouvelleSortie.title) {
       const mod = this.dialogBox.open(DialogComponent);
-      mod.componentInstance.message = `Êtes-vous sûr de vouloir supprimer ${this.nouvelleSortie.nom} ?`;
+      mod.componentInstance.message = `Êtes-vous sûr de vouloir supprimer ${this.nouvelleSortie.title} ?`;
       mod.componentInstance.opt1 = "Oui";
       mod.componentInstance.opt2 = "Non";
       mod.result.then(result=>{
         if(result){
-          this.SortiesService.supprimerSortie(this.nouvelleSortie.nom);
+          this.SortiesService.supprimerSortie(this.nouvelleSortie.title);
           this.router.navigate(["/app-sorties"]);
         }
       })
@@ -96,7 +96,7 @@ export class Sorties implements OnInit {
   }
 
   reinitialiserFormulaire(): void {
-    this.nouvelleSortie = { nom: '', date: null, heureDebut: '', adresse: '' };
+    this.nouvelleSortie = { title: '', date: null, heureDebut: '', adresse: '' };
     this.estNouvelle = true;
   }
 }

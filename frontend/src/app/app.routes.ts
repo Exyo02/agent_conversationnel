@@ -28,7 +28,7 @@ export const routes: Routes=[
     {path: 'app-contacts', component:ContactsComponent},
     {path: 'app-sorties', component:SortiesListeComponent},
     {path: 'app-sorties/ajouter', component:Sorties},
-    {path: 'app-sorties/editer/:nom', component:Sorties},
+    {path: 'app-sorties/editer/:title', component:Sorties},
     {path: 'app-parametres',component:ParametresComponent},
     {path: 'app-chat',component:ChatComponent}
 ];
