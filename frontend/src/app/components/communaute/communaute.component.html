@@ -1,6 +1,24 @@
-<div>
-  <button (click)="onCreateNewThread()">Créer</button>
-  <button onclick="onJoinThread($event)">Rejoindre</button>
-  <button onclick="onMaskThread($event)">Masquer</button>
-  <button onclick="onLeaveThread($event)">Quitter</button>
+<div class="fn">
+  <section id="afficheConversation" [class]="getDiscussionClass()" [style.visibility]="messages.length > 0 ? 'visible' : 'hidden'">
+    <section class="discussion" #discussionContainer>
+      <div *ngFor="let message of messages" [ngClass]="{'message-perso': message.sender === 'Vous', 'message-autre': message.sender !== 'Vous'}">
+        <p [class]="getPClass()">
+          <strong>{{ message.sender }} </strong> <span class="text-muted">({{ message.timestamp | date:'HH:mm' }})</span><br>
+          {{ message.content }}
+        </p>
+      </div>
+    </section>
+    <section class="actions">
+      <div class="input-group">
+        <input type="text" class="form-control" id="currentMessage"[(ngModel)]="currentMessage" (keyup.enter)="envoyerMessage()">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" id="envoyer" (click)="envoyerMessage()">Envoyer</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="conversation">
+    <button class="btn btn-primary" (click)="rejoindreConversation()">Rejoindre la Conversation</button>
+  </section>
 </div>

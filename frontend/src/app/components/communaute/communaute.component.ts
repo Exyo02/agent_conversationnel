@@ -1,53 +1,86 @@
-import { Component } from '@angular/core';
-import { CommunauteService } from '../../services/communaute.service';
-import { DiscussionThread } from '../../discussion-thread';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ParametresService } from '../../services/parametres.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+interface Message {
+  sender: string;
+  content: string;
+  timestamp: Date;
+}
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-communaute',
-  imports: [],
   templateUrl: './communaute.component.html',
-  styleUrl: './communaute.component.css'
+  styleUrls: ['./communaute.component.css'],
+  imports: [CommonModule, FormsModule]
 })
+export class CommunauteComponent implements OnInit, OnDestroy {
+  isDarkMode: boolean = false;
+  parametresSubscription: Subscription | undefined;
+  currentMessage: string = "";
+  messages: Message[] = [];
+  @ViewChild('discussionContainer') private discussionContainer!: ElementRef;
 
-export class CommunauteComponent {
-  discussionThreads: DiscussionThread[] = [];
-
-  constructor(private communauteService: CommunauteService) { }
+  constructor(
+    private dialogBox: NgbModal,
+    private parametresService: ParametresService
+  ) { }
 
   ngOnInit(): void {
-    this.loadDiscussionThreads();
+    this.chargerEtatTheme();
+    this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
+      if (params && params.themeNuitJour !== undefined) {
+        this.isDarkMode = params.themeNuitJour;
+      }
+    });
   }
 
-  loadDiscussionThreads(): void {
-    this.communauteService.getDiscussionThreads().subscribe(
-      threads => this.discussionThreads = threads,
-      error => console.error('Erreur lors du chargement des fils de discussion:', error)
-    );
+  ngOnDestroy(): void {
+    if (this.parametresSubscription) {
+      this.parametresSubscription.unsubscribe();
+    }
   }
 
-  onJoinThread(threadId: string): void {
-    this.communauteService.joinThread(threadId).subscribe(
-      () => this.loadDiscussionThreads(),
-      error => console.error('Erreur lors de la tentative de rejoindre le fil:', error)
-    );
+  rejoindreConversation() {
+    document.getElementById("afficheConversation")!.style.visibility = "visible";
+    this.messages = [];
+    this.currentMessage = "";
+    this.ajouterMessage('Système', 'Bonjour !');
   }
 
-  onMaskThread(threadId: string): void {
-    this.communauteService.maskThread(threadId).subscribe(
-      () => this.loadDiscussionThreads(),
-      error => console.error('Erreur lors de la tentative de masquer le fil:', error)
-    );
+  chargerEtatTheme(): void {
+    const params = this.parametresService.chargerParametres();
+    if (params && params.themeNuitJour !== undefined) {
+      this.isDarkMode = params.themeNuitJour;
+    }
   }
 
-  onLeaveThread(threadId: string): void {
-    this.communauteService.leaveThread(threadId).subscribe(
-      () => this.loadDiscussionThreads(),
-      error => console.error('Erreur lors de la tentative de quitter le fil:', error)
-    );
+  getPClass() {
+    return this.isDarkMode ? 'p-nuit' : 'p-jour';
   }
-  onCreateNewThread(): void {
-    console.log('Bouton Créer une nouvelle discussion cliqué !');
-   // this.dialog.open(CreateThreadDialogComponent);
+
+  getDiscussionClass() {
+    return this.isDarkMode ? 'discussion discussion-nuit' : 'discussion discussion-jour';
+  }
+
+  envoyerMessage() {
+    if (this.currentMessage.trim() !== "") {
+      this.ajouterMessage('Vous', this.currentMessage);
+      this.currentMessage = ""; 
+    }
+  }
+
+  ajouterMessage(sender: string, content: string) {
+    this.messages.push({ sender: sender, content: content, timestamp: new Date() });
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.discussionContainer.nativeElement.scrollTop = this.discussionContainer.nativeElement.scrollHeight;
+    } catch(err) { }
   }
 }

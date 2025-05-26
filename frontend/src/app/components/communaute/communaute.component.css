@@ -1,17 +1,124 @@
-div{
-  background-color: rgba(255, 255,255, 0.5);
+.fn {
+  background-color: rgba(255, 255, 255, 0.5);
   height: 100%;
   width: 60%;
   margin-left: 30%;
   border-width: 1px;
   border-color: black;
-  border-style:solid;
-  padding-left: 20px;
-  padding-right: 20px;
+  border-style: solid;
+  display: flex;
 }
-label{
-  background-color: white;
-  border: 1px black;
-  padding: 10px 10px 10px 10px;
-  margin: 10px;
+
+.conversation {
+  height: 100%;
+  width: 30%;
+}
+
+.discussion {
+  height: auto;
+  flex-grow: 1;
+}
+
+section[class="actions"] {
+  text-align: center;
+  margin-bottom: 1%;
+}
+
+.discussion::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+#afficheConversation {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 3%;
+  padding: 1%;
+  height: 80%;
+  width: 50%;
+  border-color: black;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-primary {
+  background-color: red;
+  color: white;
+  box-shadow: 3px 3px 3px grey;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
+.btn-primary::hover {
+  background-color: orange;
+  color: black;
+  box-shadow: 3px 3px 3px grey;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
+.btn-secondary {
+  background-color: red;
+  color: white;
+  box-shadow: 3px 3px 3px grey;
+}
+
+#envoyer {
+  border-radius: 0px 10px 10px 0px;
+  border-color: black;
+  border-width: 1px;
+}
+
+#currentMessage {
+  border-radius: 10px 0px 0px 10px;
+  border-color: black;
+  border-width: 1px;
+  box-shadow: 3px 3px 3px grey;
+}
+
+p {
+  color: black;
+  border-radius: 10px;
+  width: 100%;
+  font-weight: 500;
+  word-break: break-all;
+  padding: 10px;
+}
+
+/*Jour*/
+.p-jour {
+  background-color: #608cd4;
+  box-shadow: 3px 3px 3px grey;
+}
+
+.discussion-jour::-webkit-scrollbar-thumb {
+  background-color: #608cd4;
+}
+
+/*Nuit*/
+.p-nuit {
+  background-color: #003366;
+  box-shadow: 3px 3px 3px grey;
+}
+
+.discussion-nuit::-webkit-scrollbar-thumb {
+  background-color: #003366;
+}
+
+.message-perso {
+  padding: 8px;
+  margin-left: 10px;
+  border-radius: 5px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.message-autre {
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  text-align: left;
+  padding-left: 10px;
 }

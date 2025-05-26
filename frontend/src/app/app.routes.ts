@@ -13,8 +13,6 @@ import { SortiesListeComponent } from "./components/sortiesliste/sortiesliste.co
 import { ChatComponent } from "./components/chat/chat.component";
 import { ContactsComponent } from "./components/contacts/contacts.component";
 import { CommunauteComponent } from "./components/communaute/communaute.component";
-import { DiscussionThreadItemComponent } from "./components/discussion-thread-item/discussion-thread-item.component";
-import { DiscussionThreadListComponent } from "./components/discussion-thread-list/discussion-thread-list.component";
 
 export const routes: Routes=[
     {path:'', component:AccueilComponent},
@@ -35,6 +33,4 @@ export const routes: Routes=[
     {path: 'app-parametres',component:ParametresComponent},
     {path: 'app-chat',component:ChatComponent},
     {path: 'app-communaute', component:CommunauteComponent},
-{path :'app-discussion-thread-item', component:DiscussionThreadItemComponent},
-{path:'app-discussion-thread-list', component:DiscussionThreadListComponent},
 ];
