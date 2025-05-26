@@ -17,7 +17,6 @@ import { DialogComponent } from '../../dialog/dialog.component';
 
 export class Sorties implements OnInit {
   sorties: Sortie[] = [];
-  afficherFormulaire = false;
   estNouvelle = true;
   nouvelleSortie: Sortie = {
     nom: '',
@@ -47,16 +46,6 @@ export class Sorties implements OnInit {
     }
   }
 
-  chargerSorties(): void {
-    this.sorties = this.SortiesService.getAllSorties();
-  }
-
-  ajouterNouvelleSortie(): void {
-    this.afficherFormulaire = true;
-    this.estNouvelle = true;
-    this.reinitialiserFormulaire();
-  }
-
   modifierSortie(nom: string): void {
     this.router.navigate(['/app-sorties', { nom: nom }]);
   }
@@ -77,8 +66,6 @@ export class Sorties implements OnInit {
     }
 
     this.SortiesService.ajouterSortie(this.nouvelleSortie);
-    this.afficherFormulaire = false;
-    this.chargerSorties();
   }
 
   supprimer(): void {
@@ -90,8 +77,7 @@ export class Sorties implements OnInit {
       mod.result.then(result=>{
         if(result){
           this.SortiesService.supprimerSortie(this.nouvelleSortie.nom);
-          this.afficherFormulaire = false;
-          this.chargerSorties();
+          this.router.navigate(["/app-sorties"]);
         }
       })
     }
