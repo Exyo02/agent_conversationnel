@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { ChatbotService } from '../../services/chatbot.service';
 import { Router } from '@angular/router';
 import { ListesService } from '../../services/listes.service';
+import { ReconnaissanceVocaleService } from '../../services/reconnaissance-vocale.service';
+import { OnInit } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -11,15 +13,49 @@ import { ListesService } from '../../services/listes.service';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
   currentText = '';
   userText='';
   botAnswer='';
+  ecouteEnCours:boolean;
   
   constructor(
     private service:ChatbotService,
     private router:Router,
-    private listService:ListesService){}
+    private listService:ListesService,
+    private recVocaleService:ReconnaissanceVocaleService){
+      this.ecouteEnCours = false;
+    }
+
+    ngOnInit(): void {
+      document.getElementById("saisie")?.addEventListener("keydown",(key)=>{
+        if (key.key == "Enter"){
+          this.envoyer()
+        }else if (key.key == "Control"){
+          this.ecoute();
+        }
+      })
+    }
+
+  ecoute(){
+    if(this.ecouteEnCours){
+      this.ecouteEnCours = false;
+      this.recVocaleService.stop();
+    } else {
+      this.ecouteEnCours = true;
+      this.recVocaleService.start().then(
+        (result:string)=>{
+          this.currentText = result;
+          this.ecouteEnCours = false;
+          this.envoyer();
+        },
+        (error:string)=>{
+          this.ecouteEnCours = false;
+          console.log(error);
+        }
+      )
+    }
+  }
 
   envoyer(){
     this.service.envoi(this.currentText).subscribe(
@@ -64,8 +100,9 @@ export class ChatComponent {
       this.userText = this.currentText;
     }
     this.currentText = "";
-    
-    
   }
   
+  getRecVocClass(){
+    return this.ecouteEnCours?"rec-voc-en-cours":"rec-voc";
+  }
 }
