@@ -6,8 +6,9 @@
       <div id="bot-text">{{ botAnswer }}</div>
     </div>
   </div>
-  <div class="input">
-    <input type="text" [(ngModel)]="currentText">
+  <input id="saisie" type="text" [(ngModel)]="currentText" placeholder="Appuyez sur Ctrl pour parler">
+  <div class="buttons">
     <input type="button" value="Demander" (click)="envoyer()">
+    <input [id]="getRecVocClass()" type="button" value="Parler" (click)="ecoute()">
   </div>
 </div>

@@ -55,23 +55,24 @@ input {
   box-shadow: 5px 5px 5px grey;
 }
 
-.input {
+.buttons {
   margin: 10px;
-
+  text-align: center;
 }
 
 input[type=text] {
-  width: 60%;
+  width: 100%;
   padding: 5px;
 }
 
 input[type=button] {
   background-color: red;
+  width: 40%;
   color: white;
   border: none;
-  padding: 5px;
+  padding: 5px 15px;
   box-shadow: 5px 5px 5px grey;
-  border-radius: 0px 30px 30px 0px;
+  border-radius: 30px 0px 0px 30px;
 }
 
 input[type=button]:hover {
@@ -83,4 +84,15 @@ input[type=button]:hover {
   background-size: cover;
   width: 30px;
   height: 30px;
+}
+
+#rec-voc{
+  border-radius: 0px 30px 30px 0px;
+  margin-left: 10px;
+}
+
+#rec-voc-en-cours{
+  border-radius: 0px 30px 30px 0px;
+  margin-left: 10px;
+  background-color: #00abab;
 }
