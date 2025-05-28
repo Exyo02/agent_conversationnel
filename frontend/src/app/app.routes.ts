@@ -12,6 +12,8 @@ import { MedicamentsListComponent } from "./components/medicamentliste/medicamen
 import { SortiesListeComponent } from "./components/sortiesliste/sortiesliste.component";
 import { ChatComponent } from "./components/chat/chat.component";
 import { ContactsComponent } from "./components/contacts/contacts.component";
+import { CommunauteComponent } from "./components/communaute/communaute.component";
+import { MessageComponent } from "./components/message/message.component";
 
 export const routes: Routes=[
     {path:'', component:AccueilComponent},
@@ -30,5 +32,6 @@ export const routes: Routes=[
     {path: 'app-sorties/ajouter', component:Sorties},
     {path: 'app-sorties/editer/:title', component:Sorties},
     {path: 'app-parametres',component:ParametresComponent},
-    {path: 'app-chat',component:ChatComponent}
+    {path: 'app-chat',component:ChatComponent},
+    {path: 'app-communaute', component:CommunauteComponent},
 ];
