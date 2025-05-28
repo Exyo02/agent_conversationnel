@@ -34,4 +34,5 @@ export const routes: Routes=[
     {path: 'app-parametres',component:ParametresComponent},
     {path: 'app-chat',component:ChatComponent},
     {path: 'app-communaute', component:CommunauteComponent},
+    {path: 'app-message',component:MessageComponent}
 ];

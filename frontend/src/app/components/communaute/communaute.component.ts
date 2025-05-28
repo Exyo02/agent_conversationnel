@@ -20,10 +20,9 @@ interface Message {
 @Component({
   standalone: true,
   selector: 'app-communaute',
-  imports: [MessageComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './communaute.component.html',
   styleUrls: ['./communaute.component.css'],
-  imports: [CommonModule, FormsModule]
 })
 export class CommunauteComponent implements OnInit, OnDestroy {
   isDarkMode: boolean = false;
@@ -82,7 +81,7 @@ export class CommunauteComponent implements OnInit, OnDestroy {
   }
 
   ajouterMessage(sender: string, content: string) {
-    this.messages.push({ sender: sender, content: content, timestamp: new Date() });
+    this.messages.push({sender: sender, content: content, timestamp: new Date()} as Message);
   }
 
   scrollToBottom(): void {
