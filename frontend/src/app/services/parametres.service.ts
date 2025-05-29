@@ -7,7 +7,8 @@ export interface Parametres {
   listeNomBot: string[];
   listePhotoBot: string[];
   fondEcran: string[];
-  fondEcranChoisi: string
+  fondEcranChoisi: string;
+  modeNarrateur: boolean;
 }
 
 @Injectable({
@@ -43,6 +44,7 @@ export class ParametresService {
       listePhotoBot: [],
       fondEcran: [],
       fondEcranChoisi: '',
+      modeNarrateur: true,
     };
     this.sauvegarderParametres(defaultParametres);
     this.parametresSubject.next(defaultParametres);
@@ -79,4 +81,3 @@ export class ParametresService {
     }
   }
 }
-

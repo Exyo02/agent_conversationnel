@@ -33,9 +33,11 @@ export class ParametresComponent implements OnInit {
       listeNomBot: existingParams?.listeNomBot || [],
       listePhotoBot: existingParams?.listePhotoBot || [],
       fondEcran: existingParams?.fondEcran || [],
-      fondEcranChoisi: existingParams?.fondEcranChoisi || ''
+      fondEcranChoisi: existingParams?.fondEcranChoisi || '',
+      modeNarrateur: existingParams?.modeNarrateur ?? true,
     };
   }
+  
   changerPolice(nouvellePolice: string): void {
     this.nouveauxParametres.police = nouvellePolice;
     this.parametresService.appliquerPolice(nouvellePolice);
@@ -44,6 +46,11 @@ export class ParametresComponent implements OnInit {
 
   toggleThemeNuitJour(): void {
     this.nouveauxParametres.themeNuitJour = !this.nouveauxParametres.themeNuitJour;
+    this.enregistrerParametres();
+  }
+
+  toggleNarrateur(): void {
+    this.nouveauxParametres.modeNarrateur = !this.nouveauxParametres.modeNarrateur;
     this.enregistrerParametres();
   }
 
@@ -168,7 +175,8 @@ export class ParametresComponent implements OnInit {
       listeNomBot: [],
       listePhotoBot: [],
       fondEcran: [],
-      fondEcranChoisi: ''
+      fondEcranChoisi: '',
+      modeNarrateur: true
     };
     this.appliquerFondEcran('');
     this.enregistrerParametres();

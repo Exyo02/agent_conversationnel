@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { SortiesService, Sortie } from '../../services/sorties.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { ParametresService } from '../../services/parametres.service';
+import { Subscription } from 'rxjs';
+import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
 
 @Component({
@@ -18,6 +21,8 @@ import { DialogComponent } from '../../dialog/dialog.component';
 export class Sorties implements OnInit {
   sorties: Sortie[] = [];
   estNouvelle = true;
+  narrateur: boolean = true;
+  parametresSubscription: Subscription | undefined;
   nouvelleSortie: Sortie = {
     title: '',
     date: null,
@@ -29,20 +34,44 @@ export class Sorties implements OnInit {
     private SortiesService: SortiesService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogBox: NgbModal
+    private dialogBox: NgbModal,
+    private parametresService:ParametresService,
+    private syntheseService:SyntheseVocaleService
   ) {}
 
   ngOnInit(): void {
     const nomParam = this.route.snapshot.paramMap.get('title');
+    this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
+      if(params && params.modeNarrateur !== undefined){
+        this.narrateur = params.modeNarrateur;
+      }
+    });
     if (nomParam) {
       this.estNouvelle = false;
       const sortieExistante = this.SortiesService.chargerSortie(nomParam);
       if (sortieExistante) {
         this.nouvelleSortie = { ...sortieExistante };
+        if(this.narrateur){
+          let message = this.nouvelleSortie.title + 
+          " le "+this.nouvelleSortie.date+" à "+
+          this.nouvelleSortie.heureDebut;
+          message = message.concat(this.nouvelleSortie.adresse!=""
+                          ?" à l'adresse "+this.nouvelleSortie.adresse
+                          :"")
+          this.syntheseService.parler(message);
+        }
       }
     } else {
       this.estNouvelle = true;
       this.nouvelleSortie = { title: '', date: null, heureDebut: '' };
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.parametresSubscription) {
+      if (this.parametresSubscription) {
+        this.parametresSubscription.unsubscribe();
+      }
     }
   }
 
