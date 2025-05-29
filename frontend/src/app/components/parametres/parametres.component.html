@@ -4,6 +4,12 @@
       {{ nouveauxParametres.themeNuitJour ? 'Activé' : 'Désactivé' }}
     </button>
   </p>
+  
+  <p>Mode Narrateur :
+    <button type="validation" (click)="toggleNarrateur()">
+      {{ nouveauxParametres.modeNarrateur ? 'Activé' : 'Désactivé' }}
+    </button>
+  </p>
 
   <p>Choisissez une police pour le site :
     <select id="policeSelect" [(ngModel)]="nouveauxParametres.police" (ngModelChange)="changerPolice($event)">

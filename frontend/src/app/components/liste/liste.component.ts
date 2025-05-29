@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DialogComponent } from '../../dialog/dialog.component';
+import { ParametresService } from '../../services/parametres.service';
+import { Subscription } from 'rxjs';
+import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
 @Component({
   standalone: true,
@@ -20,17 +23,38 @@ export class ListeComponent implements OnInit {
   liste = '';
   nouvelleListe!: boolean;
   creationCourante = false;
+  narrateur: boolean = true;
+  parametresSubscription: Subscription | undefined;
 
   constructor(
     private service: ListesService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogBox: NgbModal
+    private dialogBox: NgbModal,
+    private parametresService:ParametresService,
+    private syntheseService:SyntheseVocaleService
   ) { }
+
   ngOnInit() {
     this.titre = this.route.snapshot.paramMap.get('nom')!;
     this.nouvelleListe = this.titre == '' || this.titre == null;
     this.liste = this.service.charger(this.titre);
+    this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
+      if(params && params.modeNarrateur !== undefined){
+        this.narrateur = params.modeNarrateur;
+      }
+    });
+    if(this.narrateur){
+      this.syntheseService.parler(this.liste);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.parametresSubscription) {
+      if (this.parametresSubscription) {
+        this.parametresSubscription.unsubscribe();
+      }
+    }
   }
 
   enregistrer() {

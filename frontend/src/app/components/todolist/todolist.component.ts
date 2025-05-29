@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ListesService } from '../../services/listes.service';
 import { CommonModule } from '@angular/common';
+import { ParametresService } from '../../services/parametres.service';
+import { Subscription } from 'rxjs';
+import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
 @Component({
   standalone: true,
@@ -11,9 +14,34 @@ import { CommonModule } from '@angular/common';
   styleUrl: './todolist.component.css'
 })
 export class TodolistComponent implements OnInit{
-  nomDesListes=[]
-  constructor(private service:ListesService){}
-  ngOnInit(){
+  nomDesListes=[];
+  narrateur: boolean = true;
+  parametresSubscription: Subscription | undefined;
+
+  constructor(private service:ListesService,
+              private parametresService: ParametresService,
+              private synthese: SyntheseVocaleService
+  ){}
+
+  ngOnInit(): void {
     this.nomDesListes = this.service.chargerNomsListes();
+    this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
+      if(params && params.modeNarrateur !== undefined){
+        this.narrateur = params.modeNarrateur;
+      }
+    });
+    if (this.narrateur){
+      for(let i of this.nomDesListes){
+        this.synthese.parler(i);
+      }
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.parametresSubscription) {
+      if (this.parametresSubscription) {
+        this.parametresSubscription.unsubscribe();
+      }
+    }
   }
 }

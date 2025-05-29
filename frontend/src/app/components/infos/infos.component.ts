@@ -4,6 +4,7 @@ import { ChatbotService } from '../../services/chatbot.service';
 import { SortiesService } from '../../services/sorties.service';
 import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
+import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
 @Component({
   standalone: true,
@@ -14,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class InfosComponent implements OnInit{
   isDarkMode: boolean = false;
+  narrateur: boolean = true;
   parametresSubscription: Subscription | undefined;
   infosList:Array<any>=[];
   nbAffichage:Array<boolean>=[true];
@@ -30,7 +32,8 @@ export class InfosComponent implements OnInit{
   constructor(
     private botService:ChatbotService,
     private sortieService:SortiesService,
-    private parametresService:ParametresService
+    private parametresService:ParametresService,
+    private syntheseService:SyntheseVocaleService
   ){}
 
   ngOnInit(): void {
@@ -38,6 +41,9 @@ export class InfosComponent implements OnInit{
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
       if (params && params.themeNuitJour !== undefined) {
         this.isDarkMode = params.themeNuitJour;
+      }
+      if(params && params.modeNarrateur !== undefined){
+        this.narrateur = params.modeNarrateur;
       }
     });
     this.ajoutArticle(0);
@@ -76,6 +82,9 @@ export class InfosComponent implements OnInit{
                 result_parse.numCategorie = infosCategorie.num;
                 if(!this.containsTitle(result_parse.title,result_parse.numCategorie)){
                   this.infosList.push(result_parse);
+                  if(this.narrateur){
+                    this.syntheseService.parler(result_parse.title)
+                  }
                 }
                 
                 this.ajoutArticle(nbRefresh);

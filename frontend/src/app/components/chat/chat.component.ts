@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { ListesService } from '../../services/listes.service';
 import { ReconnaissanceVocaleService } from '../../services/reconnaissance-vocale.service';
 import { OnInit } from '@angular/core';
+import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
+import { ParametresService } from '../../services/parametres.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -18,24 +21,45 @@ export class ChatComponent implements OnInit {
   userText='';
   botAnswer='';
   ecouteEnCours:boolean;
+  narrateur: boolean = true;
+  parametresSubscription: Subscription | undefined;
   
   constructor(
     private service:ChatbotService,
     private router:Router,
     private listService:ListesService,
-    private recVocaleService:ReconnaissanceVocaleService){
+    private recVocaleService:ReconnaissanceVocaleService,
+    private syntheseService:SyntheseVocaleService,
+    private parametresService:ParametresService){
       this.ecouteEnCours = false;
-    }
+  }
 
-    ngOnInit(): void {
-      document.getElementById("saisie")?.addEventListener("keydown",(key)=>{
-        if (key.key == "Enter"){
-          this.envoyer()
-        }else if (key.key == "Control"){
-          this.ecoute();
-        }
-      })
+  ngOnInit(): void {
+    let entree = document.getElementById("saisie");
+    entree?.addEventListener("keydown",(key)=>{
+      if (key.key == "Enter"){
+        this.envoyer()
+      }else if (key.key == "+"){
+        key.preventDefault();
+        this.ecoute();
+      }
+    })
+    entree?.focus();
+
+    this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
+      if(params && params.modeNarrateur !== undefined){
+        this.narrateur = params.modeNarrateur;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.parametresSubscription) {
+      if (this.parametresSubscription) {
+        this.parametresSubscription.unsubscribe();
+      }
     }
+  }
 
   ecoute(){
     if(this.ecouteEnCours){
@@ -74,14 +98,21 @@ export class ChatComponent implements OnInit {
         }else if(answer.includes("app-todolist")){
           this.router.navigate(['/app-todolist']);
         }else if(answer.includes("add-list")){
-          this.router.navigate(['/app-todolist']);
           let result=JSON.parse(answer.substring(answer.indexOf("{"),answer.lastIndexOf("}")+1));
           let contenu = result.content;
           let titre = result.title;
 
-          this.listService.enregistrer(contenu,titre,true,true)
+          this.listService.enregistrer(contenu,titre,true,true);
+          if(window.location.toString().endsWith("/app-todolist")){
+            window.location.reload();
+          }else{
+            this.router.navigate(['/app-todolist']);
+          }
         }else{
           this.botAnswer = answer;
+          if(this.narrateur){
+            this.syntheseService.parler(this.botAnswer);
+          }
           param = 1;
         }
 
