@@ -15,6 +15,7 @@ import { ChatComponent } from './components/chat/chat.component';
 export class AppComponent implements OnInit, OnDestroy{
   title = 'frontend';
   selectedFontClass: string = '';
+  selectedSizeFontClass:string='';
   parametresSubscription: Subscription | undefined;
 
   constructor(
@@ -27,6 +28,9 @@ export class AppComponent implements OnInit, OnDestroy{
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
       if (params && params.police) {
         this.applyFontClass(params.police);
+      }
+      if (params && params.taillePolice) {
+        this.applySizeFontClass(params.taillePolice);
       }
     });
   }
@@ -41,8 +45,9 @@ export class AppComponent implements OnInit, OnDestroy{
 
   loadInitialFont(): void {
     const initialParams = this.parametresService.chargerParametres();
-    if (initialParams && initialParams.police) {
+    if (initialParams && initialParams.police && initialParams.taillePolice) {
       this.applyFontClass(initialParams.police);
+      this.applySizeFontClass(initialParams.taillePolice);
     }
   }
 
@@ -52,5 +57,13 @@ export class AppComponent implements OnInit, OnDestroy{
     }
     this.selectedFontClass = `font-${font.toLowerCase().replace(/\s+/g, '-')}`;
     this.renderer.addClass(document.body, this.selectedFontClass);
+  }
+
+  applySizeFontClass(font: string): void {
+    if (this.selectedSizeFontClass) {
+      this.renderer.removeClass(document.body, this.selectedSizeFontClass);
+    }
+    this.selectedSizeFontClass = `font-${font.toLowerCase().replace(/\s+/g, '-')}`;
+    this.renderer.addClass(document.body, this.selectedSizeFontClass);
   }
 }

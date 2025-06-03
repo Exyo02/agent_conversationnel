@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Parametres {
   police: string;
+  taillePolice: string,
   themeNuitJour: boolean;
   listeNomBot: string[];
   listePhotoBot: string[];
@@ -19,6 +20,7 @@ export class ParametresService {
   private parametresSubject = new BehaviorSubject<Parametres | null>(this.chargerParametres());
   parametres$: Observable<Parametres | null> = this.parametresSubject.asObservable();
   private currentFont: string = localStorage.getItem('selectedFont') || 'Roboto, sans-serif';
+private currentSizeFont: string = localStorage.getItem('selectedSizeFont') || 'medium';
 
   constructor() { this.appliquerPolice(this.currentFont); }
   chargerParametres(): Parametres | null {
@@ -37,6 +39,7 @@ export class ParametresService {
   reinitialiserParametres(): void {
     const defaultParametres: Parametres = {
       police: '',
+      taillePolice : 'medium',
       themeNuitJour: true,
       listeNomBot: [],
       listePhotoBot: [],
@@ -48,7 +51,7 @@ export class ParametresService {
     this.parametresSubject.next(defaultParametres);
   }
   appliquerPolice(police: string): void {
-    console.log('Application de la police :', police);
+    //console.log('Application de la police :', police);
     document.documentElement.style.setProperty('--main-font', police);
     this.currentFont = police;
     localStorage.setItem('selectedFont', police);
@@ -58,10 +61,20 @@ export class ParametresService {
     return this.currentFont;
   }
 
+  appliquerTaillePolice(taillePolice:string): void{
+    console.log('Application de la police :', taillePolice);
+    document.documentElement.style.setProperty('--main-font-size', taillePolice);
+    this.currentSizeFont = taillePolice;
+    localStorage.setItem('selectedSizeFont', taillePolice);
+  }
+
+  getTaillePoliceActuelle(): string{
+    return this.currentSizeFont;
+  }
+
   private chargerParametresInitial(): void {
     const params = this.chargerParametres();
     if (params) {
-      this.appliquerPolice(params.police);
       this.appliquerFondEcran(params.fondEcranChoisi);
     }
   }

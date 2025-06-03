@@ -15,6 +15,13 @@
       <option *ngFor="let font of availableFonts" [value]="font">{{ font }}</option>
     </select>
   </p>
+  <p>Choisissez une taille de police :
+    <select id="taillePoliceSelect" [(ngModel)]="nouveauxParametres.taillePolice"
+      (ngModelChange)="changerTaillePolice(nouveauxParametres.taillePolice)">
+      <option *ngFor="let size of availableFontSizes" [value]="size">{{ size }}</option>
+    </select>
+  </p>
+
   <p>Définissez un nom pour le chatbot : </p>
   <ul>
     <li *ngFor="let nom of nouveauxParametres.listeNomBot; let i = index">
@@ -56,4 +63,4 @@
     <!--<button type="button" (click)="enregistrerParametres()">Enregistrer</button>
   <button type="button" (click)="reinitialiserParametres()">Réinitialiser</button>
 -->
-</div>
+  </div>

@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    margin: 0px;
-    font-family: var(--main-font);
-}
-h1, h2, h3, p, div, span, button, input, select, textarea, li, ul {
+body {
+  margin: 0px;
   font-family: var(--main-font);
+  font-size: var(--main-font-size);
 }
+
 :root {
-  --main-font: 'Roboto', sans-serif; 
+  --main-font: 'Roboto', sans-serif;
+  --main-font-size: '18px';
 }

@@ -18,6 +18,7 @@ export class ParametresComponent implements OnInit {
   nouveauxParametres!: Parametres;
   availableFonts: string[] = ['Roboto, sans-serif', 'Open Sans, sans-serif', 'Didot, serif', 'American Typewriter, serif',
     'Montserrat, sans-serif', 'Trebuchet MS, sans-serif', 'Gill Sans, sans-serif', 'Optima, sans-serif'];
+  availableFontSizes: string[] = ['16px', '18px', '20px', '22px', '24px'];
   uploadProgress = 0;
   uploadResponse: any;
   uploadError: string = '';
@@ -29,6 +30,7 @@ export class ParametresComponent implements OnInit {
     const existingParams = this.parametresService.chargerParametres();
     this.nouveauxParametres = {
       police: existingParams?.police || this.parametresService.getPoliceActuelle(),
+      taillePolice: existingParams?.taillePolice || this.parametresService.getTaillePoliceActuelle(),
       themeNuitJour: existingParams?.themeNuitJour ?? true,
       listeNomBot: existingParams?.listeNomBot || [],
       listePhotoBot: existingParams?.listePhotoBot || [],
@@ -37,10 +39,16 @@ export class ParametresComponent implements OnInit {
       modeNarrateur: existingParams?.modeNarrateur ?? true,
     };
   }
-  
+
   changerPolice(nouvellePolice: string): void {
     this.nouveauxParametres.police = nouvellePolice;
     this.parametresService.appliquerPolice(nouvellePolice);
+    this.enregistrerParametres();
+  }
+
+  changerTaillePolice(nouvelleTaille: string): void {
+    this.nouveauxParametres.taillePolice = nouvelleTaille;
+    this.parametresService.appliquerTaillePolice(nouvelleTaille);
     this.enregistrerParametres();
   }
 
@@ -117,7 +125,6 @@ export class ParametresComponent implements OnInit {
   uploadFile(file: File, folder: string): void {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('folder', folder); // Vous pouvez envoyer le dossier au serveur si nécessaire
 
     this.http.post(this.serverUrl, formData, {
       reportProgress: true,
@@ -171,6 +178,7 @@ export class ParametresComponent implements OnInit {
   reinitialiserParametres(): void {
     this.nouveauxParametres = {
       police: this.parametresService.getPoliceActuelle(),
+      taillePolice:this.parametresService.getTaillePoliceActuelle(),
       themeNuitJour: true,
       listeNomBot: [],
       listePhotoBot: [],
