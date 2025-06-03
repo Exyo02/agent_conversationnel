@@ -8,18 +8,19 @@ import { OnInit } from '@angular/core';
 import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-chat',
-  imports: [FormsModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
 export class ChatComponent implements OnInit {
   currentText = '';
-  userText='';
   botAnswer='';
+  messages: Array<any> = [];
   ecouteEnCours:boolean;
   narrateur: boolean = true;
   parametresSubscription: Subscription | undefined;
@@ -82,6 +83,10 @@ export class ChatComponent implements OnInit {
   }
 
   envoyer(){
+    if(this.currentText == null || this.currentText == ""){
+      return;
+    }
+
     this.service.envoi(this.currentText).subscribe(
       reponse=>{
         const desc = Object.getOwnPropertyDescriptor(reponse,"choices");
@@ -111,7 +116,7 @@ export class ChatComponent implements OnInit {
         }else{
           this.botAnswer = answer;
           if(this.narrateur){
-            this.syntheseService.parler(this.botAnswer);
+            this.syntheseService.parler(answer);
           }
           param = 1;
         }
@@ -123,12 +128,9 @@ export class ChatComponent implements OnInit {
   }
   
   refresh(param:number){
+    this.messages.push({role:'user',content: this.currentText});
     if(param == 1){
-      const user = document.getElementById("user");
-      if(user!=null && param==1){
-        user.style.visibility ="visible";
-      }
-      this.userText = this.currentText;
+      this.messages.push({role: 'assistant',content: this.botAnswer});
     }
     this.currentText = "";
   }

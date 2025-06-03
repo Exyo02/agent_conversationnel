@@ -2,7 +2,6 @@ import { Routes } from "@angular/router";
 import { AccueilComponent } from "./components/accueil/accueil.component";
 import { AgendaComponent } from "./components/agenda/agenda.component";
 import { TodolistComponent } from "./components/todolist/todolist.component";
-import { CoursesComponent } from "./components/courses/courses.component";
 import { MedicamentsComponent } from "./components/medicaments/medicaments.component";
 import { InfosComponent } from "./components/infos/infos.component";
 import { ParametresComponent } from "./components/parametres/parametres.component";
@@ -22,7 +21,6 @@ export const routes: Routes=[
     {path:'app-todolist', component:TodolistComponent},
     {path:'app-liste/:nom', component:ListeComponent},
     {path:'app-liste', component:ListeComponent},
-    {path:'app-courses', component:CoursesComponent},
     {path:'app-medicaments', component:MedicamentsListComponent},
     {path:'app-medicaments/ajouter', component:MedicamentsComponent},
     {path:'app-medicaments/editer/:nom', component:MedicamentsComponent},

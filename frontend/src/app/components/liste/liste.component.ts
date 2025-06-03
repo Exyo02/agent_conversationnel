@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { SyntheseVocaleService } from '../../services/synthese-vocale.service';

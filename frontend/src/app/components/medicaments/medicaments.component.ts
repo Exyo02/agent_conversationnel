@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MedicamentsService } from '../../services/medicaments.service';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
