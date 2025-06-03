@@ -16,6 +16,10 @@ export class ListesService {
     }
   }
 
+  clear(){
+    localStorage.clear();
+  }
+
   charger(nom: string){
     const data = localStorage.getItem(nom);
     if(data){

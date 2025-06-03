@@ -1,9 +1,8 @@
 <div class="principal">
   <div class="chat-messages">
-    <div id="user">{{ userText }}</div>
-    <div id="bot">
-      <div id="logo"></div>
-      <div id="bot-text">{{ botAnswer }}</div>
+    <div *ngFor="let message of messages" [class]="message.role">
+      <div *ngIf="message.role=='assistant'" id="logo"></div>
+      <div [class]="message.role+'-text'">{{ message.content }}</div>
     </div>
   </div>
   <input id="saisie" type="text" [(ngModel)]="currentText" placeholder="Appuyez sur Ctrl pour parler">

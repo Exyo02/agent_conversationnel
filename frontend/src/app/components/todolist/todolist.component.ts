@@ -24,7 +24,7 @@ export class TodolistComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.nomDesListes = this.service.chargerNomsListes();
+    this.refreshListe();
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
       if(params && params.modeNarrateur !== undefined){
         this.narrateur = params.modeNarrateur;
@@ -35,6 +35,10 @@ export class TodolistComponent implements OnInit{
         this.synthese.parler(i);
       }
     }
+  }
+
+  refreshListe(){
+    this.nomDesListes = this.service.chargerNomsListes();
   }
 
   ngOnDestroy(): void {

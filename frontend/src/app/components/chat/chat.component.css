@@ -28,23 +28,23 @@ input {
   font-size: large;
 }
 
-#user {
+.user {
   background-color: #005b5b;
   width: 70%;
+  margin: 10px;
   margin-left: 20%;
   color: white;
   padding: 10px;
-  visibility: hidden;
   font-size: large;
   border-radius: 30px;
   box-shadow: 5px 5px 5px grey;
 }
 
-#bot {
+.assistant {
   display: flex;
 }
 
-#bot-text {
+.assistant-text {
   background-color: #00abab;
   color: white;
   width: 70%;

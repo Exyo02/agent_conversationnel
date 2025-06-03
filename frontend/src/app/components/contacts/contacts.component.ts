@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { ContactsService } from '../../services/contacts.service';
 import { FormsModule } from '@angular/forms';
 import { ParametresService } from '../../services/parametres.service';
