@@ -15,13 +15,29 @@ import { Subscription } from 'rxjs';
   styleUrl: './contacts.component.css'
 })
 export class ContactsComponent implements OnInit{
+  // Mod nuit activé?
   isDarkMode: boolean = false;
+
   parametresSubscription: Subscription | undefined;
+
+  // Liqste des noms des contacts
   contacts:Array<string> = [];
+
+  // Contact sur lequel l'utilisateur à cliqué
   contactCourant:any;
+
+  // Chaine de caractères inscrit dans la zone de saisie
   currentMessage:string = "";
+
+  // Liste des messages envoyés pendant la session
   messagesRecents:Array<string> = [];
 
+  /**
+   * Constructeur
+   * @param dialogBox pour la boite de dialog avec l'utilisateur lors de l'entrée d'un nouveau contact
+   * @param contactsService 
+   * @param parametresService 
+   */
   constructor(
     private dialogBox:NgbModal,
     private contactsService:ContactsService,
@@ -35,6 +51,8 @@ export class ContactsComponent implements OnInit{
         this.isDarkMode = params.themeNuitJour;
       }
     });
+
+    // Récupérration de laliste des contacts sous la forme d'une liste de noms
     this.contacts = this.contactsService.chargerContacts();
   }
 
@@ -46,13 +64,21 @@ export class ContactsComponent implements OnInit{
     }
   }
 
+  /**
+   * Ajout d'un nouveau contact en fonction desinformations saisies dan sl a boite de dialog '
+   */
   ajouterContact(){
+    // Ouverture d'une nouvelle boite de dialogue
     const mod = this.dialogBox.open(DialogComponent);
+
+    // Configuration de la boite de dialogue
     mod.componentInstance.message ="Ajout d'un nouveau contact :"
     mod.componentInstance.opt1 ="Ajouter";
     mod.componentInstance.opt2 = "Annuler";
     mod.componentInstance.textField = true;
+
     mod.result.then(result=>{
+      // Si l'utilisateur valide, alors on ajoute et enregistre le contact
       if(result.opt){
         this.contactsService.enregistrer(
           result.nom,
@@ -64,9 +90,15 @@ export class ContactsComponent implements OnInit{
     });
   }
 
+  /**
+   * Initialisation de la conversation avec un contact
+   * @param nomContact identification du contact
+   */
   rejoindreConversation(nomContact:string){
+    // Récupération des informations du contact
     let contact = this.contactsService.charger(nomContact);
 
+    // Si le contact existe, alors on affiche la boite de conversation
     if(contact){
       document.getElementById("afficheConversation")!.style.visibility = "visible";
       this.contactCourant = contact;
@@ -75,7 +107,11 @@ export class ContactsComponent implements OnInit{
     }
   }
 
+  /**
+   * Ouverture de l'application d'envoi d'un mail en fonction des informations de l'utilisateur
+   */
   envoiMail() {
+    // Si la zone de saisie n'est pas vide alors on accède à l'application contact
     if(this.currentMessage!=''){
       let mailString = "mailto:"+this.contactCourant.mail+"?subject=testApp&body="+this.currentMessage;
       this.messagesRecents.push(this.currentMessage);

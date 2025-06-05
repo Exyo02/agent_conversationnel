@@ -18,14 +18,30 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
   styleUrl: './liste.component.css'
 })
 export class ListeComponent implements OnInit {
+  // Titre du rappel
   titre = '';
+
   ajoutTitre = '';
+
+  // Contenu du rappel 
   liste = '';
+  
   nouvelleListe!: boolean;
   creationCourante = false;
+
+  // Activation du narrateur
   narrateur: boolean = true;
   parametresSubscription: Subscription | undefined;
 
+  /**
+   * Constructeur
+   * @param service 
+   * @param route 
+   * @param router 
+   * @param dialogBox 
+   * @param parametresService 
+   * @param syntheseService 
+   */
   constructor(
     private service: ListesService,
     private route: ActivatedRoute,
@@ -36,14 +52,21 @@ export class ListeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Récuppérration du titre dans l'URL
     this.titre = this.route.snapshot.paramMap.get('nom')!;
+
+    // Vérifier s'il s'agit d'un nouveau rappel
     this.nouvelleListe = this.titre == '' || this.titre == null;
     this.liste = this.service.charger(this.titre);
+
+    // Vérifier si le narrateur est activé dans les paramètres
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
       if(params && params.modeNarrateur !== undefined){
         this.narrateur = params.modeNarrateur;
       }
     });
+
+    // Si le narrateur est activé lire le conteu du rappel
     if(this.narrateur){
       this.syntheseService.parler(this.liste);
     }
@@ -68,24 +91,42 @@ export class ListeComponent implements OnInit {
       if (this.creationCourante) {
         this.ajoutTitre = this.titre;
       }
+
+      // Si le titre est déjà utilisé
       if (exist == 1) {
+        // Ouverture du'ne nouvelle boite de dialogue
         const mod = this.dialogBox.open(DialogComponent);
+
+        // Configuration de la boite de dialogue
         mod.componentInstance.message = "Vous possédez déjà une liste du même titre. Veuillez changer de titre.";
         mod.componentInstance.opt1 = "Ok";
       }
+    // S'il n'y a pas de titre afficher un message d'erreur
     } else {
+      // Ouverture d'une nouvelle boite de dialogue
       const mod = this.dialogBox.open(DialogComponent);
+
+      // Configuration de la boite de dialogue
       mod.componentInstance.message = "Veuillez saisir un titre pour votre liste.";
       mod.componentInstance.opt1 = "Ok";
     }
   }
 
+  /**
+   * Suppression du rappel, avec message de confirmation par boite de dialogue
+   */
   supprimer() {
+    // Ouverture d'une nouvelle boite de dialogue
     const mod = this.dialogBox.open(DialogComponent);
+
+    //Configuration de la boite de dialogue
     mod.componentInstance.message = "Voulez-vous vraiment supprimer la liste " + this.titre+" ?";
     mod.componentInstance.opt1 = "Oui";
     mod.componentInstance.opt2 = "Non";
     mod.result.then(result=>{
+      // Si on valide:
+      // - Suppression du rappel
+      // - Retour à la liste des rappels
       if(result){
         this.service.supprimer(this.titre);
         this.router.navigate(["/app-todolist"]);
@@ -93,12 +134,19 @@ export class ListeComponent implements OnInit {
     })
   }
 
+  /**
+   * Annuler les modifications apportées au rappel, avec message de confirmation par boite de dialogue
+   */
   annuler() {
+    // Ouverture de la boite d edialogue
     const mod = this.dialogBox.open(DialogComponent);
+
+    //Configuration de la boite de dialogue
     mod.componentInstance.message = "Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.";
     mod.componentInstance.opt1 = "Oui";
     mod.componentInstance.opt2 = "Non";
     mod.result.then(result=>{
+      // Si on valide on retourne sur la liste des rappels
       if(result){
         this.router.navigate(["/app-todolist"]);
       }

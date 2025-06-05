@@ -26,14 +26,24 @@ export class SortiesListeComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Récupérration de l'ensemble des sorties
+   */
   chargerSorties(): void {
     this.sorties = this.SortiesService.getAllSorties();
   }
 
+  /**
+   * Redirrection vers la page de création d'une sortie
+   */
   ajouterNouvelleSortie(): void {
     this.router.navigate(['/app-sorties/ajouter']);
   }
 
+  /**
+   * Redirrection vers la page de modification d'une sortie
+   * @param title identifiant de la sortie
+   */
   modifierSortie(title: string): void {
     this.router.navigate(['/app-sorties/editer', title]);
   }

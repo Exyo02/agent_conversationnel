@@ -11,7 +11,9 @@ import { Subscription } from 'rxjs';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  // Mod nuit
   isDarkMode: boolean = false;
+
   parametresSubscription: Subscription | undefined;
 
   constructor(private parametresService: ParametresService) { }
@@ -32,8 +34,10 @@ export class NavbarComponent {
       }
     }
   }
+
   chargerEtatTheme(): void {
     const params = this.parametresService.chargerParametres();
+    // Activation ou non du mod nuit en fonction des paramètres
     if (params && params.themeNuitJour !== undefined) {
       this.isDarkMode = params.themeNuitJour;
     }
