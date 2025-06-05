@@ -48,7 +48,11 @@ export class ReconnaissanceVocaleService {
     });
   }
 
+  /**
+   * Arrêter la reconnaissance vocale
+   */
   stop() {
+    // Si la reconnaissance est sur écoute alors arrêter la reconnaissance
     if (this.ecoute){
       this.ecoute = false;
       this.reconnaissanceVocale.stop();

@@ -15,9 +15,15 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
   medicaments: {suivant:{dateFormat:any,prochainePrise?:string,alerte:number}, nom: string; duree: number | null; quantite: number | null; intervallePrise?: string, premierePrise?: Date}[] = [];
   private intervalSubscription: Subscription | undefined;
 
+  /**
+   * Constructeur
+   * @param medicamentsService 
+   * @param router 
+   */
   constructor(private medicamentsService: MedicamentsService, private router: Router) {}
 
   ngOnInit(): void {
+    // Charger la liste des médicamments
     this.chargerMedicaments();
   }
 
@@ -27,28 +33,44 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Charger la liste des médicamments
+   */
   chargerMedicaments(): void {
+    // Récupérration de la liste des médicamments
     let medic = this.medicamentsService.getAllMedicaments();
+
+    // Ordonnancement de la liste des médicamments
     this.medicaments = this.ordreMedicSuivant(medic);
-    console.log(medic)
-    console.log(this.medicaments)
   }
 
+  /**
+   * @param medic liste des médicamments non ordonnancés
+   * @returns la liste des médicamments ordonnés en fonction de la date de la prochaine prise des médicamments
+   */
   ordreMedicSuivant(medic:any[]){
     const now = new Date();
+
     let m = medic.map(med=>
       ({...med,suivant:this.getSuivant(med,now)
     }))
     .filter(med=>med.suivant.dateFormat!==null)
     .sort((a,b)=>(a.suivant.dateFormat!.getTime()-b.suivant.dateFormat!.getTime()));
+
     return m;
   }
 
+  /**
+   * @param med 
+   * @param now 
+   * @returns les informations sur la date de prochaine prise
+   */
   getSuivant(med:any,now:Date){
     const debut = new Date(med.premierePrise);
     const fin = new Date(debut.getTime()+med.duree*24*60*60*1000);
     const heure = 3600000;
 
+    // Si on a atteint la date de fin de prise alors on retourne null
     if(now>fin){
       return null;
     }
@@ -58,21 +80,29 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
     while (suivant<new Date(now.getTime()-heure)){
       suivant = new Date(suivant.getTime()+med.intervallePrise*60*60*1000);
     }
+
     if(suivant!=debut && suivant<=fin){
-      
       med.prochainePrise = suivant.toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })
       med.alerte = suivant<now?0:(suivant<new Date(now.getTime()+heure)?1:2);
       
+      // On retourne les informations sur la qprochaine prise
       return {dateFormat:suivant,prochainePrise:med.prochainePrise,alerte:med.alerte};
     }else{
       return null;
     }
   }
 
+  /**
+   * Redirrection vers la page d'ajout d'un médicamment
+   */
   ajouterNouveauMedicament(): void {
     this.router.navigate(['/app-medicaments/ajouter']);
   }
 
+  /**
+   * Rejoindre la page du médicamment
+   * @param nom identifiant du médicamment à modifier
+   */
   modifierMedicament(nom: string): void {
     this.router.navigate(['/app-medicaments/editer', nom]);
   }

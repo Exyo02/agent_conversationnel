@@ -21,7 +21,10 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 export class Sorties implements OnInit {
   sorties: Sortie[] = [];
   estNouvelle = true;
+
+  //Activation de la sythèse vocale
   narrateur: boolean = true;
+
   parametresSubscription: Subscription | undefined;
   nouvelleSortie: Sortie = {
     title: '',
@@ -40,17 +43,25 @@ export class Sorties implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Récupère l'identifiant de la sortie dans l'URL
     const nomParam = this.route.snapshot.paramMap.get('title');
+
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
       if(params && params.modeNarrateur !== undefined){
         this.narrateur = params.modeNarrateur;
       }
     });
+
+    // Si la sortie est stockée
     if (nomParam) {
       this.estNouvelle = false;
+
+      // On récupère les informations de la sortie
       const sortieExistante = this.SortiesService.chargerSortie(nomParam);
       if (sortieExistante) {
         this.nouvelleSortie = { ...sortieExistante };
+
+        // Si le narrateur est activé, il lit ls informations propres à la sortie
         if(this.narrateur){
           let message = this.nouvelleSortie.title + 
           " le "+this.nouvelleSortie.date+" à "+
@@ -61,6 +72,7 @@ export class Sorties implements OnInit {
           this.syntheseService.parler(message);
         }
       }
+    // Sinon les informations de la sortie sont à saisir par l'utilisateur
     } else {
       this.estNouvelle = true;
       this.nouvelleSortie = { title: '', date: null, heureDebut: '' };
@@ -79,7 +91,12 @@ export class Sorties implements OnInit {
     this.router.navigate(['/app-sorties', { title: title }]);
   }
 
+  /**
+   * Enregistrement de la sortie
+   * @returns 
+   */
   enregistrer(): void {
+    // Si l'utilisateur ne spécifie pas le titre, on affiche un message d'erreur
     if (!this.nouvelleSortie.title) {
       const mod = this.dialogBox.open(DialogComponent);
       mod.componentInstance.message = 'Le titre de la sortie est obligatoire.';
@@ -87,6 +104,7 @@ export class Sorties implements OnInit {
       return;
     }
 
+    // Si l'utilisateur ne spécifie pas la date, on affiche un message d'erreur
     if (!this.nouvelleSortie.date) {
       const mod = this.dialogBox.open(DialogComponent);
       mod.componentInstance.message = 'La date de la sortie est obligatoire.';
@@ -94,16 +112,24 @@ export class Sorties implements OnInit {
       return;
     }
 
+    // Stockage de la sortie
     this.SortiesService.ajouterSortie(this.nouvelleSortie);
   }
 
+  /**
+   * Suppression de la sortie, avec boite de dialogue de confirmation
+   */
   supprimer(): void {
+    // Si la sortie a un nom
     if (this.nouvelleSortie.title) {
+      // Création d'une boie de dialogue
       const mod = this.dialogBox.open(DialogComponent);
+      // Configuration de la boite de dialogue
       mod.componentInstance.message = `Êtes-vous sûr de vouloir supprimer ${this.nouvelleSortie.title} ?`;
       mod.componentInstance.opt1 = "Oui";
       mod.componentInstance.opt2 = "Non";
       mod.result.then(result=>{
+        // Si l'utilisateur valide, alors on supprime la sortie et rejoins la pge de liste des sortis
         if(result){
           this.SortiesService.supprimerSortie(this.nouvelleSortie.title);
           this.router.navigate(["/app-sorties"]);
@@ -112,18 +138,28 @@ export class Sorties implements OnInit {
     }
   }
 
+  /**
+   * Annuler les modifications apportées, avec boite dedialogue de confirmation
+   */
   annuler(): void {
+    // Création d'une boite de dialogue
     const mod = this.dialogBox.open(DialogComponent);
+
+    // Configuration de lal boite de dialogue
     mod.componentInstance.message = "Êtes-vous sûre de vouloir annuler vos modifications? Toute progression non sauvegardée sera perdu.";
     mod.componentInstance.opt1 = "Oui";
     mod.componentInstance.opt2 = "Non";
     mod.result.then(result=>{
+      // Sil'utilisatuer valide, on rejoins la pagede liste des sorties
       if(result){
         this.router.navigate(["/app-sorties"]);
       }
     })
   }
 
+  /**
+   * Vide l'ensemble des zones de saisie
+   */
   reinitialiserFormulaire(): void {
     this.nouvelleSortie = { title: '', date: null, heureDebut: '', adresse: '' };
     this.estNouvelle = true;

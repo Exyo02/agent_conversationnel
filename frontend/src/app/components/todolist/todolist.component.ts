@@ -14,15 +14,28 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
   styleUrl: './todolist.component.css'
 })
 export class TodolistComponent implements OnInit{
+  // Noms donnés aux rappels
   nomDesListes=[];
+
+  // Activation du narrateur
   narrateur: boolean = true;
+
   parametresSubscription: Subscription | undefined;
 
+  /**
+   * Constructeur
+   * @param service propre aux listes
+   * @param parametresService 
+   * @param synthese 
+   */
   constructor(private service:ListesService,
               private parametresService: ParametresService,
               private synthese: SyntheseVocaleService
   ){}
 
+  /**
+   * Initialisation des noms de liste et du narrateur
+   */
   ngOnInit(): void {
     this.refreshListe();
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
@@ -30,6 +43,8 @@ export class TodolistComponent implements OnInit{
         this.narrateur = params.modeNarrateur;
       }
     });
+    
+    // Si le narrateur est activé, lire les noms des lsites
     if (this.narrateur){
       for(let i of this.nomDesListes){
         this.synthese.parler(i);
@@ -37,6 +52,9 @@ export class TodolistComponent implements OnInit{
     }
   }
 
+  /**
+   * Récupérration des noms des listes
+   */
   refreshListe(){
     this.nomDesListes = this.service.chargerNomsListes();
   }

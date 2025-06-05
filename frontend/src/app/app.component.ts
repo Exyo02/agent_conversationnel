@@ -17,6 +17,11 @@ export class AppComponent implements OnInit, OnDestroy{
   selectedFontClass: string = '';
   parametresSubscription: Subscription | undefined;
 
+  /**
+   * Constructeur
+   * @param parametresService service de gestion des paramètres
+   * @param renderer 
+   */
   constructor(
     private parametresService: ParametresService,
     private renderer: Renderer2
