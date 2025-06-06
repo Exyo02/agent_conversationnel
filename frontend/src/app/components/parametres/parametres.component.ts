@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { Parametres, ParametresService } from '../../services/parametres.service';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 
+/**
+ * Composant pour la gestion des paramètres par l'utilisateur
+ */
 @Component({
   standalone: true,
   selector: 'app-params',
@@ -12,9 +15,6 @@ import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
   styleUrl: './parametres.component.css'
 })
 export class ParametresComponent implements OnInit {
-  sontNouveaux = true;
-  parametres: Parametres[] = [];
-  afficherFormulaire = false;
   nouveauxParametres!: Parametres;
   availableFonts: string[] = ['Roboto, sans-serif', 'Open Sans, sans-serif', 'Didot, serif', 'American Typewriter, serif',
     'Montserrat, sans-serif', 'Trebuchet MS, sans-serif', 'Gill Sans, sans-serif', 'Optima, sans-serif'];
@@ -23,6 +23,11 @@ export class ParametresComponent implements OnInit {
   uploadError: string = '';
   serverUrl = 'http://localhost:4200';
 
+  /**
+   * Constructeur
+   * @param parametresService 
+   * @param http 
+   */
   constructor(private parametresService: ParametresService, private http: HttpClient) { }
 
   ngOnInit(): void {

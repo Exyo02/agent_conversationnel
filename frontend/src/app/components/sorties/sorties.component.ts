@@ -9,7 +9,11 @@ import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
-
+/**
+ * Composant utilisé pour les pages détaillant 
+ * les informations d'une sortie spécifique, 
+ * et permettant de les modifier
+ */
 @Component({
   standalone:true,
   selector: 'app-sorties',
@@ -17,12 +21,11 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
   templateUrl: './sorties.component.html',
   styleUrl: './sorties.component.css'
 })
-
 export class Sorties implements OnInit {
-  sorties: Sortie[] = [];
+  /** Sortie existante? */
   estNouvelle = true;
 
-  //Activation de la sythèse vocale
+  /** Activation de la sythèse vocale */
   narrateur: boolean = true;
 
   parametresSubscription: Subscription | undefined;
@@ -33,6 +36,15 @@ export class Sorties implements OnInit {
     adresse: ''
   };
 
+  /**
+   * Constructeur
+   * @param SortiesService 
+   * @param route 
+   * @param router 
+   * @param dialogBox 
+   * @param parametresService 
+   * @param syntheseService 
+   */
   constructor(
     private SortiesService: SortiesService,
     private route: ActivatedRoute,
@@ -79,16 +91,15 @@ export class Sorties implements OnInit {
     }
   }
 
+  /**
+   * Libération des ressources propre à l'abonnement au service des paramètres
+   */
   ngOnDestroy(): void {
     if (this.parametresSubscription) {
       if (this.parametresSubscription) {
         this.parametresSubscription.unsubscribe();
       }
     }
-  }
-
-  modifierSortie(title: string): void {
-    this.router.navigate(['/app-sorties', { title: title }]);
   }
 
   /**

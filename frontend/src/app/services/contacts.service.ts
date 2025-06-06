@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Service de gestion des contacts, avec enregistrement et récupération
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class ContactsService {
-  // Clé pour accéder aux noms des contacts stockées dans le local storage 
+  /** Clé pour accéder aux noms des contacts stockées dans le local storage */
   accessKey: string = 'contacts-access-agent-conversationnel';
 
   /**
@@ -13,6 +16,7 @@ export class ContactsService {
   constructor() { }
 
   /**
+   * Récupère les informations d'un contact à partir de son identifiant qui est son nom
    * @param nom du contact à récupérer
    * @returns les informations propres aux contact sous la forme nom + adresse mail + numéro de téléphone
    */
@@ -31,6 +35,7 @@ export class ContactsService {
   }
 
   /**
+   * Récupère la liste des identifiants des contacts dans le local storage
    * @returns la liste des noms des contacts
    */
   chargerContacts(){
@@ -40,13 +45,6 @@ export class ContactsService {
     } else {
       return [];
     }
-  }
-
-  /**
-   * Vider le local storage
-   */
-  clear(){
-    localStorage.clear();
   }
 
   /**

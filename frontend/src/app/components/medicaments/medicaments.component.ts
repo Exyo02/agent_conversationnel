@@ -6,6 +6,11 @@ import { MedicamentsService } from '../../services/medicaments.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+/**
+ * Composant utilisé pour les pages détaillant 
+ * les informations d'un médicamment spécifique, 
+ * et permettant de les modifier
+ */
 @Component({
   standalone: true,
   selector: 'app-medicaments',
@@ -14,8 +19,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './medicaments.component.css'
 })
 export class MedicamentsComponent implements OnInit {
-  medicaments: any[] = [];
+  /** Informe de l'ajout d'un médicamment */
   estNouveau = true;
+
   nouveauMedicament: { nom: string; duree: number | null; quantite: number | null , intervallePrise?: string, premierePrise?: Date} = {
     nom: '',
     duree: null,
@@ -24,6 +30,13 @@ export class MedicamentsComponent implements OnInit {
     premierePrise: new Date()
   };
 
+  /**
+   * Constructeur
+   * @param medicamentsService 
+   * @param route 
+   * @param router 
+   * @param dialogBox 
+   */
   constructor(
     private medicamentsService: MedicamentsService,
     private route: ActivatedRoute,
@@ -131,6 +144,9 @@ export class MedicamentsComponent implements OnInit {
     })
   }
 
+  /**
+   * Réinitialisation du contenu des zones de saisie, comme pour un nouveau médicamment
+   */
   reinitialiserFormulaire(): void {
     this.nouveauMedicament = { nom: '', duree: null, quantite: null, intervallePrise: '' , premierePrise: new Date()};
     this.estNouveau = true;

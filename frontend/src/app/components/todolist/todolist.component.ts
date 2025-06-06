@@ -6,6 +6,9 @@ import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
+/**
+ * Composant pour la visualisation des rappels
+ */
 @Component({
   standalone: true,
   selector: 'app-todolist',
@@ -14,10 +17,10 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
   styleUrl: './todolist.component.css'
 })
 export class TodolistComponent implements OnInit{
-  // Noms donnés aux rappels
+  /** Noms donnés aux rappels */
   nomDesListes=[];
 
-  // Activation du narrateur
+  /** Activation du narrateur */
   narrateur: boolean = true;
 
   parametresSubscription: Subscription | undefined;
@@ -59,6 +62,9 @@ export class TodolistComponent implements OnInit{
     this.nomDesListes = this.service.chargerNomsListes();
   }
 
+  /**
+   * Libération des ressources propre à l'abonnement au service des paramètres
+   */
   ngOnDestroy(): void {
     if (this.parametresSubscription) {
       if (this.parametresSubscription) {

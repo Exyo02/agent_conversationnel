@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
+/**
+ * Composant de la page d'accueil de l'application
+ */
 @Component({
   standalone: true,
   selector: 'app-accueil',
@@ -9,6 +11,9 @@ import { Router } from '@angular/router';
   styleUrl: './accueil.component.css'
 })
 export class AccueilComponent {
+  /**
+   * Constructeur
+   */
   constructor(){
 
   }

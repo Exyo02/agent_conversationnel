@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
 import { NgZone } from '@angular/core';
 
+/**
+ * Service de reconnaissance vocale
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class ReconnaissanceVocaleService {
   reconnaissanceVocale : any;
+
+  /** Activation de la reconnaissance vocale */
   ecoute: boolean = false;
 
+  /**
+   * Initialisation et configuration de la reconnaissance vocale
+   * @param zone 
+   */
   constructor(private zone: NgZone) {
     const { webkitSpeechRecognition }: IWindow = window as any;
     this.reconnaissanceVocale = new webkitSpeechRecognition();
@@ -15,6 +24,10 @@ export class ReconnaissanceVocaleService {
     this.reconnaissanceVocale.lang = 'fr-FR';
   }
 
+  /**
+   * Démarre la reconnaissance vocale
+   * @returns un texte résultat de l'annalyse de la voix
+   */
   start(): Promise<string>{
     return new Promise((resolve,reject)=>{
       if (this.ecoute){
@@ -60,6 +73,12 @@ export class ReconnaissanceVocaleService {
   }
 }
 
+/**
+ * Interface pour étendre l'interface native Window
+ */
 interface IWindow extends Window{
+  /**
+   * Constructeur de l'API webkitSpeechRecognition
+   */
   webkitSpeechRecognition: any;
 }

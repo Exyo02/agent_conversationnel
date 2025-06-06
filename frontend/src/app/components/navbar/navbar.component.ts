@@ -3,6 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ParametresService, Parametres } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 
+/**
+ * Composant de la barre de navigation de l'application
+ */
 @Component({
   standalone: true,
   selector: 'app-navbar',
@@ -11,13 +14,20 @@ import { Subscription } from 'rxjs';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  // Mod nuit
+  /** Mod nuit */
   isDarkMode: boolean = false;
 
   parametresSubscription: Subscription | undefined;
 
+  /**
+   * Constructeur
+   * @param parametresService 
+   */
   constructor(private parametresService: ParametresService) { }
 
+  /**
+   * Charge les paramètres pour activer ou non le mod Nuit
+   */
   ngOnInit(): void {
     this.chargerEtatTheme();
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
@@ -27,6 +37,9 @@ export class NavbarComponent {
     });
   }
 
+  /**
+   * Libération des ressources propre à l'abonnement au service des paramètres
+   */
   ngOnDestroy(): void {
     if (this.parametresSubscription) {
       if (this.parametresSubscription) {
@@ -35,6 +48,9 @@ export class NavbarComponent {
     }
   }
 
+  /**
+   * Vérification de l'activation du mod Nuit dans les paramètres
+   */
   chargerEtatTheme(): void {
     const params = this.parametresService.chargerParametres();
     // Activation ou non du mod nuit en fonction des paramètres
@@ -43,6 +59,10 @@ export class NavbarComponent {
     }
   }
 
+  /**
+   * Changement de la couleur de la barre de navigation
+   * @returns la classe spécifique au mod Nuit ou non, en fonction du contenu des paramètres
+   */
   getNavbarClass(): string {
     return this.isDarkMode ? 'navbar navbar-dark' : 'navbar';
   }

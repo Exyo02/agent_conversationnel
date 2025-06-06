@@ -1,11 +1,18 @@
 import { Injectable, OnInit } from '@angular/core';
 
+/**
+ * La classe SyntheseVocaleService est utilisée pour lire 
+ * les informations spécifiques à l'application
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class SyntheseVocaleService{
   synthese!:SpeechSynthesisUtterance;
 
+  /**
+   * Le constructeur initialise le narrateur
+   */
   constructor() {
     this.init();
   }
@@ -22,6 +29,7 @@ export class SyntheseVocaleService{
   }
 
   /**
+   * Fonction permettant de démarrer la synthèse vocale
    * @param message à dire par la synthèse vocale
    * @returns 
    */

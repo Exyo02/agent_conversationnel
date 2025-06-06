@@ -4,6 +4,15 @@ import { MedicamentsService } from '../../services/medicaments.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
+/**
+ * Composant pour la visualisation de la liste des 
+ * informations des médicamments: 
+ * - Nom 
+ * - Quantité
+ * - Date et heure de prochaine prise
+ * - Durée
+ * - Intervalle de prise
+ */
 @Component({
   standalone: true,
   selector: 'app-medicaments-list',
@@ -22,6 +31,9 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
    */
   constructor(private medicamentsService: MedicamentsService, private router: Router) {}
 
+  /**
+   * Initialisation del aliste des médicamments
+   */
   ngOnInit(): void {
     // Charger la liste des médicamments
     this.chargerMedicaments();
@@ -45,6 +57,7 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Fonction d'ordonnancement de la liste des médicamments
    * @param medic liste des médicamments non ordonnancés
    * @returns la liste des médicamments ordonnés en fonction de la date de la prochaine prise des médicamments
    */
@@ -61,6 +74,7 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Fonction pour connaitre les médicamment avec les prochaines prises les plus proches
    * @param med 
    * @param now 
    * @returns les informations sur la date de prochaine prise
@@ -107,6 +121,11 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/app-medicaments/editer', nom]);
   }
 
+  /**
+   * Pour visualiser le niveau d'alerte dans la prise des médicamments
+   * @param medic le médicamment concerné
+   * @returns la couleur de la ligne en fonction de l'état d'alerte 
+   */
   getLineClass(medic:any){
     return medic.suivant.alerte==0?"line line-alerte-alert":(medic.suivant.alerte==1?"line line-alerte-warning":"line line-without-alerte");
   }
