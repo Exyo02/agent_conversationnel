@@ -3,6 +3,9 @@ import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+/**
+ * Composant de boite de dialogue personnalisable
+ */
 @Component({
   selector: 'app-dialog',
   imports: [CommonModule,FormsModule],
@@ -10,21 +13,29 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './dialog.component.css'
 })
 export class DialogComponent {
+  /** Message affiché dans la boite de dialogue */
   @Input() message = '';
 
-  // Les deux boutons de la boite de dialogue
+  /** Bouton de la boite de dialogue pour la validation */
   @Input() opt1 = '';
+
+  /** Bouton de la boite de dialogue pour l'annulation */
   @Input() opt2 = '';
 
-  //Zones de saisie
+  /** Présence de zones de saisie */
   @Input() textField = false;
+
+  /** Spécifique à l'ajout d'un nouveau contact */
+  /** Nom du nouveau contact */
   nom:string = "";
+  /** Adresse mail du nouveau contact */
   mail:string = "";
+  /** Numéro de téléphone du nouveau contact */
   telephone:string = "";
 
   /**
    * Constructeur
-   * @param activeModal 
+   * @param activeModal référence à la fenêtre ouverte
    */
   constructor(public activeModal:NgbActiveModal){}
 
@@ -38,6 +49,13 @@ export class DialogComponent {
     return f.validity.valid;
   }
 
+  /**
+   * La fonction de résultat renvoie :
+   * - @param opt s'il ne s'agissait pas de l'ajout d'un nouvel utilisateur
+   * - Un nouvel utilisateur si @param opt = true
+   * - False sinon
+   * @param opt true si l'utilisateur a cliqué sur le bouton de validation, false sinon
+   */
   result(opt:boolean){
     // S'il yu a des zones de saisie
     if(this.textField){

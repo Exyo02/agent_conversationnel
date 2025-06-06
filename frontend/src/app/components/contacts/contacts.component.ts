@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 
+/**
+ * Composant pour les communications privés avec des contacts
+ */
 @Component({
   standalone: true,
   selector: 'app-contacts',
@@ -15,21 +18,21 @@ import { Subscription } from 'rxjs';
   styleUrl: './contacts.component.css'
 })
 export class ContactsComponent implements OnInit{
-  // Mod nuit activé?
+  /** Mod nuit activé? */
   isDarkMode: boolean = false;
 
   parametresSubscription: Subscription | undefined;
 
-  // Liqste des noms des contacts
+  /** Liqste des noms des contacts */
   contacts:Array<string> = [];
 
-  // Contact sur lequel l'utilisateur à cliqué
+  /** Contact sur lequel l'utilisateur à cliqué */
   contactCourant:any;
 
-  // Chaine de caractères inscrit dans la zone de saisie
+  /** Chaine de caractères inscrit dans la zone de saisie */
   currentMessage:string = "";
 
-  // Liste des messages envoyés pendant la session
+  /** Liste des messages envoyés pendant la session */
   messagesRecents:Array<string> = [];
 
   /**
@@ -56,6 +59,9 @@ export class ContactsComponent implements OnInit{
     this.contacts = this.contactsService.chargerContacts();
   }
 
+  /**
+   * Libération des ressources propre à l'abonnement au service des paramètres
+   */
   ngOnDestroy(): void {
     if (this.parametresSubscription) {
       if (this.parametresSubscription) {
@@ -120,6 +126,9 @@ export class ContactsComponent implements OnInit{
     }
   }
 
+  /**
+   * Active ou non le mod Nuit en fonction du cntenu des paramètres
+   */
   chargerEtatTheme(): void {
     const params = this.parametresService.chargerParametres();
     if (params && params.themeNuitJour !== undefined) {
@@ -127,12 +136,19 @@ export class ContactsComponent implements OnInit{
     }
   }
 
+  /**
+   * Application du style des messages en fonction de l'activation du mod Nuit
+   * @returns la classe de style
+   */
   getPClass(){
     return this.isDarkMode ? 'p-nuit' : 'p-jour';
   }
 
+  /**
+   * Application du style de la barre de défilement en fonction de l'activation du mod Nuit
+   * @returns la classe de style
+   */
   getDiscussionClass(){
     return this.isDarkMode ? 'discussion discussion-nuit' : 'discussion discussion-jour';
   }
-
 }

@@ -5,6 +5,9 @@ import { ParametresService, Parametres } from './services/parametres.service';
 import { Subscription } from 'rxjs';
 import { ChatComponent } from './components/chat/chat.component';
 
+/**
+ * Composant racine de l'application
+ */
 @Component({
   standalone: true,
   imports:[RouterOutlet, NavbarComponent,ChatComponent],
@@ -14,6 +17,8 @@ import { ChatComponent } from './components/chat/chat.component';
 })
 export class AppComponent implements OnInit, OnDestroy{
   title = 'frontend';
+
+  /** Police sélectionnée */
   selectedFontClass: string = '';
   parametresSubscription: Subscription | undefined;
 
@@ -44,6 +49,9 @@ export class AppComponent implements OnInit, OnDestroy{
     }
   }
 
+  /**
+   * Récupération de la police d'écriture dans les paramètres pour application
+   */
   loadInitialFont(): void {
     const initialParams = this.parametresService.chargerParametres();
     if (initialParams && initialParams.police) {
@@ -51,6 +59,10 @@ export class AppComponent implements OnInit, OnDestroy{
     }
   }
 
+  /**
+   * Application dela police d'écriture à l'application
+   * @param font police d'écriture sous la forme d'une chaine de caractères
+   */
   applyFontClass(font: string): void {
     if (this.selectedFontClass) {
       this.renderer.removeClass(document.body, this.selectedFontClass);

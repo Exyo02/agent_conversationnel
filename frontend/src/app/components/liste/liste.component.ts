@@ -10,6 +10,11 @@ import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
+/**
+ * Composant utilisé pour les pages détaillant 
+ * les informations d'un rappel spécifique, 
+ * et permettant de les modifier
+ */
 @Component({
   standalone: true,
   selector: 'app-liste',
@@ -18,18 +23,21 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
   styleUrl: './liste.component.css'
 })
 export class ListeComponent implements OnInit {
-  // Titre du rappel
+  /** Titre du rappel */
   titre = '';
 
   ajoutTitre = '';
 
-  // Contenu du rappel 
+  /** Contenu du rappel */
   liste = '';
   
+  /** S'il s'agit d'une nouveau rappel */
   nouvelleListe!: boolean;
+
+  /** Si l'utilisateur change le titre du médicamment existant */
   creationCourante = false;
 
-  // Activation du narrateur
+  /** Activation du narrateur */
   narrateur: boolean = true;
   parametresSubscription: Subscription | undefined;
 
@@ -72,6 +80,9 @@ export class ListeComponent implements OnInit {
     }
   }
 
+  /**
+   * Libération des ressources propre à l'abonnement au service des paramètres
+   */
   ngOnDestroy(): void {
     if (this.parametresSubscription) {
       if (this.parametresSubscription) {
@@ -138,7 +149,7 @@ export class ListeComponent implements OnInit {
    * Annuler les modifications apportées au rappel, avec message de confirmation par boite de dialogue
    */
   annuler() {
-    // Ouverture de la boite d edialogue
+    // Ouverture de la boite de dialogue
     const mod = this.dialogBox.open(DialogComponent);
 
     //Configuration de la boite de dialogue

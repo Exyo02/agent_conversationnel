@@ -6,6 +6,14 @@ import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 
+/**
+ * Composant de visualisation d'articles informationnels en fonctions de catégories:
+ * - Actualités
+ * - Risques domestiques
+ * - Loisirs
+ * - Alimentation
+ * - Aides
+ */
 @Component({
   standalone: true,
   selector: 'app-infos',
@@ -14,27 +22,27 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
   styleUrl: './infos.component.css'
 })
 export class InfosComponent implements OnInit{
-  // Activation du mod nuit
+  /** Activation du mod nuit */
   isDarkMode: boolean = false;
 
-  // Activation de lasynthèse vocale
+  /** Activation de lasynthèse vocale */
   narrateur: boolean = true;
 
   parametresSubscription: Subscription | undefined;
 
-  // Liste des informtions affichées 
+  /** Liste des informtions affichées */
   infosList:Array<any>=[];
 
-  // En cours d'initialisation es informatons
+  /** En cours d'initialisation es informatons */
   nbAffichage:Array<boolean>=[true];
 
-  // Nombre d'informations à afficher
+  /** Nombre d'informations à afficher */
   nbArticle = 5;
 
-  // Numéro de la catégorie affichée
+  /** Numéro de la catégorie affichée */
   numCategorie = -1;
 
-  // Noms et numéros des catégories
+  /** Noms et numéros des catégories */
   nomsCategories =[
     {nom: "Actualités", num: 0},
     {nom: "Aménagements", num: 1},
@@ -72,6 +80,9 @@ export class InfosComponent implements OnInit{
     this.ajoutArticle(0);
   }
 
+  /**
+   * Libération des ressources propre à l'abonnement au service des paramètres
+   */
   ngOnDestroy(): void {
     if (this.parametresSubscription) {
       if (this.parametresSubscription) {
@@ -81,6 +92,7 @@ export class InfosComponent implements OnInit{
   }
 
   /**
+   * Renvoi un identifiant pour un objet HTML 'button'
    * @param num de la catégorie
    * @returns du nom de la classe en fonction du numéro de la catégorie en paramètres effectifs
    */
@@ -129,7 +141,7 @@ export class InfosComponent implements OnInit{
                 result_parse.numCategorie = infosCategorie.num;
 
                 // Si l'information n'est pas déjà affichée l'ajouter à l'affichage
-                if(!this.containsTitle(result_parse.title,result_parse.numCategorie)){
+                if(!this.containsTitle(result_parse.title)){
                   this.infosList.push(result_parse);
 
                   // Si le narrateur est activé lire le titre de l'information 
@@ -164,11 +176,11 @@ export class InfosComponent implements OnInit{
   }
 
   /**
+   * Cette fonction vérifie l'existance d'un article dans la liste des articles
    * @param title de l'article
-   * @param num 
    * @returns vrai si le titre existe déjà, false sinon
    */
-  containsTitle(title:string, num:number){
+  containsTitle(title:string){
     let i = 0, find = false;
 
     while(i<this.infosList.length && !find){
@@ -201,6 +213,9 @@ export class InfosComponent implements OnInit{
     this.ajoutArticle(this.nbAffichage.length-1);
   }
 
+  /**
+   * Récupération de l'état du mod Nuit dans les paramètres
+   */
   chargerEtatTheme(): void {
     const params = this.parametresService.chargerParametres();
     if (params && params.themeNuitJour !== undefined) {
@@ -209,8 +224,9 @@ export class InfosComponent implements OnInit{
   }
 
   /**
+   * Changement de la classe du menu des catégories en fonction de l'activation du mod nuit
    * @param all 
-   * @returns changement de la classe du menu des catégories en fonction de l'activation du mod nuit
+   * @returns le nom de la classe de style
    */
   getCategorieClass(all:boolean){
     return all ? (this.isDarkMode ? 'use-nuit categorie categorie-nuit'
@@ -220,7 +236,8 @@ export class InfosComponent implements OnInit{
   }
 
   /**
-   * @returns le nom de la classe de style a appliqué sur la bare de défilement en fonction de l'activation du mod nuit
+   * Application d'un style sur la bare de défilement en fonction de l'activation du mod nuit
+   * @returns le nom de la classe de style
    */
   getFNClass(){
     return this.isDarkMode ? 'fn fn-nuit' : 'fn fn-jour';
@@ -228,11 +245,12 @@ export class InfosComponent implements OnInit{
 }
 
 /**
+ * Ajout d'un délai personnalisé en fonction des paramètres effectifs
  * @param delay à attendre
  * @returns 
  */
 function delayPerso(delay:number) {
-    return new Promise(r=>{
-      setTimeout(r,delay);
-    })
-  }
+  return new Promise(r=>{
+    setTimeout(r,delay);
+  })
+}

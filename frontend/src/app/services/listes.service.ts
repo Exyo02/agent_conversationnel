@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ListesService {
-  // Clé pour accéder aux noms des rappels stockés dans le local storage 
+  /** Clé pour accéder aux noms des rappels stockés dans le local storage */
   accessKey: string = 'file-access-agent-conversationnel';
 
   /**
+   * Récupère la liste des noms des rappels
    * @returns la liste des identifians
    */
   chargerNomsListes(){
@@ -19,11 +20,8 @@ export class ListesService {
     }
   }
 
-  clear(){
-    localStorage.clear();
-  }
-
   /**
+   * Récupérer le contenu d'un rappel à partir de son nom
    * @param nom identifiant du rappel
    * @returns le contenu du rappel
    */
@@ -37,7 +35,8 @@ export class ListesService {
   }
 
   /**
-   * @param nom de la liste à supprimer
+   * Supprimer un rappel à partir de son identifiant
+   * @param nom du rappel à supprimer
    */
   supprimer(nom: string){
     // Suppression du contenu du rappel

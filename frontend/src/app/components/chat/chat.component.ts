@@ -10,6 +10,10 @@ import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
+/**
+ * Composant permettant la conversaton avec le Bot
+ * Par le biais de l'écrit et de loral
+ */
 @Component({
   standalone: true,
   selector: 'app-chat',
@@ -18,19 +22,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './chat.component.css'
 })
 export class ChatComponent implements OnInit {
-  // Zone de saisie
+  /** Zone de saisie */
   currentText = '';
 
-  // Dernière réponse du bot
+  /** Dernière réponse du bot */
   botAnswer='';
   
-  // Liste des messages de la conversation
+  /** Liste des messages de la conversation */
   messages: Array<any> = [];
 
-  // Reconnaissance vocale activée
+  /** Reconnaissance vocale activée */
   ecouteEnCours:boolean;
 
-  // Synthèse vocale activée
+  /** Synthèse vocale activée */
   narrateur: boolean = true;
 
   parametresSubscription: Subscription | undefined;
@@ -62,19 +66,19 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     let entree = document.getElementById("saisie");
     entree?.addEventListener("keydown",(key)=>{
-      // Pressez "Enter" pour envyer un message au bot
+      /** Pressez "Enter" pour envyer un message au bot */
       if (key.key == "Enter"){
         this.envoyer()
-      // Pressez "+" pour activer la reconnaissance vocale
+      /** Pressez "+" pour activer la reconnaissance vocale */
       }else if (key.key == "+"){
         key.preventDefault();
         this.ecoute();
       }
     })
-    //Focus à l'initialisation sur la zone de saisie du chatbot
+    /** Focus à l'initialisation sur la zone de saisie du chatbot */
     entree?.focus();
 
-    // Vérification de l'activation du narrateur
+    /** Vérification de l'activation du narrateur */
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
       if(params && params.modeNarrateur !== undefined){
         this.narrateur = params.modeNarrateur;
@@ -82,6 +86,9 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  /**
+   * Libération des ressources propre à l'abonnement au service des paramètres
+   */
   ngOnDestroy(): void {
     if (this.parametresSubscription) {
       if (this.parametresSubscription) {
@@ -178,6 +185,10 @@ export class ChatComponent implements OnInit {
     );
   }
   
+  /**
+   * Permet d'afficher la conversation et de vider la zone de saisie
+   * @param param configure la réponse du bot si égale à 1 on l'affiche, sinon non
+   */
   refresh(param:number){
     // Affichage du message de l'utilisateur dans la liste
     this.messages.push({role:'user',content: this.currentText});
@@ -191,6 +202,7 @@ export class ChatComponent implements OnInit {
   }
   
   /**
+   * Visualisation de l'activation de la reconnaissance vocale
    * @returns la classe utilisée par le bouton de reconnaissance vocale en fonction de l'utilisation de cette dernière
    */
   getRecVocClass(){
