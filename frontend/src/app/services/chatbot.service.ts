@@ -27,8 +27,14 @@ export class ChatbotService {
       +"- soit 'médicaments' => 'app-medicaments'"
       +"- soit 'agenda' => 'app-agenda'"
       +"- soit 'actualités' ou 'informations' => 'app-infos'"
-      +"Si on te demande d'ajouter un rappel => 'add-list' et comprenant titre nommé title + contenu nommé content sous format json"}
+      +"- soit 'informations' sur un sujet particulier => 'app-infos' nommé action + sujet nommé search sous format json"
+      +"Si on te demande d'ajouter un rappel => 'add-list' nommé action + titre nommé title + contenu nommé content sous format json"
+      +"Si on te demande d'ajouter un contact => 'add-contact' nommé action + nom nommé nom + mail nommé mail + telephone nommé telephone sous format json"
+      +"Si on te demande d'ajouter une sortie => 'add-sortie' nommé action + titre nommé title + adresse nommé adresse + heureDebut nommé heure + dat nommé date sous format json"}
   ];
+
+  /** Ajout d'une spécificité à la demande */
+  private ajoutSujet = "L'information doit concerner le domaine de ";
 
   /** Demandes spécififiques à la catégorie d'informations actualités */
   private demandeActus = "Inventes 1 actualité provenant d'un journal sous format json comprenant titre nommé title + description courte nommé short_description, ta réponse ne devra contenir que le JSON elle commencera par le json et terminera par le json";
@@ -90,7 +96,11 @@ export class ChatbotService {
    * @param categorieCourante numéro de la catégorie
    * @returns la demande + le numéro de la catégorie
    */
-  getDemandeInfos(categorieCourante:number){
+  getDemandeInfos(categorieCourante:number, recherche: string | null){
+    if (recherche != null && recherche != ""){
+      return { demande: this.demandeActus + this.ajoutSujet + recherche, num: 0};
+    }
+
     // Si la catégorie spécifiée est -1 alors catégorie aléatoire
     if(categorieCourante == -1){
       categorieCourante = Math.floor(Math.random()*5);
