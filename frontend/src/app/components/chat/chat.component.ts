@@ -9,6 +9,9 @@ import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
 import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ContactsService } from '../../services/contacts.service';
+import { SortiesService } from '../../services/sorties.service';
+import { Sortie } from '../../services/sorties.service';
 
 /**
  * Composant permettant la conversaton avec le Bot
@@ -47,6 +50,8 @@ export class ChatComponent implements OnInit {
    * @param recVocaleService 
    * @param syntheseService 
    * @param parametresService 
+   * @param contactsService
+   * @param sortiesService
    */
   constructor(
     private service:ChatbotService,
@@ -54,7 +59,9 @@ export class ChatComponent implements OnInit {
     private listService:ListesService,
     private recVocaleService:ReconnaissanceVocaleService,
     private syntheseService:SyntheseVocaleService,
-    private parametresService:ParametresService){
+    private parametresService:ParametresService,
+    private contactsService:ContactsService,
+    private sortiesService:SortiesService){
       this.ecouteEnCours = false;
   }
 
@@ -142,7 +149,18 @@ export class ChatComponent implements OnInit {
 
         let param = 0;
         if(answer.includes("app-infos")){
-          this.router.navigate(['/app-infos']);
+          let search = "";
+          console.log(answer)
+
+          // Récupérration des informations du nouveau rappel dans la réponse
+          if (answer.includes("search")){
+            let result=JSON.parse(answer.substring(answer.indexOf("{"),answer.lastIndexOf("}")+1));
+            search = result.search;
+            
+            this.router.navigate(['/app-infos', search]);
+          }else{
+            this.router.navigate(['/app-infos']);
+          }
         }else if(answer.includes("app-medicaments")){
           this.router.navigate(['/app-medicaments']);
         }else if(answer.includes("app-agenda")){
@@ -151,6 +169,23 @@ export class ChatComponent implements OnInit {
           this.router.navigate(['/app-contacts']);
         }else if(answer.includes("app-todolist")){
           this.router.navigate(['/app-todolist']);
+        }else if(answer.includes("add-contact")){
+          // Récupérration des informations du nouveau contact dans la réponse
+          let result=JSON.parse(answer.substring(answer.indexOf("{"),answer.lastIndexOf("}")+1));
+          let nom = result.nom;
+          let mail = result.mail;
+          let telephone = result.telephone;
+
+          // Enregistrement du nouveau contact
+          this.contactsService.enregistrer(nom, mail, telephone);
+
+          // Si on est déjà dans l'onglet contacts raffraichir la page
+          if(window.location.toString().endsWith("/app-contacts")){
+            window.location.reload();
+          // Sinon rejoindre l'onglet contacts
+          }else{
+            this.router.navigate(['/app-contacts']);
+          }
         }else if(answer.includes("add-list")){
           // Récupérration des informations du nouveau rappel dans la réponse
           let result=JSON.parse(answer.substring(answer.indexOf("{"),answer.lastIndexOf("}")+1));
@@ -166,6 +201,26 @@ export class ChatComponent implements OnInit {
           // Sinon rejoindre l'onglet rappels
           }else{
             this.router.navigate(['/app-todolist']);
+          }
+        }else if(answer.includes("add-sortie")){
+          // Récupérration des informations de la nouvelle sortie dans la réponse
+          let result=JSON.parse(answer.substring(answer.indexOf("{"),answer.lastIndexOf("}")+1));
+          let s: Sortie = {
+              title: result.title,
+              date: result.date,
+              heureDebut: result.heure,
+              adresse: result.adresse
+            };
+
+          // Enregistrement de la nouvelle sortie
+          this.sortiesService.ajouterSortie(s);
+
+          // Si on est déjà dans l'onglet sorties raffraichir la page
+          if(window.location.toString().endsWith("/app-sorties")){
+            window.location.reload();
+          // Sinon rejoindre l'onglet sorties
+          }else{
+            this.router.navigate(['/app-sorties']);
           }
         // Réponse sans  contenu spécifique
         }else{

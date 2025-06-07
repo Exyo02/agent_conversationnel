@@ -5,6 +5,7 @@ import { SortiesService } from '../../services/sorties.service';
 import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 import { SyntheseVocaleService } from '../../services/synthese-vocale.service';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * Composant de visualisation d'articles informationnels en fonctions de catégories:
@@ -42,6 +43,9 @@ export class InfosComponent implements OnInit{
   /** Numéro de la catégorie affichée */
   numCategorie = -1;
 
+  /** Sujet de recherche */
+  recherche:string | null = "";
+
   /** Noms et numéros des catégories */
   nomsCategories =[
     {nom: "Actualités", num: 0},
@@ -57,15 +61,20 @@ export class InfosComponent implements OnInit{
    * @param sortieService 
    * @param parametresService 
    * @param syntheseService 
+   * @param route
    */
   constructor(
     private botService:ChatbotService,
     private sortieService:SortiesService,
     private parametresService:ParametresService,
-    private syntheseService:SyntheseVocaleService
+    private syntheseService:SyntheseVocaleService,
+    private route:ActivatedRoute
   ){}
 
   ngOnInit(): void {
+    // Récupération du sujet de recherche
+    this.recherche = this.route.snapshot.paramMap.get('search');
+
     this.chargerEtatTheme();
     this.parametresSubscription = this.parametresService.parametres$.subscribe(params => {
       if (params && params.themeNuitJour !== undefined) {
@@ -121,7 +130,7 @@ export class InfosComponent implements OnInit{
     if(this.infosList.length<this.nbArticle){
       try{
         // Récupérration des informations d ela catégorie courante (demande + numéro)
-        let infosCategorie = this.botService.getDemandeInfos(this.numCategorie);
+        let infosCategorie = this.botService.getDemandeInfos(this.numCategorie, this.recherche);
 
         // Envi de la demande au bot
         this.botService.envoi(infosCategorie.demande).subscribe(

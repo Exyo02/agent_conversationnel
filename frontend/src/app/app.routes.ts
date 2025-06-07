@@ -25,6 +25,7 @@ export const routes: Routes=[
     {path:'app-medicaments/ajouter', component:MedicamentsComponent},
     {path:'app-medicaments/editer/:nom', component:MedicamentsComponent},
     {path:'app-infos', component:InfosComponent},
+    {path:'app-infos/:search', component:InfosComponent},
     {path: 'app-contacts', component:ContactsComponent},
     {path: 'app-sorties', component:SortiesListeComponent},
     {path: 'app-sorties/ajouter', component:Sorties},
