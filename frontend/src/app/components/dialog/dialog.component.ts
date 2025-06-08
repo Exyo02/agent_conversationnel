@@ -61,7 +61,7 @@ export class DialogComponent {
     if(this.textField){
       // Si l'utilisateur clique sur le bouton 2 alors ferme la boite de dialogue
       if(!opt){
-        this.activeModal.close({opt:opt});
+        this.activeModal.close({opt:false});
       // Sinon 
       }else{
         // On vérifie la validité des zones de saisie

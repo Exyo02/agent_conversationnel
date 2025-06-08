@@ -47,7 +47,7 @@ export class ReconnaissanceVocaleService {
       this.reconnaissanceVocale.onerror = (event: any)=>{
         this.zone.run(()=>{
           this.ecoute = false;
-          reject();
+          reject("Erreur lors de la reconnaissance vocale");
         });
       }
 

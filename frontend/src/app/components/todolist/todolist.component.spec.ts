@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodolistComponent } from './todolist.component';
+import { ActivatedRoute } from '@angular/router';
+
+const mockRouter = {
+  navigate: jasmine.createSpy('navigate')
+};
 
 describe('TodolistComponent', () => {
   let component: TodolistComponent;
@@ -8,7 +13,10 @@ describe('TodolistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodolistComponent]
+      imports: [TodolistComponent],
+      providers: [
+        {provide: ActivatedRoute, useValue:mockRouter}
+      ]
     })
     .compileComponents();
 

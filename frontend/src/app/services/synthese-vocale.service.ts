@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 /**
  * La classe SyntheseVocaleService est utilisée pour lire 

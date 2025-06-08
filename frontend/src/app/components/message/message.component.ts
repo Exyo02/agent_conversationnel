@@ -6,7 +6,7 @@ interface Message {
   channelId: string;
 
   /** Nom de l'envoyeur */
-  user: string;
+  sender: string;
 
   /** Contenu du message */
   content: string;

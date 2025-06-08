@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit , Renderer2} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ParametresService, Parametres } from './services/parametres.service';
+import { ParametresService } from './services/parametres.service';
 import { Subscription } from 'rxjs';
 import { ChatComponent } from './components/chat/chat.component';
 

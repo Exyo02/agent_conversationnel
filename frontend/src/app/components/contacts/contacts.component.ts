@@ -122,7 +122,7 @@ export class ContactsComponent implements OnInit{
       let mailString = "mailto:"+this.contactCourant.mail+"?subject=testApp&body="+this.currentMessage;
       this.messagesRecents.push(this.currentMessage);
       this.currentMessage = "";
-      window.location.href = mailString;
+      window.open(mailString);
     }
   }
 

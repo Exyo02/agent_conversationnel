@@ -20,7 +20,7 @@ interface Message {
   /** Numéro du channel de publication */
   channelId: string;
   /** Nom de l'enoyeur */
-  user: string;
+  sender: string;
   /** Contenu du message */
   content: string;
   /** Date et heure d'envoi */
