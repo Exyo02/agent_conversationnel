@@ -214,8 +214,11 @@ export class InfosComponent implements OnInit{
     this.numCategorie = categorie;
     document.getElementById("categorie"+this.numCategorie)?.classList.add(this.isDarkMode?"use-nuit":"use-jour");
 
-    // Retirer lesarticles affichés
+    // Retirer les articles affichés
     this.infosList = [];
+
+    // Retirer la spécificité de la recherche
+    this.recherche = "";
 
     // Effectuer l'affichage de nouveaux articles 
     this.nbAffichage.push(true);
