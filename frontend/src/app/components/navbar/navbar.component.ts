@@ -1,6 +1,6 @@
 import { RouterLink } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ParametresService, Parametres } from '../../services/parametres.service';
+import { Component } from '@angular/core';
+import { ParametresService } from '../../services/parametres.service';
 import { Subscription } from 'rxjs';
 
 /**
