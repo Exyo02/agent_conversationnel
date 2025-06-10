@@ -10,7 +10,7 @@ describe('SyntheseVocaleService', () => {
     service = TestBed.inject(SyntheseVocaleService);
   });
 
-  it('should be created', () => {
+  it('instanciation', () => {
     expect(service).toBeTruthy();
   });
 

@@ -25,7 +25,7 @@ describe('TodolistComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('instanciation', () => {
     expect(component).toBeTruthy();
   });
 });

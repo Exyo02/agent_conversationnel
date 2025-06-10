@@ -59,7 +59,7 @@ describe('ListeComponent', () => {
     synthese = TestBed.inject(SyntheseVocaleService) as jasmine.SpyObj<SyntheseVocaleService>;
   });
 
-  it('should create', () => {
+  it('instanciation', () => {
     expect(component).toBeTruthy();
   });
 

@@ -73,7 +73,7 @@ describe('ChatComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('instanciation', () => {
     expect(component).toBeTruthy();
   });
 
@@ -152,7 +152,7 @@ describe('ChatComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/app-contacts']);
   }));
 
-  it('add-list', fakeAsync(() => {
+  it('add-rappel', fakeAsync(() => {
     const answer = 'add-list {"title":"Courses","content":"Acheter du lait"}';
     service.envoi.and.returnValue(of({ choices: [{ message: { content: answer } }] }));
     component.currentText = 'test';
@@ -179,7 +179,7 @@ describe('ChatComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/app-sorties']);
   }));
 
-  it('should navigate to app-infos with search query', fakeAsync(() => {
+  it('navigation vers app-infos avec search', fakeAsync(() => {
     const mockResponse = 'app-infos {"search": "test"}';
     service.envoi.and.returnValue(of({ choices: [{ message: { content: mockResponse } }] }));
     component.currentText = 'test';

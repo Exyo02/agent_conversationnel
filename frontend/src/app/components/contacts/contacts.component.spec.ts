@@ -48,7 +48,7 @@ describe('ContactsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('instanciation', () => {
     expect(component).toBeTruthy();
   });
 
@@ -118,7 +118,7 @@ describe('ContactsComponent', () => {
     expect(component.currentMessage).toBe('');
   });
 
-  it('should join conversation with contact', () => {
+  it('rejoindre une conversation avec contact', () => {
     service.charger.and.returnValue({ nom: 'Alice', mail: 'alice@example.com', telephone: '0000000000' });
 
     component.rejoindreConversation('Alice');

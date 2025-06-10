@@ -21,7 +21,7 @@ describe('ChatbotService', () => {
     service = TestBed.inject(ChatbotService);
   });
 
-  it('should be created', () => {
+  it('instanciation', () => {
     expect(service).toBeTruthy();
   });
 
