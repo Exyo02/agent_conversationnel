@@ -52,7 +52,7 @@ describe('MedicamentsComponent', () => {
     service = TestBed.inject(MedicamentsService) as jasmine.SpyObj<MedicamentsService>;
   });
 
-  it('should create', () => {
+  it('instanciation', () => {
     expect(component).toBeTruthy();
   });
 

@@ -27,7 +27,7 @@ describe('ReconnaissanceVocaleService', () => {
     service = new ReconnaissanceVocaleService(zone);
   });
 
-  it('should be created', () => {
+  it('instanciation', () => {
     expect(service).toBeTruthy();
   });
 
