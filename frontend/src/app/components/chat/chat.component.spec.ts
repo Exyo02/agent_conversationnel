@@ -114,13 +114,13 @@ describe('ChatComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/app-medicaments']);
   }));
 
-  it('navigation app-agenda', fakeAsync(() => {
-    service.envoi.and.returnValue(of({ choices: [{ message: { content: 'Navigation vers app-agenda page' } }] }));
+  it('navigation app-sorties', fakeAsync(() => {
+    service.envoi.and.returnValue(of({ choices: [{ message: { content: 'Navigation vers app-sorties page' } }] }));
     component.currentText = 'test';
     component.envoyer();
     tick();
 
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/app-agenda']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/app-sorties']);
   }));
 
   it('navigation app-contacts', fakeAsync(() => {

@@ -1,4 +1,4 @@
-div{
+.fn{
   background-color: rgba(255, 255,255, 0.5);
   height: 100%;
   width: 60%;
@@ -7,30 +7,46 @@ div{
   border-color: black;
   border-style:solid;
   padding-left: 20px;
+  padding-right: 20px;
+  overflow-y: scroll;
 }
+
+.fn::-webkit-scrollbar{
+  background-color: transparent;
+}
+
+.fn-jour::-webkit-scrollbar-thumb{
+  background-color: #608cd4;
+}
+
+.fn-nuit::-webkit-scrollbar-thumb{
+  background-color: #003366;
+}
+
 .add{
   color: red;
   background-color: transparent;
   border: none;
   margin-top: 20px;
 }
+
 .add:hover{
   color: orange;
 }
-ul{
-  margin: 0px;
-  padding: 0px;
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
+
+button:hover{
+  color: orange;
+  border-color: orange;
 }
+
 .liste{
+  cursor: pointer;
   background-color: white;
   font-size: x-large;
-  width: 20%;
-  padding: 10px;
-  margin-right: 50px;
-  margin-bottom: 50px;
+  width: 100%;
+  margin: 0px;
+  padding: 10px 5px;
+  margin-bottom: 10px;
   border-radius: 10px;
   border-color: black;
   border-width: 2px;
@@ -42,6 +58,7 @@ ul{
   color: orange;
   border-color: orange;
 }
+
 .notification {
   position: fixed;
   top: 50%;
@@ -59,4 +76,40 @@ ul{
   margin: 10px;
   padding: 8px 15px;
   cursor: pointer;
+}
+
+table{
+  text-align: center;
+}
+
+.suivant{
+  margin-left: 390px;
+}
+
+th{
+  padding: 5px 15px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+td{
+  border-color: black;
+  border-style: solid;
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+tbody tr td{
+  min-height: 300px;
+}
+
+.agenda {
+  margin: 0px;
+  padding: 0px;
+  margin-top: 20px;
+}
+
+p {
+  font-size: medium;
 }

@@ -25,7 +25,7 @@ export class ChatbotService {
       +"- soit 'contacts' => 'app-contacts'"
       +"- soit 'rappels' => 'app-todolist'"
       +"- soit 'médicaments' => 'app-medicaments'"
-      +"- soit 'agenda' => 'app-agenda'"
+      +"- soit 'agenda' => 'app-sorties'"
       +"- soit 'actualités' ou 'informations' => 'app-infos'"
       +"- soit 'informations' sur un sujet particulier => 'app-infos' nommé action + sujet nommé search sous format json"
       +"Si on te demande d'ajouter un rappel => 'add-list' nommé action + titre nommé title + contenu nommé content sous format json"

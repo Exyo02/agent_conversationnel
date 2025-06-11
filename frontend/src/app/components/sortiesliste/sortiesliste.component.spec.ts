@@ -49,11 +49,4 @@ describe('SortieslisteComponent', () => {
 
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/app-sorties/editer', "Visite d'un jardin"]);
   });
-
-  it('ngOnDestroy', () => {
-    const mockSub = jasmine.createSpyObj('Subscription', ['unsubscribe']);
-    component['intervalSubscription'] = mockSub;
-    component.ngOnDestroy();
-    expect(mockSub.unsubscribe).toHaveBeenCalled();
-  });
 });
