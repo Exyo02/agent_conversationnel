@@ -1,6 +1,5 @@
 import { Routes } from "@angular/router";
 import { AccueilComponent } from "./components/accueil/accueil.component";
-import { AgendaComponent } from "./components/agenda/agenda.component";
 import { TodolistComponent } from "./components/todolist/todolist.component";
 import { MedicamentsComponent } from "./components/medicaments/medicaments.component";
 import { InfosComponent } from "./components/infos/infos.component";
@@ -17,7 +16,6 @@ import { MessageComponent } from "./components/message/message.component";
 export const routes: Routes=[
     {path:'', component:AccueilComponent},
     {path:'app-accueil', component:AccueilComponent},
-    {path:'app-agenda', component:AgendaComponent},
     {path:'app-todolist', component:TodolistComponent},
     {path:'app-liste/:nom', component:ListeComponent},
     {path:'app-liste', component:ListeComponent},

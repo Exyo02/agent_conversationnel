@@ -163,8 +163,8 @@ export class ChatComponent implements OnInit {
           }
         }else if(answer.includes("app-medicaments")){
           this.router.navigate(['/app-medicaments']);
-        }else if(answer.includes("app-agenda")){
-          this.router.navigate(['/app-agenda']);
+        }else if(answer.includes("app-sorties")){
+          this.router.navigate(['/app-sorties']);
         }else if(answer.includes("app-contacts")){
           this.router.navigate(['/app-contacts']);
         }else if(answer.includes("app-todolist")){

@@ -1,7 +1,32 @@
-<div>
-  <ul>
-      <article class="liste" *ngFor="let sortie of sorties" [routerLink]="['/app-sorties/editer', sortie.title]">{{sortie.title}}</article>
-  </ul>
+<div [class]="getFNClass()">
+  <section class="agenda">
+    <section class="navigation">
+        <button (click)="changeSemaine(-1)">Semaine Précédente</button>
+        <button class="suivant" (click)="changeSemaine(1)">Semaine suivante</button>
+    </section>
+    <table>
+        <thead>
+            <tr>
+                <th *ngFor="let jour of joursSemaine">
+                    {{ formatDate(jour) }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td *ngFor="let jour of joursSemaine">
+                    <div class="liste" 
+                        *ngFor="let s of sortiesParJour[jour.toISOString().split('T')[0]]"
+                        [routerLink]="['/app-sorties/editer', s.title]">
+                        <strong>{{ s.title }}</strong>
+                        <p>{{ s.heureDebut }}</p>
+                        <p>{{ s.adresse }}</p>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </section>
 
   <button class="add" (click)="ajouterNouvelleSortie()">
       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
