@@ -25,7 +25,7 @@ describe('SortieslisteComponent', () => {
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: { params: of({}) } }
       ]
-    })  .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SortiesListeComponent);
     component = fixture.componentInstance;

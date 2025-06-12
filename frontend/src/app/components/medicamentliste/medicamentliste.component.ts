@@ -82,7 +82,7 @@ export class MedicamentsListComponent implements OnInit, OnDestroy {
   getSuivant(med:any,now:Date){
     const debut = new Date(med.premierePrise);
     const fin = new Date(debut.getTime()+med.duree*24*60*60*1000);
-    const heure = 3600000;
+    const heure = 60*60*1000;
 
     // Si on a atteint la date de fin de prise alors on retourne null
     if(now>fin){
