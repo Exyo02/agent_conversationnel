@@ -8,20 +8,21 @@ import { of } from 'rxjs';
 describe('SortieslisteComponent', () => {
   let component: SortiesListeComponent;
   let fixture: ComponentFixture<SortiesListeComponent>;
-  let service: jasmine.SpyObj<SortiesService>;
+  let service: any;
   
   const mockRouter = {
     navigate: jasmine.createSpy('navigate')
   };
 
   beforeEach(async () => {
+    service = {
+      getAllSorties: jasmine.createSpy('getAllSorties').and.returnValue([])
+    };
+
     await TestBed.configureTestingModule({
       imports: [SortiesListeComponent],
       providers:[
-        {
-          provide: SortiesService,
-          useValue: jasmine.createSpyObj('SortiesService', ['getAllSorties'])
-        },
+        { provide: SortiesService, useValue: service },
         { provide: Router, useValue: mockRouter },
         { provide: ActivatedRoute, useValue: { params: of({}) } }
       ]
@@ -30,7 +31,6 @@ describe('SortieslisteComponent', () => {
     fixture = TestBed.createComponent(SortiesListeComponent);
     component = fixture.componentInstance;
 
-    service = TestBed.inject(SortiesService) as jasmine.SpyObj<SortiesService>;
     fixture.detectChanges();
   });
 
