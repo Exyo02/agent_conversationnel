@@ -9,15 +9,17 @@ div {
   text-align: left;
 }
 
-input[type="text"],
-input[type="number"],
-textarea {
+input[type="text"]{
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
   box-sizing: border-box;
   font-size: large;
+}
+
+#adresse{
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 textarea {
@@ -38,4 +40,8 @@ input[type="button"] {
 
 input[type="button"]:hover {
   background-color: orange;
+}
+
+tr{
+  height: 15px;
 }

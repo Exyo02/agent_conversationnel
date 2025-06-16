@@ -30,7 +30,7 @@ export class ChatbotService {
       +"- soit 'informations' sur un sujet particulier => 'app-infos' nommé action + sujet nommé search sous format json"
       +"Si on te demande d'ajouter un rappel => 'add-list' nommé action + titre nommé title + contenu nommé content sous format json"
       +"Si on te demande d'ajouter un contact => 'add-contact' nommé action + nom nommé nom + mail nommé mail + telephone nommé telephone sous format json"
-      +"Si on te demande d'ajouter une sortie => 'add-sortie' nommé action + titre nommé title + adresse nommé adresse + heureDebut nommé heure + dat nommé date sous format json"}
+      +"Si on te demande d'ajouter une sortie => 'add-sortie' nommé action + titre nommé title + adresse nommé adresse + heureDebut nommé heure + date nommé date 'yyyy-mm-dd' sous format json"}
   ];
 
   /** Ajout d'une spécificité à la demande */

@@ -1,12 +1,18 @@
 <div>
   <input type="text" id="nom" [(ngModel)]="nouvelleSortie.title" placeholder="Titre de la sortie">
 <br>
-  <label for="date">Date :</label>
-  <input type="date" id="date" [(ngModel)]="nouvelleSortie.date" >
-<br>
-  <label for="heureDebut">Heure de début (HH:MM) :</label>
-  <input type="time" id="heureDebut" [(ngModel)]="nouvelleSortie.heureDebut">
-<br>
+<table>
+  <tr></tr>
+  <tr>
+    <td><label for="date">Date :</label></td>
+    <td><input type="date" id="date" [(ngModel)]="nouvelleSortie.date" ></td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td><label for="heureDebut">Heure de début :</label></td>
+    <td><input type="time" id="heureDebut" [(ngModel)]="nouvelleSortie.heureDebut"></td>
+  </tr>
+</table>
   <input type="text" id="adresse" [(ngModel)]="nouvelleSortie.adresse" placeholder="Adresse (optionnelle)">
   <br>
   <input type="button" value="{{ estNouvelle ? 'Enregistrer' : 'Mettre à jour' }}" (click)="enregistrer()">
