@@ -37,17 +37,6 @@ button[type="button"] {
   border-radius: 30px;
 }
 
-button[type="validation"] {
-  background-color: #608cd4;
-  color: black;
-  border: none;
-  padding: 10px 10px;
-  font-size: medium;
-  cursor: pointer;
-  box-shadow: 5px 5px 5px grey;
-  border-radius: 30px;
-}
-
 button[type="button"]:hover,button[type="validation"]:hover {
   background-color: orange;
 }
