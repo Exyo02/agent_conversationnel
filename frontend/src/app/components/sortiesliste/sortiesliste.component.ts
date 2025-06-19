@@ -112,7 +112,7 @@ export class SortiesListeComponent implements OnInit {
   trierSortiesDeLaSemaine(){
     this.sortiesParJour = {};
     this.joursSemaine.forEach(day=>{
-      const key = day.toISOString().split('T')[0];
+      const key = day.toLocaleDateString("en-CA")
       this.sortiesParJour[key] = this.sorties
       .filter(sortie=>sortie.date === key )
       .sort((a,b)=>{

@@ -16,7 +16,7 @@
             <tr>
                 <td *ngFor="let jour of joursSemaine">
                     <div class="liste" 
-                        *ngFor="let s of sortiesParJour[jour.toISOString().split('T')[0]]"
+                        *ngFor="let s of sortiesParJour[jour.toLocaleDateString('en-CA')]"
                         [routerLink]="['/app-sorties/editer', s.title]">
                         <strong>{{ s.title }}</strong>
                         <p>{{ s.heureDebut }}</p>
